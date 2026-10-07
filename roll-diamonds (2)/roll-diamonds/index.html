@@ -1,0 +1,424 @@
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roll Diamonds | Discos de Vinil</title>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Yellowtail&family=Alegreya+Sans:wght@400;500;700;800&family=Alegreya+Sans+SC:wght@700&display=swap" rel="stylesheet">
+
+<!-- Estilos (CSS externo) -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- ============ CABEÇALHO ============ -->
+<header class="topo">
+  <div class="topo-interno">
+    <a class="marca" href="#loja" aria-label="Roll Diamonds, ir para a loja">
+      <span class="selo"><img src="img/logo-creme.png" alt="" width="251" height="240"></span>
+      <span class="marca-texto" aria-hidden="true">
+        <span class="marca-roll">Roll</span>
+        <span class="marca-diamonds">Diamonds</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a class="nav-link" href="#loja" data-view="loja">Loja</a>
+      <a class="nav-link" href="#painel" data-view="painel">Painel</a>
+      <button class="nav-link" type="button" id="btnSacola">
+        Sacola <span class="contagem-sacola" id="contagemSacola" hidden>0</span>
+      </button>
+      <button class="nav-link botao-tema" type="button" id="btnTema" aria-label="Mudar para o tema escuro">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- ================= LOJA ================= -->
+  <div id="loja" class="view">
+
+    <!-- Vitrine: o letreiro da referência + o disco saindo da capa -->
+    <section class="vitrine" aria-labelledby="tituloLoja">
+      <div class="quadro">
+        <div class="letreiro">
+          <h1 id="tituloLoja">
+            <span class="letreiro-roll">Roll</span>
+            <span class="letreiro-diamonds">Diamonds</span>
+          </h1>
+          <p class="faixa">Discos de vinil</p>
+          <p class="vitrine-texto">Discos novos e usados, ouvidos lado A e lado B antes de irem pra prateleira. Da MPB ao jazz, com o estado de cada capa descrito sem enrolação.</p>
+
+          <div class="tocando">
+            <span class="tocando-rotulo">Tocando agora na loja</span>
+            <strong id="destaqueTitulo">Clube da Esquina</strong>
+            <span id="destaqueArtista">Milton Nascimento &amp; Lô Borges</span>
+          </div>
+          <div class="vitrine-acoes">
+            <a class="botao botao-verde" href="#catalogo">Ver catálogo</a>
+            <button class="botao botao-contorno" type="button" id="btnDestaque" data-acao="adicionar" data-id="1">Pôr esse na sacola</button>
+          </div>
+        </div>
+
+        <div class="vitrola-area">
+          <div class="vitrola" id="vitrola">
+            <div class="vitrola-capa"><img src="img/logo-creme.png" alt="" width="251" height="240"></div>
+            <div class="vitrola-disco">
+              <!-- O disco é um SVG: sulcos desenhados pelo JavaScript e o rótulo com o logo -->
+              <svg class="bolacha" viewBox="0 0 400 400" aria-hidden="true">
+                <defs>
+                  <radialGradient id="gradVinil" cx="50%" cy="50%" r="50%">
+                    <stop offset=".35" stop-color="#17110d"/>
+                    <stop offset="1" stop-color="#0b0806"/>
+                  </radialGradient>
+                  <path id="aroRotulo" d="M200,200 m-57,0 a57,57 0 1,1 114,0 a57,57 0 1,1 -114,0"/>
+                </defs>
+                <circle cx="200" cy="200" r="199" fill="url(#gradVinil)"/>
+                <circle cx="200" cy="200" r="196" fill="none" stroke="rgba(240,221,179,.14)" stroke-width="1.5"/>
+                <g id="sulcos"></g>
+                <circle cx="200" cy="200" r="70" fill="#efdcb4"/>
+                <circle cx="200" cy="200" r="66.5" fill="none" stroke="#b99155" stroke-width="1.2"/>
+                <circle cx="200" cy="200" r="47" fill="none" stroke="#b99155" stroke-width=".9"/>
+                <text fill="#2a1b11" font-size="8.6" font-weight="700" font-family="Alegreya Sans SC, Alegreya Sans, sans-serif">
+                  <textPath href="#aroRotulo" textLength="352" lengthAdjust="spacing">Roll Diamonds ◆ discos de vinil ◆ 33⅓ rpm ◆ lado A ◆</textPath>
+                </text>
+                <image href="img/logo-verde.png" x="170" y="171.3" width="60" height="57.4"/>
+              </svg>
+              <div class="vitrola-brilho"></div>
+            </div>
+          </div>
+          <button class="botao-giro" type="button" id="btnGiro">Pausar o disco</button>
+        </div>
+
+        <div class="quadro-diamante" aria-hidden="true">
+          <svg viewBox="0 0 24 20"><path d="M5 1h14l4 6-11 12L1 7z M1 7h22 M8 1 6 7l6 12 6-12-2-6 M6 7l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="secao" id="catalogo" aria-labelledby="tituloCatalogo">
+      <div class="catalogo-topo">
+        <h2 class="titulo-secao" id="tituloCatalogo">Catálogo</h2>
+        <p class="contagem-texto" id="contagemCatalogo" aria-live="polite"></p>
+      </div>
+
+      <div class="filtros">
+        <div class="campo">
+          <label for="buscaCatalogo">Buscar disco ou artista</label>
+          <input id="buscaCatalogo" type="search" placeholder="Ex.: Tim Maia, Kind of Blue" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="ordemCatalogo">Ordenar por</label>
+          <select id="ordemCatalogo">
+            <option value="prateleira">Ordem da prateleira</option>
+            <option value="chegada">Chegaram por último</option>
+            <option value="menor">Menor preço</option>
+            <option value="maior">Maior preço</option>
+            <option value="ano">Ano de lançamento</option>
+          </select>
+        </div>
+      </div>
+      <div class="chips" id="filtroGeneros" role="group" aria-label="Filtrar por gênero"></div>
+
+      <div class="grade" id="gradeCatalogo"></div>
+    </section>
+  </div>
+
+  <!-- ================= PAINEL ================= -->
+  <div id="painel" class="view painel" hidden>
+
+    <!-- Login (tabela usuario) -->
+    <section class="login" id="painelLogin" aria-labelledby="tituloLogin">
+      <span class="selo"><img src="img/logo-creme.png" alt="" width="251" height="240"></span>
+      <h2 class="titulo-secao" id="tituloLogin">Painel da loja</h2>
+      <p>Entre para cadastrar discos, cuidar do estoque e acompanhar os pedidos.</p>
+      <form id="formLogin">
+        <div class="campo">
+          <label for="loginUsuario">Usuário</label>
+          <input id="loginUsuario" name="usuario" autocomplete="username" required>
+        </div>
+        <div class="campo">
+          <label for="loginSenha">Senha</label>
+          <input id="loginSenha" name="senha" type="password" autocomplete="current-password" required>
+        </div>
+        <p class="erro" id="erroLogin" role="alert"></p>
+        <button class="botao botao-verde botao-largo" type="submit">Entrar</button>
+      </form>
+      <p class="dica">Acesso de demonstração: usuário <strong>admin</strong> e senha <strong>roll123</strong>.</p>
+    </section>
+
+    <div class="painel-grade" id="painelConteudo" hidden>
+      <aside class="painel-lado">
+        <div class="abas" role="tablist" aria-label="Seções do painel">
+          <button class="aba" type="button" role="tab" id="tab-resumo" data-aba="resumo" aria-controls="aba-resumo">Resumo</button>
+          <button class="aba" type="button" role="tab" id="tab-discos" data-aba="discos" aria-controls="aba-discos">Discos e estoque</button>
+          <button class="aba" type="button" role="tab" id="tab-clientes" data-aba="clientes" aria-controls="aba-clientes">Clientes</button>
+          <button class="aba" type="button" role="tab" id="tab-pedidos" data-aba="pedidos" aria-controls="aba-pedidos">Pedidos</button>
+          <button class="aba" type="button" role="tab" id="tab-cadastros" data-aba="cadastros" aria-controls="aba-cadastros">Artistas, gêneros e gravadoras</button>
+        </div>
+        <div class="abas-rodape">
+          <button class="botao-link" type="button" id="btnRestaurar">Restaurar dados de exemplo</button>
+          <button class="botao-link" type="button" id="btnSair">Sair do painel</button>
+        </div>
+      </aside>
+
+      <div>
+        <!-- Resumo -->
+        <section class="aba-painel" id="aba-resumo" role="tabpanel" aria-labelledby="tab-resumo">
+          <div class="cabecalho-aba">
+            <h2 class="titulo-secao">Resumo</h2>
+            <p class="contagem-texto" id="dataHoje"></p>
+          </div>
+          <dl class="numeros" id="numeros"></dl>
+          <div class="duas-colunas">
+            <div class="bloco">
+              <h3>Estoque baixo</h3>
+              <p class="bloco-sub">Discos com 2 unidades ou menos.</p>
+              <ul class="lista-simples" id="listaEstoqueBaixo"></ul>
+            </div>
+            <div class="bloco">
+              <h3>Últimos pedidos</h3>
+              <p class="bloco-sub">Os cinco mais recentes.</p>
+              <ul class="lista-simples" id="listaUltimosPedidos"></ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Discos (tabelas vinil + estoque) -->
+        <section class="aba-painel" id="aba-discos" role="tabpanel" aria-labelledby="tab-discos" hidden>
+          <div class="cabecalho-aba">
+            <h2 class="titulo-secao">Discos e estoque</h2>
+            <button class="botao botao-verde" type="button" id="btnNovoDisco">Cadastrar disco</button>
+          </div>
+          <div class="campo barra-busca">
+            <label for="buscaDiscos">Buscar por título ou artista</label>
+            <input id="buscaDiscos" type="search" autocomplete="off">
+          </div>
+          <div class="tabela-wrap">
+            <table>
+              <thead><tr><th>Disco</th><th>Gênero</th><th>Lançamento</th><th>Estado</th><th class="num">Preço</th><th>Estoque</th><th><span class="sr">Ações</span></th></tr></thead>
+              <tbody id="corpoDiscos"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Clientes (tabela cliente) -->
+        <section class="aba-painel" id="aba-clientes" role="tabpanel" aria-labelledby="tab-clientes" hidden>
+          <div class="cabecalho-aba">
+            <h2 class="titulo-secao">Clientes</h2>
+            <button class="botao botao-verde" type="button" id="btnNovoCliente">Cadastrar cliente</button>
+          </div>
+          <div class="tabela-wrap">
+            <table>
+              <thead><tr><th>Nome</th><th>E-mail</th><th>Telefone</th><th>Cidade</th><th class="num">Pedidos</th><th><span class="sr">Ações</span></th></tr></thead>
+              <tbody id="corpoClientes"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Pedidos (tabelas pedido + item_pedido) -->
+        <section class="aba-painel" id="aba-pedidos" role="tabpanel" aria-labelledby="tab-pedidos" hidden>
+          <div class="cabecalho-aba">
+            <h2 class="titulo-secao">Pedidos</h2>
+            <div class="campo">
+              <label for="filtroStatus">Mostrar</label>
+              <select id="filtroStatus"></select>
+            </div>
+          </div>
+          <div class="tabela-wrap">
+            <table>
+              <thead><tr><th>Nº</th><th>Data</th><th>Cliente</th><th class="num">Discos</th><th class="num">Total</th><th>Situação</th><th><span class="sr">Ações</span></th></tr></thead>
+              <tbody id="corpoPedidos"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Cadastros auxiliares (genero_musical, artista, gravadora) -->
+        <section class="aba-painel" id="aba-cadastros" role="tabpanel" aria-labelledby="tab-cadastros" hidden>
+          <div class="cabecalho-aba">
+            <h2 class="titulo-secao">Artistas, gêneros e gravadoras</h2>
+          </div>
+          <p class="bloco-sub" style="margin-bottom:1.25rem">Itens usados por algum disco não podem ser removidos. Troque o disco de artista, gênero ou gravadora antes.</p>
+          <div class="grade-cadastros" id="gradeCadastros"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ============ RODAPÉ ============ -->
+<footer class="rodape">
+  <div class="rodape-interno">
+    <span class="selo"><img src="img/logo-creme.png" alt="" width="251" height="240"></span>
+    <p><strong>Roll Diamonds, discos de vinil.</strong> Projeto Integrador do Curso Técnico em Desenvolvimento de Sistemas, SENAC. Os dados deste sistema ficam salvos no seu navegador.</p>
+  </div>
+</footer>
+
+<!-- ============ JANELAS ============ -->
+
+<!-- Sacola (gaveta lateral) -->
+<dialog id="sacola" class="gaveta" aria-labelledby="tituloSacola">
+  <div class="dialogo-topo">
+    <h2 id="tituloSacola">Sua sacola</h2>
+    <button class="fechar" type="button" data-fechar aria-label="Fechar sacola">×</button>
+  </div>
+  <div class="gaveta-corpo">
+    <div class="vazio" id="sacolaVazia">
+      <p>Sua sacola está vazia. Escolha um disco no catálogo e ele aparece aqui.</p>
+      <a class="botao botao-contorno" href="#catalogo" data-fechar>Ver catálogo</a>
+    </div>
+    <ul class="lista-sacola" id="listaSacola"></ul>
+  </div>
+  <div class="gaveta-rodape" id="sacolaRodape">
+    <div class="total"><span>Total</span><strong id="totalSacola">R$ 0,00</strong></div>
+    <form id="formCheckout">
+      <div class="campo">
+        <label for="checkoutNome">Seu nome</label>
+        <input id="checkoutNome" name="nome" autocomplete="name" required>
+      </div>
+      <div class="campo">
+        <label for="checkoutEmail">E-mail</label>
+        <input id="checkoutEmail" name="email" type="email" autocomplete="email" required>
+      </div>
+      <p class="erro" id="erroCheckout" role="alert"></p>
+      <button class="botao botao-verde botao-largo" type="submit">Finalizar pedido</button>
+      <p class="dica">O pedido entra no painel como “Aguardando pagamento”.</p>
+    </form>
+  </div>
+</dialog>
+
+<!-- Cadastrar / editar disco -->
+<dialog id="modalDisco" aria-labelledby="tituloModalDisco">
+  <form id="formDisco">
+    <div class="dialogo-topo">
+      <h2 id="tituloModalDisco">Cadastrar disco</h2>
+      <button class="fechar" type="button" data-fechar aria-label="Fechar">×</button>
+    </div>
+    <div class="dialogo-corpo">
+      <input type="hidden" name="id">
+      <div class="campo">
+        <label for="discoTitulo">Título</label>
+        <input id="discoTitulo" name="titulo" required maxlength="120">
+      </div>
+      <div class="campos-2">
+        <div class="campo">
+          <label for="discoArtista">Artista</label>
+          <select id="discoArtista" name="artista" required></select>
+        </div>
+        <div class="campo">
+          <label for="discoGenero">Gênero</label>
+          <select id="discoGenero" name="genero" required></select>
+        </div>
+      </div>
+      <div class="campos-2">
+        <div class="campo">
+          <label for="discoGravadora">Gravadora</label>
+          <select id="discoGravadora" name="gravadora" required></select>
+        </div>
+        <div class="campo">
+          <label for="discoAno">Ano de lançamento</label>
+          <input id="discoAno" name="ano" type="number" min="1900" max="2100" required>
+        </div>
+      </div>
+      <div class="campos-2">
+        <div class="campo">
+          <label for="discoCondicao">Estado</label>
+          <select id="discoCondicao" name="condicao">
+            <option value="Novo">Novo</option>
+            <option value="Usado">Usado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="discoPreco">Preço (R$)</label>
+          <input id="discoPreco" name="preco" type="number" min="0.01" step="0.01" inputmode="decimal" required>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="discoQuantidade">Unidades em estoque</label>
+        <input id="discoQuantidade" name="quantidade" type="number" min="0" step="1" required>
+      </div>
+      <p class="dica">Não achou o artista, o gênero ou a gravadora? Cadastre antes em “Artistas, gêneros e gravadoras”.</p>
+      <p class="erro" id="erroDisco" role="alert"></p>
+    </div>
+    <div class="dialogo-rodape">
+      <button class="botao botao-contorno" type="button" data-fechar>Cancelar</button>
+      <button class="botao botao-verde" type="submit" id="btnSalvarDisco">Cadastrar disco</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Cadastrar / editar cliente -->
+<dialog id="modalCliente" aria-labelledby="tituloModalCliente">
+  <form id="formCliente">
+    <div class="dialogo-topo">
+      <h2 id="tituloModalCliente">Cadastrar cliente</h2>
+      <button class="fechar" type="button" data-fechar aria-label="Fechar">×</button>
+    </div>
+    <div class="dialogo-corpo">
+      <input type="hidden" name="id">
+      <div class="campo">
+        <label for="clienteNome">Nome</label>
+        <input id="clienteNome" name="nome" required maxlength="100" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="clienteEmail">E-mail</label>
+        <input id="clienteEmail" name="email" type="email" required autocomplete="off">
+      </div>
+      <div class="campos-2">
+        <div class="campo">
+          <label for="clienteTelefone">Telefone</label>
+          <input id="clienteTelefone" name="telefone" type="tel" placeholder="(11) 90000-0000" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="clienteCidade">Cidade</label>
+          <input id="clienteCidade" name="cidade" autocomplete="off">
+        </div>
+      </div>
+      <p class="erro" id="erroCliente" role="alert"></p>
+    </div>
+    <div class="dialogo-rodape">
+      <button class="botao botao-contorno" type="button" data-fechar>Cancelar</button>
+      <button class="botao botao-verde" type="submit" id="btnSalvarCliente">Cadastrar cliente</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Itens de um pedido -->
+<dialog id="modalItens" aria-labelledby="tituloModalItens">
+  <div class="dialogo-topo">
+    <h2 id="tituloModalItens">Pedido</h2>
+    <button class="fechar" type="button" data-fechar aria-label="Fechar">×</button>
+  </div>
+  <div class="dialogo-corpo">
+    <p id="infoPedido" class="contagem-texto"></p>
+    <ul class="lista-itens" id="listaItensPedido"></ul>
+    <div class="total"><span>Total do pedido</span><strong id="totalItensPedido"></strong></div>
+  </div>
+</dialog>
+
+<!-- Confirmação / aviso -->
+<dialog id="modalConfirmar" aria-labelledby="tituloConfirmar">
+  <form method="dialog">
+    <div class="dialogo-topo"><h2 id="tituloConfirmar">Confirmar</h2></div>
+    <div class="dialogo-corpo"><p id="textoConfirmar"></p></div>
+    <div class="dialogo-rodape">
+      <button class="botao botao-contorno" value="nao" id="btnConfirmarNao">Voltar</button>
+      <button class="botao botao-perigo" value="sim" id="btnConfirmarSim">Confirmar</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="aviso-flutuante" id="aviso" role="status" aria-live="polite"></div>
+
+<!-- Funções do sistema (JavaScript externo) -->
+<script src="js/script.js"></script>
+</body>
+</html>
