@@ -204,18 +204,49 @@
    }
    
    /* =====================================================================
-      4. CAPAS GERADAS 
+      4. CAPAS (foto quando o disco tem "capa"; senão, capa desenhada)
       ===================================================================== */
    function coresCapa(v) {
      const [c1, c2, c3] = PALETAS[(v.id * 5) % PALETAS.length];
      return `--c1:${c1};--c2:${c2};--c3:${c3}`;
    }
+
+   // Fotos que falharam ao carregar (arquivo faltando ou nome errado).
+   // Guardamos aqui pra não tentar de novo a cada redesenho da tela.
+   const capasQuebradas = new Set();
+
+   // Aceita só o nome do arquivo ("abbey-road.jpg") e completa com a pasta
+   function caminhoCapa(texto) {
+     const t = String(texto ?? '').trim();
+     if (!t) return '';
+     return t.includes('/') ? t : `img/capas/${t}`;
+   }
+
    function capaHTML(v, mini = false) {
+     const extra = mini ? ' capa-mini' : '';
+     // Com foto: usa a imagem (as regras estão no capas.css)
+     if (v.capa && !capasQuebradas.has(v.capa)) {
+       return `<div class="capa capa-com-foto${extra}" data-id="${v.id}" aria-hidden="true">` +
+         `<img class="capa-foto" src="${esc(v.capa)}" alt="" loading="lazy" decoding="async"></div>`;
+     }
+     // Sem foto: capa desenhada com CSS
      const estilo = ESTILOS[v.id % ESTILOS.length];
-     const classes = `capa capa-${estilo}${v.condicao === 'Usado' ? ' capa-usada' : ''}${mini ? ' capa-mini' : ''}`;
+     const classes = `capa capa-${estilo}${v.condicao === 'Usado' ? ' capa-usada' : ''}${extra}`;
      const titulo = mini ? '' : `<span class="capa-titulo">${esc(v.titulo)}</span>`;
      return `<div class="${classes}" style="${coresCapa(v)}" aria-hidden="true">${titulo}</div>`;
    }
+
+   // Se uma foto não carregar, troca só aquela capa pela capa desenhada.
+   // O "true" no final faz o evento ser ouvido mesmo sem borbulhar (erro de imagem não borbulha).
+   document.addEventListener('error', evento => {
+     const img = evento.target;
+     if (!(img instanceof HTMLImageElement) || !img.classList.contains('capa-foto')) return;
+     const caixa = img.closest('.capa');
+     const v = caixa && porId(banco.vinis, Number(caixa.dataset.id));
+     if (!v) return;
+     capasQuebradas.add(v.capa);
+     caixa.outerHTML = capaHTML(v, caixa.classList.contains('capa-mini'));
+   }, true);
    
    /* =====================================================================
       5. LOJA: filtros, catálogo e destaque da vitrine
@@ -595,6 +626,7 @@
      f.elements.condicao.value = v ? v.condicao : 'Novo';
      f.elements.preco.value = v ? v.preco.toFixed(2) : '';
      f.elements.quantidade.value = v ? qtdEstoque(v.id) : 1;
+     f.elements.capa.value = v?.capa ?? '';
      $('#modalDisco').showModal();
    }
    function salvarDisco(evento) {
@@ -609,6 +641,7 @@
        ano: Number(f.elements.ano.value),
        condicao: f.elements.condicao.value,
        preco: Math.round(Number(f.elements.preco.value) * 100) / 100,
+       capa: caminhoCapa(f.elements.capa.value),   // vazio = capa desenhada
      };
      const quantidade = Math.max(0, Math.floor(Number(f.elements.quantidade.value) || 0));
      if (!dados.titulo) { $('#erroDisco').textContent = 'Informe o título do disco.'; return; }
