@@ -21,7 +21,15 @@
 
 <!-- ============ CABEÇALHO ============ -->
 <header class="topo">
+  <!-- Três partes: Painel à esquerda, logo no centro, opções da loja à direita -->
   <div class="topo-interno">
+    <nav class="nav nav-esquerda" aria-label="Administração">
+      <a class="nav-link" href="#painel" data-view="painel">
+        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        Painel
+      </a>
+    </nav>
+
     <a class="marca" href="#loja" aria-label="Roll Diamonds, ir para a loja">
       <span class="selo"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></span>
       <span class="marca-texto" aria-hidden="true">
@@ -29,11 +37,13 @@
         <span class="marca-diamonds">Diamonds</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Principal">
+
+    <nav class="nav nav-direita" aria-label="Loja">
       <a class="nav-link" href="#loja" data-view="loja">Loja</a>
-      <a class="nav-link" href="#painel" data-view="painel">Painel</a>
       <button class="nav-link" type="button" id="btnSacola">
-        Sacola <span class="contagem-sacola" id="contagemSacola" hidden>0</span>
+        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span class="nav-texto">Sacola</span>
+        <span class="contagem-sacola" id="contagemSacola" hidden>0</span>
       </button>
       <button class="nav-link botao-tema" type="button" id="btnTema" aria-label="Mudar para o tema escuro">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
@@ -58,20 +68,24 @@
           <p class="faixa">Discos de vinil</p>
           <p class="vitrine-texto">Discos novos e usados, ouvidos lado A e lado B antes de irem pra prateleira. Da MPB ao jazz, com o estado de cada capa descrito sem enrolação.</p>
 
-          <div class="tocando">
+          <!-- Informações do disco que está no carrossel (o JavaScript troca a cada passada) -->
+          <div class="tocando" id="tocando">
             <span class="tocando-rotulo">Tocando agora na loja</span>
-            <strong id="destaqueTitulo">Clube da Esquina</strong>
+            <a class="tocando-titulo" id="destaqueLink" href="#disco/1"><strong id="destaqueTitulo">Clube da Esquina</strong></a>
             <span id="destaqueArtista">Milton Nascimento &amp; Lô Borges</span>
+            <span class="tocando-meta" id="destaqueMeta"></span>
           </div>
           <div class="vitrine-acoes">
-            <a class="botao botao-verde" href="#catalogo">Ver catálogo</a>
-            <button class="botao botao-contorno" type="button" id="btnDestaque" data-acao="adicionar" data-id="1">Pôr esse na sacola</button>
+            <button class="botao botao-verde" type="button" id="btnDestaque" data-acao="adicionar" data-id="1">Pôr esse na sacola</button>
+            <a class="botao botao-contorno" id="btnConhecer" href="#disco/1">Conhecer o disco</a>
           </div>
+          <a class="vitrine-catalogo" href="#catalogo">Ou veja o catálogo completo</a>
         </div>
 
-        <div class="vitrola-area">
-          <div class="vitrola" id="vitrola">
-            <div class="vitrola-capa"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></div>
+        <!-- Carrossel: um disco em destaque por vez, você passa pelas setas, bolinhas, teclado ou arrastando -->
+        <div class="vitrola-area" id="carrossel" role="region" aria-roledescription="carrossel" aria-label="Discos em destaque">
+          <div class="vitrola guardando" id="vitrola">
+            <a class="vitrola-capa" id="vitrolaCapa" href="#disco/1" draggable="false"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></a>
             <div class="vitrola-disco">
               <!-- O disco é um SVG: sulcos desenhados pelo JavaScript e o rótulo com o logo -->
               <svg class="bolacha" viewBox="0 0 400 400" aria-hidden="true">
@@ -96,7 +110,17 @@
               <div class="vitrola-brilho"></div>
             </div>
           </div>
-          <button class="botao-giro" type="button" id="btnGiro">Pausar o disco</button>
+          <div class="carrossel-controles" id="controlesCarrossel">
+            <button class="seta" type="button" id="btnAnterior" aria-label="Disco anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="pontos" id="pontosDestaque"></div>
+            <button class="seta" type="button" id="btnProximo" aria-label="Próximo disco">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="botao-giro" type="button" id="btnGiro">Pausar o disco</button>
+          </div>
+          <p class="sr" id="avisoDestaque" aria-live="polite"></p>
         </div>
 
         <div class="quadro-diamante" aria-hidden="true">
@@ -131,6 +155,19 @@
       <div class="chips" id="filtroGeneros" role="group" aria-label="Filtrar por gênero"></div>
 
       <div class="grade" id="gradeCatalogo"></div>
+    </section>
+  </div>
+
+  <!-- ================= PÁGINA DE CADA DISCO (endereço #disco/ID) ================= -->
+  <div id="pagina-disco" class="view" hidden>
+    <div class="produto-wrap">
+      <nav class="trilha" id="trilhaDisco" aria-label="Você está em"></nav>
+      <!-- Preenchido pelo JavaScript com os dados do disco escolhido -->
+      <article class="produto" id="produto" aria-labelledby="tituloProduto"></article>
+    </div>
+    <section class="secao relacionados" id="relacionados" aria-labelledby="tituloRelacionados">
+      <h2 class="titulo-secao" id="tituloRelacionados">Você também pode gostar</h2>
+      <div class="grade" id="gradeRelacionados"></div>
     </section>
   </div>
 
@@ -352,6 +389,25 @@
         <input id="discoCapa" name="capa" maxlength="255" placeholder="img/capas/nome-do-disco.jpg" autocomplete="off">
       </div>
       <p class="dica">Deixe a capa em branco para usar a capa desenhada automaticamente. A imagem precisa estar na pasta img/capas.</p>
+
+      <!-- Textos que aparecem na página do disco -->
+      <div class="campo">
+        <label for="discoDescricao">Sobre o disco</label>
+        <textarea id="discoDescricao" name="descricao" rows="4" maxlength="1200" placeholder="Conte em poucas linhas por que esse disco vale a pena."></textarea>
+      </div>
+      <div class="campo">
+        <label for="discoFaixas">Faixas em destaque</label>
+        <textarea id="discoFaixas" name="faixas" rows="4" maxlength="800" placeholder="Uma faixa por linha"></textarea>
+      </div>
+      <div class="campo">
+        <label for="discoObservacao">Estado deste exemplar</label>
+        <input id="discoObservacao" name="observacao" maxlength="200" placeholder="Ex.: capa com desgaste leve nas bordas, disco sem riscos" autocomplete="off">
+      </div>
+      <label class="marcar">
+        <input type="checkbox" name="destaque" id="discoDestaque">
+        <span>Mostrar no carrossel da página inicial</span>
+      </label>
+
       <p class="dica">Não achou o artista, o gênero ou a gravadora? Cadastre antes em “Artistas, gêneros e gravadoras”.</p>
       <p class="erro" id="erroDisco" role="alert"></p>
     </div>

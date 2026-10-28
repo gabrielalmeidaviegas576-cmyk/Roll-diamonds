@@ -53,6 +53,95 @@
       genero_musical, artista, gravadora, vinil, estoque, cliente,
       usuario, pedido e item_pedido.
       ===================================================================== */
+   /* Textos da página de cada disco (colunas novas da tabela vinil):
+      destaque   -> aparece no carrossel da página inicial
+      descricao  -> "Sobre o disco"
+      faixas     -> "Faixas em destaque"
+      observacao -> estado deste exemplar (mais útil nos usados) */
+   const TEXTOS_DISCOS = {
+     1: {
+       destaque: true,
+       descricao: 'Disco duplo que juntou Milton Nascimento, o jovem Lô Borges e a turma de músicos mineiros que ficou conhecida como Clube da Esquina. Mistura MPB, rock, jazz e a música de Minas Gerais, e aparece no topo de quase toda lista de maiores discos brasileiros.',
+       faixas: ['Tudo Que Você Podia Ser', 'Cais', 'O Trem Azul', 'Clube da Esquina nº 2', 'Nada Será Como Antes'],
+       observacao: 'Capa dupla com desgaste leve nas bordas. Os dois discos foram limpos e tocam sem pulos.',
+     },
+     2: {
+       destaque: true,
+       descricao: 'Segundo disco dos Novos Baianos, gravado depois que João Gilberto passou a visitar a banda e mostrou a eles o samba e o choro. O resultado junta guitarra elétrica com cavaquinho e pandeiro. Em 2007, a Rolling Stone Brasil o elegeu o maior disco da música brasileira.',
+       faixas: ['Brasil Pandeiro', 'Preta Pretinha', 'Besta É Tu', 'A Menina Dança', 'Mistério do Planeta'],
+     },
+     3: {
+       descricao: 'Segundo disco de Tim Maia, lançado um ano depois da estreia, misturando soul e funk americanos com samba e baião. Daqui saíram os sucessos “Não Quero Dinheiro (Só Quero Amar)” e “Preciso Aprender a Ser Só”.',
+       faixas: ['A Festa do Santo Reis', 'Não Quero Dinheiro (Só Quero Amar)', 'Não Vou Ficar', 'Você', 'Preciso Aprender a Ser Só'],
+     },
+     4: {
+       descricao: 'Jorge Ben mergulhado na alquimia: a capa reproduz gravuras atribuídas a Nicolas Flamel, e as letras falam de alquimistas, de Hermes Trismegisto e de Zumbi. Violão suingado, samba e soul em um dos discos mais celebrados da carreira dele.',
+       faixas: ['Os Alquimistas Estão Chegando os Alquimistas', 'O Homem da Gravata Florida', 'Errare Humanum Est', 'Menina Mulher da Pele Preta', 'Zumbi'],
+       observacao: 'Capa com marcas leves de manuseio. Disco sem riscos, com chiado mínimo entre as faixas.',
+     },
+     5: {
+       destaque: true,
+       descricao: 'O disco mais vendido da história do jazz. Miles Davis chegou ao estúdio com esboços de escalas em vez de músicas prontas, e o sexteto com John Coltrane, Cannonball Adderley e Bill Evans improvisou em cima delas. É o ponto de partida clássico pra quem quer começar no jazz.',
+       faixas: ['So What', 'Freddie Freeloader', 'Blue in Green', 'All Blues', 'Flamenco Sketches'],
+     },
+     6: {
+       destaque: true,
+       descricao: 'O último disco que os Beatles gravaram juntos. O lado B emenda pequenas canções num medley que termina em “The End”, e a foto dos quatro atravessando a faixa de pedestres virou uma das capas mais imitadas do mundo.',
+       faixas: ['Come Together', 'Something', 'Here Comes the Sun', 'Octopus’s Garden', 'The End'],
+     },
+     7: {
+       descricao: 'Gravado enquanto os dois casais da banda se separavam, e as letras contam exatamente isso. Virou um dos discos mais vendidos de todos os tempos.',
+       faixas: ['Dreams', 'Go Your Own Way', 'Don’t Stop', 'The Chain', 'Songbird'],
+       observacao: 'Capa com leve amarelado do tempo. Disco limpo, toca sem pulos.',
+     },
+     8: {
+       descricao: 'Estreia de Chico Science & Nação Zumbi e marco do manguebeat, o movimento que saiu do Recife nos anos 1990 misturando maracatu com hip hop, funk e guitarra pesada.',
+       faixas: ['A Praieira', 'Da Lama ao Caos', 'Rios, Pontes & Overdrives', 'Maracatu de Tiro Certeiro', 'A Cidade'],
+     },
+     9: {
+       descricao: 'Chico Buarque em 1971, em plena ditadura, falando do país nas entrelinhas. A faixa-título narra o último dia de um operário em versos que terminam sempre em palavras proparoxítonas, com arranjo de orquestra de Rogério Duprat.',
+       faixas: ['Construção', 'Deus Lhe Pague', 'Cotidiano', 'Samba de Orly', 'Cordão'],
+       observacao: 'Pequena marca de etiqueta antiga no verso da capa. Disco em ótimo estado.',
+     },
+     10: {
+       descricao: 'Gravado quando Tim Maia entrou para a seita Universo em Desencanto e lançado pelo selo dele, o Seroma. Tim renegou o disco anos depois, mas o soul e o funk dessa fase estão entre os melhores da carreira, e as cópias viraram item de colecionador.',
+       faixas: ['Imunização Racional (Que Beleza)', 'Bom Senso', 'Contato com o Mundo Racional'],
+       observacao: 'Capa com amarelado natural do tempo. Disco revisado, com chiado leve no lado B.',
+     },
+     11: {
+       destaque: true,
+       descricao: 'Marvin Gaye trocou as canções de amor da Motown por um disco inteiro sobre guerra, pobreza e meio ambiente, contado pelo olhar de um veterano que volta do Vietnã. As faixas emendam umas nas outras como uma suíte.',
+       faixas: ['What’s Going On', 'What’s Happening Brother', 'Mercy Mercy Me (The Ecology)', 'Inner City Blues (Make Me Wanna Holler)'],
+     },
+     12: {
+       descricao: 'Elis Regina e Tom Jobim gravaram juntos em Los Angeles, em 1974, com arranjos de César Camargo Mariano. Tem o dueto definitivo de “Águas de Março”.',
+       faixas: ['Águas de Março', 'Só Tinha de Ser com Você', 'Corcovado', 'Inútil Paisagem', 'Chovendo na Roseira'],
+     },
+     13: {
+       destaque: true,
+       descricao: 'O disco que levou o rap dos Racionais MC’s para o Brasil inteiro, vendendo mais de um milhão de cópias por um selo independente. Anos depois, entrou na lista de leituras obrigatórias do vestibular da Unicamp.',
+       faixas: ['Diário de um Detento', 'Capítulo 4, Versículo 3', 'Fórmula Mágica da Paz', 'Jorge da Capadócia', 'Mágico de Oz'],
+     },
+     14: {
+       descricao: 'Suíte em quatro partes que John Coltrane compôs como uma oração de agradecimento. Foi gravada numa única sessão, em dezembro de 1964, com McCoy Tyner, Jimmy Garrison e Elvin Jones.',
+       faixas: ['Part I: Acknowledgement', 'Part II: Resolution', 'Part III: Pursuance', 'Part IV: Psalm'],
+     },
+     15: {
+       descricao: 'Estreia de Rita Lee, Arnaldo Baptista e Sérgio Dias, a cara psicodélica da Tropicália. Guitarras com efeitos caseiros, humor e arranjos de Rogério Duprat.',
+       faixas: ['Panis et Circenses', 'A Minha Menina', 'Baby', 'Bat Macumba'],
+       observacao: 'Capa com desgaste nas pontas. Disco revisado, toca sem pulos.',
+     },
+     16: {
+       descricao: 'Primeiro disco do AC/DC com Brian Johnson, gravado meses depois da morte de Bon Scott. O disco inteiro foi pensado como homenagem a ele, a começar pela capa toda preta. Está entre os discos mais vendidos da história.',
+       faixas: ['Hells Bells', 'Shoot to Thrill', 'Back in Black', 'You Shook Me All Night Long'],
+     },
+     17: {
+       descricao: 'O encontro do saxofone de Stan Getz com a voz e o violão de João Gilberto, com Tom Jobim no piano, que levou a bossa nova para o mundo. Ganhou o Grammy de álbum do ano.',
+       faixas: ['The Girl from Ipanema', 'Doralice', 'Corcovado', 'Desafinado', 'Só Danço Samba'],
+       observacao: 'Capa bem conservada. Disco com chiado leve, típico de vinil antigo.',
+     },
+   };
+
    function dadosExemplo() {
      return {
        generos: [
@@ -94,7 +183,7 @@
         { id: 15, titulo: 'Os Mutantes',             artistaId: 14, generoId: 2, gravadoraId: 3,  ano: 1968, preco: 299.90, condicao: 'Usado', capa: 'img/capas/os-mutantes.jpg' },
         { id: 16, titulo: 'Back in Black',           artistaId: 15, generoId: 2, gravadoraId: 13, ano: 1980, preco: 259.90, condicao: 'Novo',  capa: 'img/capas/back-in-black.jpg' },
         { id: 17, titulo: 'Getz/Gilberto',           artistaId: 16, generoId: 5, gravadoraId: 14, ano: 1964, preco: 239.90, condicao: 'Usado', capa: 'img/capas/getz-gilberto.jpg' },
-      ],
+      ].map(v => ({ ...v, destaque: false, descricao: '', faixas: [], observacao: '', ...TEXTOS_DISCOS[v.id] })), // junta os textos da página de cada disco
        estoque: [
          { vinilId: 1, quantidade: 2 }, { vinilId: 2, quantidade: 4 }, { vinilId: 3, quantidade: 3 },
          { vinilId: 4, quantidade: 1 }, { vinilId: 5, quantidade: 5 }, { vinilId: 6, quantidade: 6 },
@@ -139,6 +228,22 @@
       ===================================================================== */
    let banco = ler(CHAVE_BANCO);
    if (!banco || !Array.isArray(banco.vinis) || !Array.isArray(banco.itensPedido)) banco = dadosExemplo();
+
+   // Dados salvos por uma versão antiga do site não têm os campos novos.
+   // Completa cada disco com os textos de exemplo (se for o mesmo disco) ou com valores vazios.
+   function completarCampos(b) {
+     const exemplo = dadosExemplo().vinis;
+     b.vinis.forEach(v => {
+       const base = exemplo.find(e => e.id === v.id && e.titulo === v.titulo) || {};
+       if (v.capa === undefined) v.capa = base.capa ?? '';
+       if (v.descricao === undefined) v.descricao = base.descricao ?? '';
+       if (!Array.isArray(v.faixas)) v.faixas = base.faixas ?? [];
+       if (v.observacao === undefined) v.observacao = base.observacao ?? '';
+       if (v.destaque === undefined) v.destaque = base.destaque ?? false;
+     });
+     return b;
+   }
+   banco = completarCampos(banco);
    
    let sacola = ler(CHAVE_SACOLA);            // [{ vinilId, quantidade }]
    if (!Array.isArray(sacola)) sacola = [];
@@ -148,6 +253,13 @@
    
    const filtro = { busca: '', genero: 0, ordem: 'prateleira' };
    let abaAtual = 'resumo';
+   let viewAtual = '';          // 'loja', 'painel' ou 'disco'
+   let discoAberto = 0;         // id do disco mostrado na página do disco
+   let destaqueAtual = 0;       // posição do disco no carrossel
+   let posicaoLoja = null;      // onde a loja estava rolada antes de abrir um disco
+   let irParaCatalogo = false;  // true quando um link pede o catálogo do topo (filtro de gênero)
+   const TITULO_SITE = document.title;
+   const semMovimento = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
    let buscaPainel = '';
    let filtroStatus = 'todos';
    
@@ -174,6 +286,7 @@
      renderGrade();
      renderDestaque();
      renderSacola();
+     if (viewAtual === 'disco') renderRelacionados();
      if (logado && !$('#painel').hidden) renderPainel();
    }
    
@@ -286,12 +399,12 @@
        : `<button class="botao botao-verde botao-pequeno" type="button" data-acao="adicionar" data-id="${v.id}" aria-label="Pôr ${esc(v.titulo)} na sacola">Pôr na sacola</button>`;
      return `
        <article class="disco${q === 0 ? ' disco-esgotado' : ''}">
-         <div class="disco-capa-area" style="${coresCapa(v)}">
-           <div class="disco-bolacha" aria-hidden="true"></div>
+         <a class="disco-capa-area" href="#disco/${v.id}" style="${coresCapa(v)}" tabindex="-1" aria-hidden="true">
+           <div class="disco-bolacha"></div>
            ${capaHTML(v)}
-         </div>
+         </a>
          <div class="disco-info">
-           <h3>${esc(v.titulo)}</h3>
+           <h3><a href="#disco/${v.id}">${esc(v.titulo)}</a></h3>
            <p class="disco-artista">${esc(artista)}</p>
            <p class="disco-detalhes">
              <span>${v.ano}, ${esc(nomeDe(banco.gravadoras, v.gravadoraId))}</span>
@@ -321,22 +434,79 @@
      $('#gradeCatalogo').innerHTML = lista.map(cardHTML).join('');
    }
    
+   /* ---------- Carrossel da vitrine ---------- */
+   // Discos marcados como destaque no painel. Se nenhum estiver marcado, usa os 5 primeiros.
+   function listaDestaques() {
+     const marcados = banco.vinis.filter(v => v.destaque);
+     return marcados.length ? marcados : banco.vinis.slice(0, 5);
+   }
+
    function renderDestaque() {
-     const v = porId(banco.vinis, 1) || banco.vinis[0];
+     const lista = listaDestaques();
      const botao = $('#btnDestaque');
-     if (!v) {
+     const conhecer = $('#btnConhecer');
+     $('#controlesCarrossel').hidden = lista.length < 2;
+
+     if (!lista.length) {
+       $('#vitrolaCapa').innerHTML = '<img src="img/capas/logo-creme.png" alt="" width="251" height="240">';
+       $('#vitrolaCapa').removeAttribute('href');
        $('#destaqueTitulo').textContent = 'Nenhum disco na vitrola';
        $('#destaqueArtista').textContent = 'Cadastre um disco no painel da loja.';
-       botao.hidden = true;
+       $('#destaqueMeta').textContent = '';
+       botao.hidden = true; conhecer.hidden = true;
        return;
      }
+
+     destaqueAtual = Math.min(Math.max(destaqueAtual, 0), lista.length - 1);
+     const v = lista[destaqueAtual];
+     const link = `#disco/${v.id}`;
+     const artista = nomeDe(banco.artistas, v.artistaId);
+
+     // Capa da vitrola = capa do disco; clicar nela abre a página do disco
+     const capa = $('#vitrolaCapa');
+     capa.innerHTML = capaHTML(v);
+     capa.href = link;
+     capa.setAttribute('aria-label', `Ver a página de ${v.titulo}`);
+
+     $('#destaqueLink').href = link;
      $('#destaqueTitulo').textContent = v.titulo;
-     $('#destaqueArtista').textContent = nomeDe(banco.artistas, v.artistaId);
+     $('#destaqueArtista').textContent = artista;
+     $('#destaqueMeta').textContent = `${v.ano} · ${nomeDe(banco.generos, v.generoId)} · ${moeda(v.preco)}`;
+
      const esgotado = qtdEstoque(v.id) === 0;
-     botao.hidden = false;
+     botao.hidden = false; conhecer.hidden = false;
      botao.dataset.id = v.id;
      botao.disabled = esgotado;
      botao.textContent = esgotado ? 'Esgotado no momento' : 'Pôr esse na sacola';
+     conhecer.href = link;
+
+     // Bolinhas: uma por disco, a do disco atual fica preenchida
+     $('#pontosDestaque').innerHTML = lista.map((d, i) =>
+       `<button class="ponto" type="button" data-destaque="${i}" aria-label="Mostrar ${esc(d.titulo)}"${i === destaqueAtual ? ' aria-current="true"' : ''}></button>`
+     ).join('');
+   }
+
+   // Troca o disco do carrossel: o disco volta pra capa, troca, e sai de novo
+   let timerTroca;
+   function irParaDestaque(indice) {
+     const lista = listaDestaques();
+     if (lista.length < 2) return;
+     const novo = (indice + lista.length) % lista.length;   // dá a volta nas pontas
+     if (novo === destaqueAtual) return;
+     const v = lista[novo];
+     $('#avisoDestaque').textContent = `${v.titulo}, ${nomeDe(banco.artistas, v.artistaId)}. Destaque ${novo + 1} de ${lista.length}.`;
+
+     if (semMovimento) { destaqueAtual = novo; renderDestaque(); return; }
+     const vitrola = $('#vitrola');
+     vitrola.classList.add('guardando');
+     $('#tocando').classList.add('trocando');
+     clearTimeout(timerTroca);
+     timerTroca = setTimeout(() => {
+       destaqueAtual = novo;
+       renderDestaque();
+       vitrola.classList.remove('guardando');
+       $('#tocando').classList.remove('trocando');
+     }, 300);
    }
    
    /* Sulcos do disco da vitrine (círculos finos + 3 separações de faixa) */
@@ -350,6 +520,139 @@
      $('#sulcos').innerHTML = html;
    }
    
+   /* =====================================================================
+      5b. PÁGINA DE CADA DISCO (endereço #disco/ID)
+      ===================================================================== */
+   const ICONE_DIAMANTE = '<svg viewBox="0 0 24 20" aria-hidden="true"><path d="M5 1h14l4 6-11 12L1 7z M1 7h22 M8 1 6 7l6 12 6-12-2-6 M6 7l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+
+   function renderProduto(id) {
+     discoAberto = id;
+     const v = porId(banco.vinis, id);
+     const caixa = $('#produto');
+
+     if (!v) {
+       document.title = `Disco não encontrado | ${TITULO_SITE}`;
+       $('#trilhaDisco').innerHTML = '<a href="#catalogo">Catálogo</a>';
+       caixa.innerHTML = `
+         <div class="vazio">
+           <h1 class="produto-titulo" id="tituloProduto" tabindex="-1">Disco não encontrado</h1>
+           <p>Esse disco saiu do catálogo ou o endereço está errado.</p>
+           <a class="botao botao-contorno" href="#catalogo">Ver o catálogo</a>
+         </div>`;
+       $('#relacionados').hidden = true;
+       return;
+     }
+
+     const artista = nomeDe(banco.artistas, v.artistaId);
+     const genero = nomeDe(banco.generos, v.generoId);
+     const gravadora = nomeDe(banco.gravadoras, v.gravadoraId);
+     document.title = `${v.titulo}, ${artista} | Roll Diamonds`;
+
+     $('#trilhaDisco').innerHTML = `
+       <a href="#catalogo">Catálogo</a><span class="sep" aria-hidden="true">/</span>
+       <a href="#catalogo" data-filtrar-genero="${v.generoId}">${esc(genero)}</a><span class="sep" aria-hidden="true">/</span>
+       <span aria-current="page">${esc(v.titulo)}</span>`;
+
+     const usado = v.condicao === 'Usado';
+     const estado = usado
+       ? `Usado<span>Limpo e ouvido no lado A e no lado B antes de ir pra prateleira.</span>`
+       : `Novo<span>Lacrado de fábrica.</span>`;
+     const observacao = v.observacao?.trim()
+       ? `<dt>Este exemplar</dt><dd>${esc(v.observacao)}</dd>` : '';
+     const sobre = v.descricao?.trim()
+       ? `<section class="produto-bloco"><h2>Sobre o disco</h2>${v.descricao.trim().split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
+     const faixas = v.faixas?.length
+       ? `<section class="produto-bloco"><h2>Faixas em destaque</h2><ol class="faixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>` : '';
+
+     caixa.className = `produto${qtdEstoque(v.id) === 0 ? ' produto-esgotado' : ''}`;
+     caixa.innerHTML = `
+       <div class="produto-vitrine" style="${coresCapa(v)}">
+         <div class="produto-vitrola">
+           <div class="produto-capa">${capaHTML(v)}</div>
+           <div class="produto-disco" aria-hidden="true"><div class="produto-bolacha"></div></div>
+         </div>
+       </div>
+
+       <div class="produto-info">
+         <header>
+           <p class="produto-etiquetas">
+             <span class="etiqueta">${esc(genero)}</span>
+             <span class="etiqueta${usado ? '' : ' etiqueta-novo'}">${v.condicao}</span>
+             ${v.destaque ? '<span class="etiqueta etiqueta-destaque">Destaque da loja</span>' : ''}
+           </p>
+           <h1 class="produto-titulo" id="tituloProduto" tabindex="-1">${esc(v.titulo)}</h1>
+           <p class="produto-artista">${esc(artista)}</p>
+           <p class="produto-sub">${v.ano}, ${esc(gravadora)}</p>
+         </header>
+
+         <div class="produto-compra" id="produtoCompra"></div>
+
+         ${sobre}
+         ${faixas}
+
+         <section class="produto-bloco">
+           <h2>Ficha do disco</h2>
+           <dl class="ficha">
+             <dt>Artista</dt><dd>${esc(artista)}</dd>
+             <dt>Lançamento</dt><dd>${v.ano}</dd>
+             <dt>Gravadora</dt><dd>${esc(gravadora)}</dd>
+             <dt>Gênero</dt><dd>${esc(genero)}</dd>
+             <dt>Formato</dt><dd>Vinil 12", 33⅓ rpm</dd>
+             <dt>Estado</dt><dd>${estado}</dd>
+             ${observacao}
+           </dl>
+         </section>
+
+         <p class="produto-garantia">${ICONE_DIAMANTE}<span>Todo disco da Roll Diamonds tem o estado da capa e do vinil descrito sem enrolação. Se chegar diferente do que está aqui, a gente troca.</span></p>
+       </div>`;
+
+     renderCompraProduto();
+     renderRelacionados();
+   }
+
+   // Só a caixa de preço/estoque/botão: é redesenhada quando a sacola ou o estoque mudam,
+   // sem refazer a página inteira (assim a animação do disco não recomeça).
+   function renderCompraProduto() {
+     const v = porId(banco.vinis, discoAberto);
+     const caixa = $('#produtoCompra');
+     if (!v || !caixa) return;
+     const q = qtdEstoque(v.id);
+     const naSacola = sacola.find(i => i.vinilId === v.id)?.quantidade ?? 0;
+
+     let estoque = `${plural(q, 'unidade', 'unidades')} na prateleira`;
+     let classe = '';
+     if (q === 0) { estoque = 'Esgotado'; classe = ' esgotado'; }
+     else if (q === 1) { estoque = 'Última unidade'; classe = ' pouco'; }
+
+     const podePor = q > 0 && naSacola < q;
+     const botao = q === 0
+       ? '<button class="botao botao-verde" type="button" disabled>Esgotado no momento</button>'
+       : `<button class="botao botao-verde" type="button" data-acao="adicionar" data-id="${v.id}" ${podePor ? '' : 'disabled'}>${podePor ? 'Pôr na sacola' : 'Todas já estão na sacola'}</button>`;
+     const aviso = naSacola
+       ? `<p class="produto-na-sacola">${plural(naSacola, 'unidade', 'unidades')} na sua sacola. <button class="botao-link" type="button" data-abrir-sacola>Abrir sacola</button></p>` : '';
+
+     caixa.innerHTML = `
+       <div class="produto-preco-linha">
+         <span class="produto-preco">${moeda(v.preco)}</span>
+         <span class="produto-estoque${classe}">${estoque}</span>
+       </div>
+       <div class="produto-botoes">${botao}${aviso}</div>`;
+   }
+
+   // "Você também pode gostar": primeiro do mesmo artista, depois do mesmo gênero, depois o resto
+   function renderRelacionados() {
+     const v = porId(banco.vinis, discoAberto);
+     const secao = $('#relacionados');
+     if (!v) { secao.hidden = true; return; }
+     const pontos = d => (d.artistaId === v.artistaId ? 2 : 0) + (d.generoId === v.generoId ? 1 : 0);
+     const lista = banco.vinis
+       .filter(d => d.id !== v.id)
+       .sort((a, b) => pontos(b) - pontos(a) || a.id - b.id)
+       .slice(0, 4);
+     secao.hidden = !lista.length;
+     $('#gradeRelacionados').innerHTML = lista.map(cardHTML).join('');
+   }
+
    /* =====================================================================
       6. SACOLA E FINALIZAÇÃO DO PEDIDO
       ===================================================================== */
@@ -371,7 +674,8 @@
    function renderSacola() {
      sacola = sacola.filter(i => porId(banco.vinis, i.vinilId));
      gravar(CHAVE_SACOLA, sacola);
-   
+     if (viewAtual === 'disco') renderCompraProduto();   // atualiza "na sua sacola" na página do disco
+
      const total = sacola.reduce((s, i) => s + i.quantidade * porId(banco.vinis, i.vinilId).preco, 0);
      const n = sacola.reduce((s, i) => s + i.quantidade, 0);
      const contagem = $('#contagemSacola');
@@ -508,7 +812,7 @@
      $('#corpoDiscos').innerHTML = lista.length ? lista.map(v => {
        const q = qtdEstoque(v.id);
        return `<tr>
-         <td><div class="celula-disco">${capaHTML(v, true)}<div><strong>${esc(v.titulo)}</strong><span>${esc(nomeDe(banco.artistas, v.artistaId))}</span></div></div></td>
+         <td><div class="celula-disco">${capaHTML(v, true)}<div><strong>${esc(v.titulo)}</strong><span>${esc(nomeDe(banco.artistas, v.artistaId))}</span>${v.destaque ? '<span class="etiqueta etiqueta-destaque">No carrossel</span>' : ''}</div></div></td>
          <td>${esc(nomeDe(banco.generos, v.generoId))}</td>
          <td><div class="celula-dupla">${v.ano}<span>${esc(nomeDe(banco.gravadoras, v.gravadoraId))}</span></div></td>
          <td>${v.condicao}</td>
@@ -521,6 +825,7 @@
            </div>
          </td>
          <td class="acoes-celula">
+           <a class="botao-link" href="#disco/${v.id}">Ver</a>
            <button class="botao-link" type="button" data-acao="editar-disco" data-id="${v.id}">Editar</button>
            <button class="botao-link perigo" type="button" data-acao="excluir-disco" data-id="${v.id}">Excluir</button>
          </td>
@@ -627,6 +932,10 @@
      f.elements.preco.value = v ? v.preco.toFixed(2) : '';
      f.elements.quantidade.value = v ? qtdEstoque(v.id) : 1;
      f.elements.capa.value = v?.capa ?? '';
+     f.elements.descricao.value = v?.descricao ?? '';
+     f.elements.faixas.value = (v?.faixas ?? []).join('\n');
+     f.elements.observacao.value = v?.observacao ?? '';
+     f.elements.destaque.checked = !!v?.destaque;
      $('#modalDisco').showModal();
    }
    function salvarDisco(evento) {
@@ -642,6 +951,10 @@
        condicao: f.elements.condicao.value,
        preco: Math.round(Number(f.elements.preco.value) * 100) / 100,
        capa: caminhoCapa(f.elements.capa.value),   // vazio = capa desenhada
+       descricao: f.elements.descricao.value.trim(),
+       faixas: f.elements.faixas.value.split('\n').map(t => t.trim()).filter(Boolean),   // uma faixa por linha
+       observacao: f.elements.observacao.value.trim(),
+       destaque: f.elements.destaque.checked,
      };
      const quantidade = Math.max(0, Math.floor(Number(f.elements.quantidade.value) || 0));
      if (!dados.titulo) { $('#erroDisco').textContent = 'Informe o título do disco.'; return; }
@@ -773,20 +1086,57 @@
    }
    
    /* =====================================================================
-      8. NAVEGAÇÃO ENTRE LOJA E PAINEL (pelo # do endereço)
+      8. NAVEGAÇÃO (pelo # do endereço)
+         #painel    -> painel da loja
+         #disco/5   -> página do disco de id 5
+         o resto    -> loja (vitrine + catálogo)
       ===================================================================== */
+   function rotaAtual() {
+     const h = location.hash;
+     if (h === '#painel') return { view: 'painel' };
+     const m = h.match(/^#disco\/(\d+)$/);
+     if (m) return { view: 'disco', id: Number(m[1]) };
+     return { view: 'loja' };
+   }
+
    function mostrarView() {
-     const painel = location.hash === '#painel';
-     const mudou = $('#painel').hidden === painel;
-     $('#loja').hidden = painel;
-     $('#painel').hidden = !painel;
+     const rota = rotaAtual();
+     const anterior = viewAtual;
+     if (anterior === 'loja' && rota.view !== 'loja') posicaoLoja = window.scrollY;  // guarda onde a pessoa estava
+     viewAtual = rota.view;
+
+     $('#loja').hidden = rota.view !== 'loja';
+     $('#painel').hidden = rota.view !== 'painel';
+     $('#pagina-disco').hidden = rota.view !== 'disco';
+     const ativo = rota.view === 'painel' ? 'painel' : 'loja';
      $$('.nav-link[data-view]').forEach(link => {
-       if (link.dataset.view === (painel ? 'painel' : 'loja')) link.setAttribute('aria-current', 'page');
+       if (link.dataset.view === ativo) link.setAttribute('aria-current', 'page');
        else link.removeAttribute('aria-current');
      });
-     if (painel) renderPainel();
-     if (location.hash === '#catalogo') $('#catalogo').scrollIntoView();
-     else if (mudou) window.scrollTo(0, 0);
+
+     if (rota.view === 'painel') {
+       document.title = `Painel | ${TITULO_SITE}`;
+       renderPainel();
+       if (anterior !== 'painel') window.scrollTo(0, 0);
+       return;
+     }
+     if (rota.view === 'disco') {
+       renderProduto(rota.id);
+       window.scrollTo(0, 0);
+       $('#tituloProduto')?.focus({ preventScroll: true });   // leitor de tela começa pelo nome do disco
+       return;
+     }
+
+     // Loja
+     document.title = TITULO_SITE;
+     if (anterior === 'disco' && posicaoLoja !== null && !irParaCatalogo) {
+       window.scrollTo(0, posicaoLoja);           // volta pro mesmo ponto do catálogo
+     } else if (location.hash === '#catalogo') {
+       $('#catalogo').scrollIntoView();
+     } else if (anterior && anterior !== 'loja') {
+       window.scrollTo(0, 0);
+     }
+     irParaCatalogo = false;
    }
    
    /* Tema claro/escuro */
@@ -808,6 +1158,24 @@
      const fechar = evento.target.closest('[data-fechar]');
      if (fechar) { fechar.closest('dialog')?.close(); return; }
    
+     // Bolinhas do carrossel
+     const ponto = evento.target.closest('[data-destaque]');
+     if (ponto) { irParaDestaque(Number(ponto.dataset.destaque)); return; }
+
+     // Gênero na trilha da página do disco: filtra o catálogo e deixa o link levar até ele
+     const generoLink = evento.target.closest('[data-filtrar-genero]');
+     if (generoLink) {
+       filtro.genero = Number(generoLink.dataset.filtrarGenero);
+       filtro.busca = '';
+       $('#buscaCatalogo').value = '';
+       renderChips(); renderGrade();
+       irParaCatalogo = true;
+       return;   // sem preventDefault: o navegador segue pro #catalogo
+     }
+
+     // "Abrir sacola" na página do disco
+     if (evento.target.closest('[data-abrir-sacola]')) { $('#btnSacola').click(); return; }
+
      // Filtro de gênero
      const chip = evento.target.closest('[data-genero]');
      if (chip) {
@@ -832,7 +1200,15 @@
      const item = sacola.find(i => i.vinilId === id);
    
      switch (acao) {
-       case 'adicionar': adicionarNaSacola(id); return;
+       case 'adicionar': {
+         const naPaginaDoDisco = !!alvo.closest('#produtoCompra');   // conferir antes: o botão é redesenhado
+         adicionarNaSacola(id);
+         // Na página do disco o botão é redesenhado: devolve o foco pra caixa de compra
+         if (naPaginaDoDisco) {
+           ($('#produtoCompra [data-acao="adicionar"]:not(:disabled)') || $('#produtoCompra [data-abrir-sacola]'))?.focus();
+         }
+         return;
+       }
        case 'sacola-mais':
          if (item && item.quantidade < qtdEstoque(id)) item.quantidade++;
          renderSacola(); break;
@@ -911,6 +1287,30 @@
      const pausada = $('#vitrola').classList.toggle('pausada');
      e.currentTarget.textContent = pausada ? 'Tocar o disco' : 'Pausar o disco';
    });
+
+   // Carrossel: setas, teclado e arrastar com o dedo/mouse
+   $('#btnAnterior').addEventListener('click', () => irParaDestaque(destaqueAtual - 1));
+   $('#btnProximo').addEventListener('click', () => irParaDestaque(destaqueAtual + 1));
+   $('#carrossel').addEventListener('keydown', e => {
+     if (e.key === 'ArrowLeft') { e.preventDefault(); irParaDestaque(destaqueAtual - 1); }
+     if (e.key === 'ArrowRight') { e.preventDefault(); irParaDestaque(destaqueAtual + 1); }
+   });
+   let inicioToque = null;
+   let arrastou = false;
+   $('#vitrola').addEventListener('pointerdown', e => { inicioToque = e.clientX; arrastou = false; });
+   $('#vitrola').addEventListener('pointerup', e => {
+     if (inicioToque === null) return;
+     const distancia = e.clientX - inicioToque;
+     inicioToque = null;
+     if (Math.abs(distancia) > 45) {               // arrastou de verdade (não foi só um clique)
+       arrastou = true;
+       irParaDestaque(destaqueAtual + (distancia < 0 ? 1 : -1));
+     }
+   });
+   $('#vitrola').addEventListener('pointercancel', () => { inicioToque = null; });
+   $('#vitrola').addEventListener('dragstart', e => e.preventDefault());
+   // Se arrastou, o clique que vem junto não abre a página do disco
+   $('#vitrolaCapa').addEventListener('click', e => { if (arrastou) { e.preventDefault(); arrastou = false; } });
    
    // Tema
    $('#btnTema').addEventListener('click', () => {
@@ -987,3 +1387,5 @@
    desenharSulcos();
    atualizarTudo();
    mostrarView();
+   // O disco da vitrine sai da capa logo depois que a página abre
+   setTimeout(() => $('#vitrola').classList.remove('guardando'), semMovimento ? 0 : 250);

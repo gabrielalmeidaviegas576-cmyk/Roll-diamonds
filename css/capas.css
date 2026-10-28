@@ -19,7 +19,37 @@
 .capa.capa-com-foto .capa-titulo {
   display: none;
 }
+/* =====================================================================
+   CAPAS COM FOTO
+   Usado quando o disco tem o campo "capa" preenchido.
+   Este arquivo é carregado depois do style.css, então estas regras
+   ganham das regras da capa gerada.
+   Aqui ficam SÓ as regras das fotos: todo o resto está no style.css.
+   ===================================================================== */
 
+/* A caixa da capa fica sem espaçamento interno e corta o que passar da borda */
+.capa.capa-com-foto {
+  padding: 0;
+  overflow: hidden;
+  background: #17110d;
+}
+
+/* Esconde os desenhos e o título da capa gerada quando tem foto */
+.capa.capa-com-foto::before,
+.capa.capa-com-foto::after,
+.capa.capa-com-foto .capa-titulo {
+  display: none;
+}
+
+/* A foto ocupa a capa inteira, sempre quadrada, sem esticar */
+.capa-foto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: inherit;
+}
 /* A foto ocupa a capa inteira, sempre quadrada, sem esticar */
 .capa-foto {
   display: block;
