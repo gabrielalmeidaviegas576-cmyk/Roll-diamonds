@@ -329,8 +329,20 @@
   }
   .tocando strong { font-size: 1.3rem; line-height: 1.25; }
   .tocando span:last-child { color: var(--placa-suave); }
+  /* Título do disco em destaque: link creme, sublinhado de latão só ao passar o mouse */
+  .tocando-titulo { color: var(--placa-tinta); text-decoration: none; }
+  .tocando-titulo:hover { text-decoration: underline; text-decoration-color: var(--latao); text-underline-offset: 4px; }
+  /* Ao trocar de disco no carrossel, o texto some e volta junto com a capa */
+  .tocando > :not(.tocando-rotulo) { transition: opacity .3s ease; }
+  .tocando.trocando > :not(.tocando-rotulo) { opacity: 0; }
   .vitrine-acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
   .vitrine .botao-contorno { color: var(--placa-tinta); }
+  .vitrine-catalogo {
+    display: inline-block; margin-top: 1.1rem;
+    color: var(--latao-claro); font-weight: 700;
+    text-decoration-color: rgba(219, 187, 126, .45); text-underline-offset: 4px;
+  }
+  .vitrine-catalogo:hover { color: var(--placa-tinta); text-decoration-color: var(--latao-claro); }
   
   /* A vitrola: capa quadrada do disco em destaque */
   .vitrola-area { display: grid; gap: .9rem; justify-items: end; }
@@ -384,7 +396,7 @@
   .ponto:hover::before { border-color: var(--latao-claro); background: rgba(219, 187, 126, .3); }
   .ponto[aria-current="true"]::before { width: 1.7rem; background: var(--latao-claro); border-color: var(--latao-claro); }
   @media (prefers-reduced-motion: reduce) {
-    .vitrola-capa, .seta, .ponto::before { transition: none; }
+    .vitrola-capa, .seta, .ponto::before, .tocando > * { transition: none; }
   }
   
   /* =====================================================================
@@ -456,6 +468,8 @@
   
   .disco-info { flex: 1; display: flex; flex-direction: column; }
   .disco-info h3 { font-size: 1.14rem; font-weight: 800; line-height: 1.22; }
+  .disco-info h3 a { color: inherit; text-decoration: none; }
+  .disco-info h3 a:hover { text-decoration: underline; text-decoration-color: var(--latao); text-underline-offset: 3px; }
   .disco-artista { margin-top: .15rem; color: var(--tinta-suave); }
   .disco-detalhes {
     margin-top: .4rem; font-size: .95rem; color: var(--tinta-suave);
@@ -500,13 +514,17 @@
   .produto-etiquetas { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-top: .25rem; }
   .etiqueta-destaque { border-color: var(--latao); color: var(--latao); }
 
-  /* Três colunas: capa | ficha | compra */
+  /* Três colunas: capa | faixas | compra.
+     Embaixo das faixas e da compra, ao lado da capa, ficam os textos (álbum e artista). */
   .produto-grade {
     display: grid; gap: 2.5rem;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(260px, .85fr);
-    grid-template-areas: "capa info lado";
+    grid-template-areas: "capa info lado" "capa textos textos";
+    grid-template-rows: auto 1fr;
     align-items: start;
   }
+  .produto-textos { grid-area: textos; display: grid; gap: 2rem; }
+  .produto-textos:empty { display: none; }
   .produto-capa {
     position: relative;
     padding: 9%;
@@ -570,6 +588,11 @@
   .produto-bloco p + p { margin-top: .75rem; }
   .faixas { margin: 0; padding-left: 1.4rem; display: grid; gap: .3rem; }
   .faixas li::marker { color: var(--tinta-suave); font-weight: 700; }
+  /* Lista fechada: só as 6 primeiras faixas (o mesmo número do FAIXAS_VISIVEIS no script.js) */
+  .faixas-recolhidas li:nth-child(n+7) { display: none; }
+  .ver-faixas { margin-top: .6rem; padding-left: 0; }
+  /* Blocos na largura toda, embaixo da grade: sobre o álbum, sobre o artista e compre também */
+  .produto-largo { margin-top: 2.75rem; }
 
   /* Coluna da compra */
   .produto-lateral { grid-area: lado; display: grid; gap: 1.5rem; }
@@ -588,9 +611,13 @@
   .produto-garantia { display: flex; gap: .7rem; align-items: flex-start; font-size: .93rem; color: var(--tinta-suave); }
   .produto-garantia svg { width: 1.5rem; flex: none; margin-top: .15rem; color: var(--latao); }
 
-  .produto-relacionados { border-top: 1px solid var(--linha-fraca); padding-top: 1.25rem; }
-  .produto-relacionados h2 { font-family: var(--fonte-sc); font-weight: 700; letter-spacing: .1em; font-size: 1rem; margin-bottom: .9rem; }
+  /* Compre também: mesmo título dos outros blocos e os discos lado a lado */
+  .produto-relacionados h2 {
+    font-family: var(--fonte-sc); font-weight: 700; letter-spacing: .1em; font-size: 1rem;
+    padding-bottom: .5rem; margin-bottom: .9rem; border-bottom: 1px solid var(--linha-fraca);
+  }
   .mini-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+  .produto-relacionados .mini-lista { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
   .mini-disco {
     display: flex; align-items: center; gap: .85rem;
     padding: .6rem; background: var(--superficie); border: 1px solid var(--linha-fraca);
@@ -614,11 +641,12 @@
   @media (max-width: 1000px) {
     .produto-grade {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      grid-template-areas: "capa lado" "info info";
+      grid-template-areas: "capa lado" "info info" "textos textos";
+      grid-template-rows: auto;
     }
   }
   @media (max-width: 680px) {
-    .produto-grade { grid-template-columns: minmax(0, 1fr); grid-template-areas: "capa" "lado" "info"; gap: 2rem; }
+    .produto-grade { grid-template-columns: minmax(0, 1fr); grid-template-areas: "capa" "lado" "info" "textos"; gap: 2rem; }
     .produto-cabeca { margin: 1.25rem 0 1.75rem; }
   }
   @media (max-width: 420px) {
@@ -788,14 +816,57 @@
     color: var(--placa-suave);
     box-shadow: 0 -1px 0 var(--latao), 0 -4px 0 var(--placa), 0 -5px 0 var(--latao);
   }
+  /* Em cima: redes sociais à esquerda, links de ajuda à direita */
   .rodape-interno {
     max-width: 1200px; margin: 0 auto;
-    padding: 2rem 1.25rem;
-    display: flex; align-items: center; gap: 1rem 1.25rem; flex-wrap: wrap;
+    padding: 2.25rem 1.25rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem 2rem; flex-wrap: wrap;
     font-size: .96rem;
   }
-  .rodape-interno p { max-width: 70ch; }
   .rodape strong { color: var(--placa-tinta); }
+  .rodape-titulo { font-family: var(--fonte-sc); font-weight: 700; letter-spacing: .08em; color: var(--placa-tinta); margin-bottom: .55rem; }
+  .rodape-redes { display: flex; align-items: center; gap: 1.1rem; }
+  .redes { list-style: none; margin: 0; padding: 0; display: flex; gap: .55rem; }
+  .redes a {
+    width: 2.5rem; height: 2.5rem; display: grid; place-items: center;
+    border-radius: 50%; border: 1.5px solid var(--latao); color: var(--placa-tinta);
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .redes a:hover { background: var(--latao); color: var(--placa); }
+  .redes svg { width: 1.2rem; height: 1.2rem; }
+  .rodape-links { text-align: right; }
+  .rodape-links ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+  .rodape-links a { color: var(--placa-suave); text-decoration: none; }
+  .rodape-links a:hover { color: var(--placa-tinta); text-decoration: underline; }
+  /* Embaixo: direitos, separados por um friso de latão */
+  .rodape-direitos {
+    width: min(calc(1200px - 2.5rem), calc(100% - 2.5rem)); margin: 0 auto;
+    padding: 1rem 0 1.6rem;
+    border-top: 1px solid rgba(185, 145, 85, .35);
+    display: flex; justify-content: space-between; gap: .4rem 1.5rem; flex-wrap: wrap;
+    font-size: .88rem;
+  }
+  @media (max-width: 600px) {
+    .rodape-links { text-align: left; }
+  }
+
+  /* Páginas de texto: dúvidas frequentes e mapa do site */
+  .pagina-texto .titulo-secao { margin: 1.5rem 0 1.25rem; }
+  /* O título recebe foco ao abrir a página (para leitor de tela), mas não precisa de contorno */
+  .pagina-texto .titulo-secao:focus { outline: none; }
+  .faq { max-width: 820px; display: grid; gap: .6rem; }
+  .faq details { border: 1px solid var(--linha-fraca); background: var(--superficie); padding: .85rem 1.1rem; }
+  .faq summary { font-weight: 700; cursor: pointer; }
+  .faq details p { margin-top: .6rem; color: var(--tinta-suave); }
+  .mapa { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.75rem 2rem; align-items: start; }
+  .mapa h2 {
+    font-family: var(--fonte-sc); font-weight: 700; letter-spacing: .1em; font-size: 1rem;
+    padding-bottom: .5rem; margin-bottom: .6rem; border-bottom: 1px solid var(--linha-fraca);
+  }
+  .mapa ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+  .mapa a, .mapa .botao-link { color: var(--tinta); text-decoration-color: var(--latao); }
+  .mapa .botao-link { padding: 0; font-weight: 400; text-underline-offset: auto; }
+  .mapa li span { color: var(--tinta-suave); font-size: .9rem; }
   
   /* =====================================================================
      10. TELAS MENORES (tablet e celular)

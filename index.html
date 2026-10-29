@@ -145,8 +145,52 @@
     </div>
   </div>
 
+  <!-- ================= FAQ: DÚVIDAS FREQUENTES (endereço #faq) ================= -->
+  <div id="pagina-faq" class="view" hidden>
+    <div class="produto-wrap pagina-texto">
+      <nav class="trilha" aria-label="Você está em"><a href="#loja">Loja</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Dúvidas frequentes</span></nav>
+      <h1 class="titulo-secao" id="tituloFaq" tabindex="-1">Dúvidas frequentes</h1>
+      <div class="faq">
+        <details>
+          <summary>Como sei o estado de um disco usado?</summary>
+          <p>Na página de cada disco tem a ficha com o estado e uma nota sobre aquele exemplar. Todo usado é limpo e ouvido no lado A e no lado B antes de ir pra prateleira.</p>
+        </details>
+        <details>
+          <summary>Os discos novos são lacrados?</summary>
+          <p>Sim. Disco marcado como "Novo" sai lacrado de fábrica.</p>
+        </details>
+        <details>
+          <summary>E se o disco chegar diferente do anunciado?</summary>
+          <p>A gente troca. O estado da capa e do vinil é descrito sem enrolação; se chegar diferente do que está na página, é só falar com a loja.</p>
+        </details>
+        <details>
+          <summary>Como faço um pedido?</summary>
+          <p>Escolha os discos no catálogo, clique em "Pôr na sacola", abra a sacola e finalize com seus dados. O pedido entra na loja como "Aguardando pagamento".</p>
+        </details>
+        <details>
+          <summary>O que quer dizer tamanho e peso na ficha do disco?</summary>
+          <p>O tamanho é o diâmetro do vinil: 12" (30 cm) é o LP comum. O peso é o do vinil em gramas; discos de 180 g são mais grossos e costumam ser reedições de qualidade.</p>
+        </details>
+        <details>
+          <summary>Meus dados ficam salvos onde?</summary>
+          <p>Este site é um projeto escolar: a sacola e os pedidos ficam salvos só no seu navegador, neste aparelho.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAPA DO SITE (endereço #mapa-do-site) ================= -->
+  <div id="pagina-mapa" class="view" hidden>
+    <div class="produto-wrap pagina-texto">
+      <nav class="trilha" aria-label="Você está em"><a href="#loja">Loja</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Mapa do site</span></nav>
+      <h1 class="titulo-secao" id="tituloMapa" tabindex="-1">Mapa do site</h1>
+      <!-- Preenchido pelo JavaScript (assim a lista de discos e gêneros fica sempre atualizada) -->
+      <div class="mapa" id="mapaSite"></div>
+    </div>
+  </div>
+
   <!-- ================= PAINEL ================= -->
-  <div id="painel" class="view painel" hidden>
+  <div id="pagina-painel" class="view painel" hidden>
 
     <!-- Login (tabela usuario) -->
     <section class="login" id="painelLogin" aria-labelledby="tituloLogin">
@@ -270,8 +314,42 @@
 <!-- ============ RODAPÉ ============ -->
 <footer class="rodape">
   <div class="rodape-interno">
-    <span class="selo"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></span>
-    <p><strong>Roll Diamonds, discos de vinil.</strong> Projeto Integrador do Curso Técnico em Desenvolvimento de Sistemas, SENAC. Os dados deste sistema ficam salvos no seu navegador.</p>
+    <!-- Esquerda: logo e redes sociais (troque os links pelos perfis da loja) -->
+    <div class="rodape-redes">
+      <span class="selo"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></span>
+      <div>
+        <p class="rodape-titulo">Siga a Roll Diamonds</p>
+        <ul class="redes">
+          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+          </a></li>
+          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5H16l.5-3h-3V8.6c0-.9.3-1.6 1.6-1.6h1.5V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.4H7v3h2.5V21z" fill="currentColor"/></svg>
+          </a></li>
+          <li><a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 9.2v5.6l5-2.8z" fill="currentColor"/></svg>
+          </a></li>
+          <li><a href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.2 8.6c.3-.4.7-.4.9 0l.7 1.5c.1.3 0 .5-.2.7l-.4.4c.5 1.1 1.4 2 2.5 2.5l.4-.4c.2-.2.5-.3.7-.2l1.5.7c.4.2.4.6 0 .9-.6.6-1.5.9-2.4.5a8.3 8.3 0 0 1-4.2-4.2c-.4-.9-.1-1.8.5-2.4z" fill="currentColor"/></svg>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Direita: ajuda -->
+    <nav class="rodape-links" aria-label="Ajuda">
+      <p class="rodape-titulo">Ajuda</p>
+      <ul>
+        <li><a href="#faq">FAQ: dúvidas frequentes</a></li>
+        <li><a href="#mapa-do-site">Mapa do site</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Embaixo: direitos -->
+  <div class="rodape-direitos">
+    <p>© <span id="anoAtual">2026</span> Roll Diamonds. Todos os direitos reservados.</p>
+    <p>Projeto Integrador do Curso Técnico em Desenvolvimento de Sistemas, SENAC. Os dados deste sistema ficam salvos no seu navegador.</p>
   </div>
 </footer>
 
@@ -446,6 +524,28 @@
     <div class="dialogo-rodape">
       <button class="botao botao-contorno" type="button" data-fechar>Cancelar</button>
       <button class="botao botao-verde" type="submit" id="btnSalvarCliente">Cadastrar cliente</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Resumo do artista ("Sobre o artista" na página do disco) -->
+<dialog id="modalArtista" aria-labelledby="tituloModalArtista">
+  <form id="formArtista">
+    <div class="dialogo-topo">
+      <h2 id="tituloModalArtista">Resumo do artista</h2>
+      <button class="fechar" type="button" data-fechar aria-label="Fechar">×</button>
+    </div>
+    <div class="dialogo-corpo">
+      <input type="hidden" name="id">
+      <div class="campo">
+        <label for="artistaBio">Sobre o artista</label>
+        <textarea id="artistaBio" name="bio" rows="6" maxlength="1200" placeholder="Quem é, de onde vem e por que vale a pena ouvir."></textarea>
+      </div>
+      <p class="dica">Aparece na página de todos os discos desse artista. Deixe em branco para não mostrar.</p>
+    </div>
+    <div class="dialogo-rodape">
+      <button class="botao botao-contorno" type="button" data-fechar>Cancelar</button>
+      <button class="botao botao-verde" type="submit">Salvar resumo</button>
     </div>
   </form>
 </dialog>

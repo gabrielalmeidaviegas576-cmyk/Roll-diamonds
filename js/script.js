@@ -21,6 +21,9 @@
    ];
    const ESTILOS = ['listras', 'sol', 'circulos', 'dividido', 'ponto'];
 
+   // Quantas faixas aparecem na página do disco antes do "Ver mais"
+   const FAIXAS_VISIVEIS = 6;
+
    // Tamanho do vinil (em polegadas) -> texto da ficha do disco
    const TAMANHOS = { 7: '7" (18\u00a0cm)', 10: '10" (25\u00a0cm)', 12: '12" (30\u00a0cm)' };
    
@@ -145,6 +148,26 @@
      },
    };
 
+   /* Resumo de cada artista ("Sobre o artista" na página do disco), pelo id do artista */
+   const BIOS_ARTISTAS = {
+     1: 'Milton Nascimento nasceu no Rio de Janeiro e cresceu em Três Pontas, Minas Gerais, e tem uma das vozes mais marcantes da música brasileira. Lô Borges, de Belo Horizonte, tinha 20 anos quando dividiu o Clube da Esquina com ele. Os dois lideraram a turma mineira que juntou MPB, rock e jazz.',
+     2: 'Grupo formado na Bahia no fim dos anos 1960, com Moraes Moreira, Baby Consuelo, Pepeu Gomes, Paulinho Boca de Cantor e o letrista Luiz Galvão. Viviam em comunidade e, influenciados por João Gilberto, misturaram rock com samba, choro e frevo.',
+     3: 'Cantor e compositor carioca (1942–1998), considerado o pai da soul music brasileira. Passou parte da juventude nos Estados Unidos, de onde trouxe o soul e o funk que misturou com a música brasileira. Dono de uma voz potente e de uma personalidade que virou lenda.',
+     4: 'Cantor, compositor e violonista carioca, dono de um jeito único de tocar violão que mistura samba, rock, soul e funk. É autor de clássicos como "Mas, que nada!", "País Tropical" e "Taj Mahal". Desde o fim dos anos 1980 assina Jorge Ben Jor.',
+     5: 'Trompetista e compositor norte-americano (1926–1991), um dos nomes mais importantes da história do jazz. Esteve à frente de várias viradas do gênero, do cool jazz e do jazz modal até a fusão com o rock.',
+     6: 'Banda de Liverpool formada por John Lennon, Paul McCartney, George Harrison e Ringo Starr. Entre 1962 e 1970 mudaram a música pop: começaram no rock dançante e terminaram usando o estúdio como instrumento.',
+     7: 'Banda formada em Londres em 1967. Começou tocando blues e virou um fenômeno do rock nos anos 1970, com a formação que reunia Mick Fleetwood, John McVie, Christine McVie, Lindsey Buckingham e Stevie Nicks.',
+     8: 'Grupo do Recife que, no começo dos anos 1990, liderou o manguebeat, movimento que misturou maracatu, rock, hip hop e funk. Chico Science morreu em 1997, aos 30 anos, e a Nação Zumbi seguiu com a banda.',
+     9: 'Cantor, compositor e escritor carioca, um dos maiores letristas da música brasileira. Durante a ditadura militar, driblou a censura com canções de duplo sentido. Também é romancista premiado.',
+     10: 'Cantor e compositor norte-americano (1939–1984), um dos grandes nomes da gravadora Motown. Começou com sucessos românticos e, a partir de What\'s Going On, passou a cantar sobre guerra, pobreza e meio ambiente.',
+     11: 'Elis Regina (1945–1982), gaúcha, é considerada por muitos a maior cantora do Brasil. Tom Jobim (1927–1994), carioca, maestro e compositor, foi um dos criadores da bossa nova e é autor de "Garota de Ipanema". Os dois gravaram juntos em Los Angeles, em 1974.',
+     12: 'Grupo de rap da zona sul de São Paulo formado em 1988 por Mano Brown, Ice Blue, Edi Rock e KL Jay. Com letras sobre a vida na periferia, o racismo e a violência, é o grupo mais influente do rap brasileiro.',
+     13: 'Saxofonista e compositor norte-americano (1926–1967). Tocou com Miles Davis e Thelonious Monk antes de liderar o próprio quarteto, levando o jazz para caminhos cada vez mais livres e espirituais.',
+     14: 'Banda paulistana formada por Rita Lee e pelos irmãos Arnaldo Baptista e Sérgio Dias. Ligados à Tropicália, misturaram rock psicodélico, humor e música brasileira, e são cultuados até hoje no mundo todo.',
+     15: 'Banda de hard rock formada em Sydney, na Austrália, em 1973 pelos irmãos Malcolm e Angus Young. Conhecida pelos riffs diretos e pelo uniforme escolar de Angus, é uma das bandas de rock que mais venderam discos no mundo.',
+     16: 'Stan Getz (1927–1991), saxofonista norte-americano de som suave, ajudou a levar a bossa nova para os Estados Unidos. João Gilberto (1931–2019), baiano de Juazeiro, criou a batida de violão que define a bossa nova. Com Tom Jobim, gravaram Getz/Gilberto em 1963.',
+   };
+
    function dadosExemplo() {
      return {
        generos: [
@@ -160,7 +183,7 @@
          { id: 12, nome: "Racionais MC's" }, { id: 13, nome: 'John Coltrane' },
          { id: 14, nome: 'Os Mutantes' }, { id: 15, nome: 'AC/DC' },
          { id: 16, nome: 'Stan Getz & João Gilberto' },
-       ],
+       ].map(a => ({ ...a, bio: BIOS_ARTISTAS[a.id] ?? '' })),   // junta o resumo de cada artista
        gravadoras: [
          { id: 1, nome: 'EMI-Odeon' }, { id: 2, nome: 'Som Livre' }, { id: 3, nome: 'Polydor' },
          { id: 4, nome: 'Philips' }, { id: 5, nome: 'Columbia' }, { id: 6, nome: 'Apple' },
@@ -253,6 +276,12 @@
        if (v.observacao === undefined) v.observacao = base.observacao ?? '';
        if (v.destaque === undefined) v.destaque = base.destaque ?? false;
      });
+     // Artistas salvos antes do "Sobre o artista" ganham o resumo de exemplo (se for o mesmo artista)
+     const artistasExemplo = dadosExemplo().artistas;
+     b.artistas.forEach(a => {
+       const base = artistasExemplo.find(e => e.id === a.id && e.nome === a.nome);
+       if (a.bio === undefined && base?.bio) a.bio = base.bio;
+     });
      return b;
    }
    banco = completarCampos(banco);
@@ -302,7 +331,7 @@
      renderDestaque();
      renderSacola();
      if (viewAtual === 'disco') renderRelacionados();
-     if (logado && !$('#painel').hidden) renderPainel();
+     if (logado && !$('#pagina-painel').hidden) renderPainel();
    }
    
    /* Aviso rápido na parte de baixo da tela */
@@ -589,9 +618,16 @@
      const observacao = v.observacao?.trim()
        ? ` <strong>Este exemplar:</strong> ${esc(v.observacao)}` : '';
      const sobre = v.descricao?.trim()
-       ? `<section class="produto-bloco"><h2>Sobre o disco</h2>${v.descricao.trim().split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
+       ? `<section class="produto-bloco"><h2>Sobre o álbum</h2>${v.descricao.trim().split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
+     const bio = porId(banco.artistas, v.artistaId)?.bio?.trim();
+     const sobreArtista = bio
+       ? `<section class="produto-bloco"><h2>Sobre o artista</h2>${bio.split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
+     // Faixas: mostra só as primeiras e um "Ver mais" abre o resto (o CSS esconde as outras)
+     const muitas = v.faixas?.length > FAIXAS_VISIVEIS;
+     const verMais = muitas
+       ? `<button class="botao-link ver-faixas" type="button" data-ver-faixas aria-expanded="false" aria-controls="listaFaixas">Ver mais (${v.faixas.length} faixas)</button>` : '';
      const faixas = v.faixas?.length
-       ? `<section class="produto-bloco"><h2>Faixas</h2><ol class="faixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>` : '';
+       ? `<section class="produto-bloco"><h2>Faixas</h2><ol class="faixas${muitas ? ' faixas-recolhidas' : ''}" id="listaFaixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol>${verMais}</section>` : '';
      // Com segunda foto: setas pra trocar entre a capa e ela, e bolinhas mostrando qual está aberta
      const galeria = v.foto2 && !capasQuebradas.has(v.foto2) ? `
        <div class="galeria-controles">
@@ -639,18 +675,25 @@
 
          <div class="produto-info">
            ${faixas}
-           ${sobre}
          </div>
 
          <aside class="produto-lateral">
            <div class="produto-compra" id="produtoCompra"></div>
            <p class="produto-garantia">${ICONE_DIAMANTE}<span>Todo disco da Roll Diamonds tem o estado da capa e do vinil descrito sem enrolação. Se chegar diferente do que está aqui, a gente troca.</span></p>
-           <section class="produto-relacionados" id="relacionados" aria-labelledby="tituloRelacionados">
-             <h2 id="tituloRelacionados">Compre também</h2>
-             <ul class="mini-lista" id="listaRelacionados"></ul>
-           </section>
          </aside>
-       </div>`;
+
+         <!-- Ao lado da capa, embaixo das faixas e da compra -->
+         <div class="produto-textos">
+           ${sobre}
+           ${sobreArtista}
+         </div>
+       </div>
+
+       <!-- Embaixo, na largura toda: sugestões lado a lado -->
+       <section class="produto-relacionados produto-largo" id="relacionados" aria-labelledby="tituloRelacionados">
+         <h2 id="tituloRelacionados">Compre também</h2>
+         <ul class="mini-lista" id="listaRelacionados"></ul>
+       </section>`;
 
      renderCompraProduto();
      renderRelacionados();
@@ -975,7 +1018,8 @@
              const usos = banco.vinis.filter(v => v[tipo.campo] === item.id).length;
              return `<li>
                <div class="cresce"><strong>${esc(item.nome)}</strong><span>${usos ? plural(usos, 'disco', 'discos') : 'Nenhum disco'}</span></div>
-               ${usos ? '' : `<button class="botao-link perigo" type="button" data-acao="remover-cadastro" data-tipo="${tipo.chave}" data-id="${item.id}" aria-label="Remover ${esc(item.nome)}">Remover</button>`}
+               ${tipo.chave === 'artistas' ? `<button class="botao-link" type="button" data-acao="editar-artista" data-id="${item.id}" aria-label="Resumo de ${esc(item.nome)}">Resumo</button>` : ''}
+               ${usos ? '' :`<button class="botao-link perigo" type="button" data-acao="remover-cadastro" data-tipo="${tipo.chave}" data-id="${item.id}" aria-label="Remover ${esc(item.nome)}">Remover</button>`}
              </li>`;
            }).join('')}
          </ul>
@@ -1090,6 +1134,27 @@
      $('#modalCliente').close();
      atualizarTudo();
    }
+
+   /* ---------- Resumo do artista ---------- */
+   function abrirModalArtista(id) {
+     const a = porId(banco.artistas, id);
+     if (!a) return;
+     const f = $('#formArtista');
+     f.elements.id.value = a.id;
+     f.elements.bio.value = a.bio ?? '';
+     $('#tituloModalArtista').textContent = `Resumo de ${a.nome}`;
+     $('#modalArtista').showModal();
+   }
+   function salvarArtista(evento) {
+     evento.preventDefault();
+     const f = evento.target;
+     const a = porId(banco.artistas, Number(f.elements.id.value));
+     if (!a) return;
+     a.bio = f.elements.bio.value.trim();
+     $('#modalArtista').close();
+     atualizarTudo();
+     avisar(`Resumo de ${a.nome} salvo.`);
+   }
    
    /* ---------- Pedidos ---------- */
    function abrirItensPedido(id) {
@@ -1171,14 +1236,48 @@
       8. NAVEGAÇÃO (pelo # do endereço)
          #painel    -> painel da loja
          #disco/5   -> página do disco de id 5
+         #faq       -> dúvidas frequentes
+         #mapa-do-site -> mapa do site
          o resto    -> loja (vitrine + catálogo)
       ===================================================================== */
    function rotaAtual() {
      const h = location.hash;
      if (h === '#painel') return { view: 'painel' };
+     if (h === '#faq') return { view: 'faq' };
+     if (h === '#mapa-do-site') return { view: 'mapa' };
      const m = h.match(/^#disco\/(\d+)$/);
      if (m) return { view: 'disco', id: Number(m[1]) };
      return { view: 'loja' };
+   }
+
+   // Mapa do site: montado na hora, pra lista de discos e gêneros acompanhar o painel
+   function renderMapa() {
+     const generos = [...banco.generos].sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+     const discos = [...banco.vinis].sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt-BR'));
+     $('#mapaSite').innerHTML = `
+       <section>
+         <h2>Loja</h2>
+         <ul>
+           <li><a href="#loja">Página inicial</a></li>
+           <li><a href="#catalogo">Catálogo</a></li>
+           <li><button class="botao-link" type="button" data-abrir-sacola>Sacola</button></li>
+         </ul>
+       </section>
+       <section>
+         <h2>Gêneros</h2>
+         <ul>${generos.map(g => `<li><a href="#catalogo" data-filtrar-genero="${g.id}">${esc(g.nome)}</a></li>`).join('')}</ul>
+       </section>
+       <section>
+         <h2>Discos</h2>
+         <ul>${discos.map(v => `<li><a href="#disco/${v.id}">${esc(v.titulo)}</a> <span>${esc(nomeDe(banco.artistas, v.artistaId))}</span></li>`).join('')}</ul>
+       </section>
+       <section>
+         <h2>Ajuda</h2>
+         <ul>
+           <li><a href="#faq">Dúvidas frequentes</a></li>
+           <li><a href="#painel">Painel da loja</a></li>
+         </ul>
+       </section>`;
    }
 
    function mostrarView() {
@@ -1188,8 +1287,10 @@
      viewAtual = rota.view;
 
      $('#loja').hidden = rota.view !== 'loja';
-     $('#painel').hidden = rota.view !== 'painel';
+     $('#pagina-painel').hidden = rota.view !== 'painel';   // o id não é "painel" pra o navegador não rolar até ele ao abrir #painel
      $('#pagina-disco').hidden = rota.view !== 'disco';
+     $('#pagina-faq').hidden = rota.view !== 'faq';
+     $('#pagina-mapa').hidden = rota.view !== 'mapa';
      const ativo = rota.view === 'painel' ? 'painel' : 'loja';
      $$('.nav-link[data-view]').forEach(link => {
        if (link.dataset.view === ativo) link.setAttribute('aria-current', 'page');
@@ -1206,6 +1307,14 @@
        renderProduto(rota.id);
        window.scrollTo(0, 0);
        $('#tituloProduto')?.focus({ preventScroll: true });   // leitor de tela começa pelo nome do disco
+       return;
+     }
+     if (rota.view === 'faq' || rota.view === 'mapa') {
+       const faq = rota.view === 'faq';
+       document.title = `${faq ? 'Dúvidas frequentes' : 'Mapa do site'} | ${TITULO_SITE}`;
+       if (!faq) renderMapa();
+       window.scrollTo(0, 0);
+       $(faq ? '#tituloFaq' : '#tituloMapa').focus({ preventScroll: true });
        return;
      }
 
@@ -1243,6 +1352,17 @@
      // Bolinhas do carrossel
      const ponto = evento.target.closest('[data-destaque]');
      if (ponto) { irParaDestaque(Number(ponto.dataset.destaque)); return; }
+
+     // "Ver mais" das faixas: abre e fecha a lista inteira
+     const verFaixas = evento.target.closest('[data-ver-faixas]');
+     if (verFaixas) {
+       const lista = $('#listaFaixas');
+       const aberta = lista.classList.toggle('faixas-recolhidas') === false;
+       verFaixas.setAttribute('aria-expanded', aberta);
+       verFaixas.textContent = aberta ? 'Ver menos' : `Ver mais (${lista.children.length} faixas)`;
+       if (!aberta) lista.closest('.produto-bloco').scrollIntoView({ block: 'nearest' });   // ao fechar, não deixa a página "pular" pra baixo
+       return;
+     }
 
      // Galeria da página do disco: setas andam uma foto, bolinhas vão direto
      const passoFoto = evento.target.closest('[data-galeria-passo]');
@@ -1315,6 +1435,7 @@
        case 'editar-disco': abrirModalDisco(id); return;
        case 'excluir-disco': excluirDisco(id); return;
        case 'editar-cliente': abrirModalCliente(id); return;
+       case 'editar-artista': abrirModalArtista(id); return;
        case 'excluir-cliente': excluirCliente(id); return;
        case 'ver-itens': abrirItensPedido(id); return;
        case 'remover-cadastro': {
@@ -1393,6 +1514,13 @@
    $('#vitrola').addEventListener('dragstart', e => e.preventDefault());
    // Se arrastou, o clique que vem junto não abre a página do disco
    $('#vitrolaCapa').addEventListener('click', e => { if (arrastou) { e.preventDefault(); arrastou = false; } });
+
+   // Galeria da página do disco pelo teclado: com o foco nas setas ou bolinhas, ← e → trocam a foto
+   $('#produto').addEventListener('keydown', e => {
+     if (!e.target.closest('.galeria-controles')) return;
+     if (e.key === 'ArrowLeft') { e.preventDefault(); mostrarFotoProduto(fotoProduto - 1); }
+     if (e.key === 'ArrowRight') { e.preventDefault(); mostrarFotoProduto(fotoProduto + 1); }
+   });
 
    // Zoom na foto da página do disco.
    // Mouse: passando por cima, a foto aumenta e acompanha o cursor.
@@ -1493,6 +1621,7 @@
    $('#btnNovoCliente').addEventListener('click', () => abrirModalCliente(0));
    $('#formDisco').addEventListener('submit', salvarDisco);
    $('#formCliente').addEventListener('submit', salvarCliente);
+   $('#formArtista').addEventListener('submit', salvarArtista);
    $('#buscaDiscos').addEventListener('input', e => { buscaPainel = e.target.value; renderDiscos(); });
    $('#filtroStatus').addEventListener('change', e => { filtroStatus = e.target.value; renderPedidos(); });
    
@@ -1502,6 +1631,7 @@
       10. INICIALIZAÇÃO
       ===================================================================== */
    aplicarTema(ler(CHAVE_TEMA));
+   $('#anoAtual').textContent = new Date().getFullYear();   // ano dos direitos no rodapé
    atualizarTudo();
    mostrarView();
    // A capa da vitrine aparece logo depois que a página abre
