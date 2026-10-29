@@ -24,10 +24,6 @@
   <!-- Três partes: Painel à esquerda, logo no centro, opções da loja à direita -->
   <div class="topo-interno">
     <nav class="nav nav-esquerda" aria-label="Administração">
-      <a class="nav-link" href="#painel" data-view="painel">
-        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
-        Painel
-      </a>
     </nav>
 
     <a class="marca" href="#loja" aria-label="Roll Diamonds, ir para a loja">
@@ -57,7 +53,7 @@
   <!-- ================= LOJA ================= -->
   <div id="loja" class="view">
 
-    <!-- Vitrine: o letreiro da referência + o disco saindo da capa -->
+    <!-- Vitrine: o letreiro da referência + a capa do disco em destaque -->
     <section class="vitrine" aria-labelledby="tituloLoja">
       <div class="quadro">
         <div class="letreiro">
@@ -86,29 +82,6 @@
         <div class="vitrola-area" id="carrossel" role="region" aria-roledescription="carrossel" aria-label="Discos em destaque">
           <div class="vitrola guardando" id="vitrola">
             <a class="vitrola-capa" id="vitrolaCapa" href="#disco/1" draggable="false"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></a>
-            <div class="vitrola-disco">
-              <!-- O disco é um SVG: sulcos desenhados pelo JavaScript e o rótulo com o logo -->
-              <svg class="bolacha" viewBox="0 0 400 400" aria-hidden="true">
-                <defs>
-                  <radialGradient id="gradVinil" cx="50%" cy="50%" r="50%">
-                    <stop offset=".35" stop-color="#17110d"/>
-                    <stop offset="1" stop-color="#0b0806"/>
-                  </radialGradient>
-                  <path id="aroRotulo" d="M200,200 m-57,0 a57,57 0 1,1 114,0 a57,57 0 1,1 -114,0"/>
-                </defs>
-                <circle cx="200" cy="200" r="199" fill="url(#gradVinil)"/>
-                <circle cx="200" cy="200" r="196" fill="none" stroke="rgba(240,221,179,.14)" stroke-width="1.5"/>
-                <g id="sulcos"></g>
-                <circle cx="200" cy="200" r="70" fill="#efdcb4"/>
-                <circle cx="200" cy="200" r="66.5" fill="none" stroke="#b99155" stroke-width="1.2"/>
-                <circle cx="200" cy="200" r="47" fill="none" stroke="#b99155" stroke-width=".9"/>
-                <text fill="#2a1b11" font-size="8.6" font-weight="700" font-family="Alegreya Sans SC, Alegreya Sans, sans-serif">
-                  <textPath href="#aroRotulo" textLength="352" lengthAdjust="spacing">Roll Diamonds ◆ discos de vinil ◆ 33⅓ rpm ◆ lado A ◆</textPath>
-                </text>
-                <image href="img/logo-verde.png" x="170" y="171.3" width="60" height="57.4"/>
-              </svg>
-              <div class="vitrola-brilho"></div>
-            </div>
           </div>
           <div class="carrossel-controles" id="controlesCarrossel">
             <button class="seta" type="button" id="btnAnterior" aria-label="Disco anterior">
@@ -118,7 +91,6 @@
             <button class="seta" type="button" id="btnProximo" aria-label="Próximo disco">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <button class="botao-giro" type="button" id="btnGiro">Pausar o disco</button>
           </div>
           <p class="sr" id="avisoDestaque" aria-live="polite"></p>
         </div>
@@ -165,10 +137,6 @@
       <!-- Preenchido pelo JavaScript com os dados do disco escolhido -->
       <article class="produto" id="produto" aria-labelledby="tituloProduto"></article>
     </div>
-    <section class="secao relacionados" id="relacionados" aria-labelledby="tituloRelacionados">
-      <h2 class="titulo-secao" id="tituloRelacionados">Você também pode gostar</h2>
-      <div class="grade" id="gradeRelacionados"></div>
-    </section>
   </div>
 
   <!-- ================= PAINEL ================= -->
@@ -367,6 +335,10 @@
           <input id="discoAno" name="ano" type="number" min="1900" max="2100" required>
         </div>
       </div>
+      <div class="campo">
+        <label for="discoPais">País de origem</label>
+        <input id="discoPais" name="pais" maxlength="60" placeholder="Ex.: Brasil" autocomplete="off">
+      </div>
       <div class="campos-2">
         <div class="campo">
           <label for="discoCondicao">Estado</label>
@@ -396,8 +368,8 @@
         <textarea id="discoDescricao" name="descricao" rows="4" maxlength="1200" placeholder="Conte em poucas linhas por que esse disco vale a pena."></textarea>
       </div>
       <div class="campo">
-        <label for="discoFaixas">Faixas em destaque</label>
-        <textarea id="discoFaixas" name="faixas" rows="4" maxlength="800" placeholder="Uma faixa por linha"></textarea>
+        <label for="discoFaixas">Faixas</label>
+        <textarea id="discoFaixas" name="faixas" rows="6" maxlength="2000" placeholder="Uma faixa por linha"></textarea>
       </div>
       <div class="campo">
         <label for="discoObservacao">Estado deste exemplar</label>

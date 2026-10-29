@@ -56,27 +56,27 @@
    /* Textos da página de cada disco (colunas novas da tabela vinil):
       destaque   -> aparece no carrossel da página inicial
       descricao  -> "Sobre o disco"
-      faixas     -> "Faixas em destaque"
+      faixas     -> lista completa de faixas do disco
       observacao -> estado deste exemplar (mais útil nos usados) */
    const TEXTOS_DISCOS = {
      1: {
        destaque: true,
        descricao: 'Disco duplo que juntou Milton Nascimento, o jovem Lô Borges e a turma de músicos mineiros que ficou conhecida como Clube da Esquina. Mistura MPB, rock, jazz e a música de Minas Gerais, e aparece no topo de quase toda lista de maiores discos brasileiros.',
-       faixas: ['Tudo Que Você Podia Ser', 'Cais', 'O Trem Azul', 'Clube da Esquina nº 2', 'Nada Será Como Antes'],
+       faixas: ['Tudo Que Você Podia Ser', 'Cais', 'O Trem Azul', 'Saídas e Bandeiras nº 1', 'Nuvem Cigana', 'Cravo e Canela', 'Dos Cruces', 'Um Girassol da Cor de Seu Cabelo', 'San Vicente', 'Estrelas', 'Clube da Esquina nº 2', 'Paisagem da Janela', 'Me Deixa em Paz', 'Os Povos', 'Saídas e Bandeiras nº 2', 'Um Gosto de Sol', 'Pelo Amor de Deus', 'Lilia', 'Trem de Doido', 'Nada Será Como Antes', 'Ao Que Vai Nascer'],
        observacao: 'Capa dupla com desgaste leve nas bordas. Os dois discos foram limpos e tocam sem pulos.',
      },
      2: {
        destaque: true,
        descricao: 'Segundo disco dos Novos Baianos, gravado depois que João Gilberto passou a visitar a banda e mostrou a eles o samba e o choro. O resultado junta guitarra elétrica com cavaquinho e pandeiro. Em 2007, a Rolling Stone Brasil o elegeu o maior disco da música brasileira.',
-       faixas: ['Brasil Pandeiro', 'Preta Pretinha', 'Besta É Tu', 'A Menina Dança', 'Mistério do Planeta'],
+       faixas: ['Brasil Pandeiro', 'Preta Pretinha', 'Tinindo Trincando', 'Swing de Campo Grande', 'Acabou Chorare', 'Mistério do Planeta', 'A Menina Dança', 'Besta É Tu', 'Um Bilhete pra Didi', 'Preta Pretinha (reprise)'],
      },
      3: {
        descricao: 'Segundo disco de Tim Maia, lançado um ano depois da estreia, misturando soul e funk americanos com samba e baião. Daqui saíram os sucessos “Não Quero Dinheiro (Só Quero Amar)” e “Preciso Aprender a Ser Só”.',
-       faixas: ['A Festa do Santo Reis', 'Não Quero Dinheiro (Só Quero Amar)', 'Não Vou Ficar', 'Você', 'Preciso Aprender a Ser Só'],
+       faixas: ['A Festa do Santo Reis', 'Não Quero Dinheiro (Só Quero Amar)', 'Salve Nossa Senhora', 'Um Dia Eu Chego Lá', 'Não Vou Ficar', 'Broken Heart', 'Você', 'Preciso Aprender a Ser Só', 'I Don’t Know What to Do with Myself', 'É por Você Que Vivo', 'Meu País', 'I Don’t Care'],
      },
      4: {
        descricao: 'Jorge Ben mergulhado na alquimia: a capa reproduz gravuras atribuídas a Nicolas Flamel, e as letras falam de alquimistas, de Hermes Trismegisto e de Zumbi. Violão suingado, samba e soul em um dos discos mais celebrados da carreira dele.',
-       faixas: ['Os Alquimistas Estão Chegando os Alquimistas', 'O Homem da Gravata Florida', 'Errare Humanum Est', 'Menina Mulher da Pele Preta', 'Zumbi'],
+       faixas: ['Os Alquimistas Estão Chegando os Alquimistas', 'O Homem da Gravata Florida', 'Errare Humanum Est', 'Menina Mulher da Pele Preta', 'Eu Vou Torcer', 'Magnólia', 'Minha Teimosia, Uma Arma pra Te Conquistar', 'Zumbi', 'Brother', 'O Namorado da Viúva', 'Hermes Trismegisto e Sua Celeste Tábua de Esmeralda', 'Cinco Minutos'],
        observacao: 'Capa com marcas leves de manuseio. Disco sem riscos, com chiado mínimo entre as faixas.',
      },
      5: {
@@ -87,40 +87,40 @@
      6: {
        destaque: true,
        descricao: 'O último disco que os Beatles gravaram juntos. O lado B emenda pequenas canções num medley que termina em “The End”, e a foto dos quatro atravessando a faixa de pedestres virou uma das capas mais imitadas do mundo.',
-       faixas: ['Come Together', 'Something', 'Here Comes the Sun', 'Octopus’s Garden', 'The End'],
+       faixas: ['Come Together', 'Something', 'Maxwell’s Silver Hammer', 'Oh! Darling', 'Octopus’s Garden', 'I Want You (She’s So Heavy)', 'Here Comes the Sun', 'Because', 'You Never Give Me Your Money', 'Sun King', 'Mean Mr. Mustard', 'Polythene Pam', 'She Came In Through the Bathroom Window', 'Golden Slumbers', 'Carry That Weight', 'The End', 'Her Majesty'],
      },
      7: {
        descricao: 'Gravado enquanto os dois casais da banda se separavam, e as letras contam exatamente isso. Virou um dos discos mais vendidos de todos os tempos.',
-       faixas: ['Dreams', 'Go Your Own Way', 'Don’t Stop', 'The Chain', 'Songbird'],
+       faixas: ['Second Hand News', 'Dreams', 'Never Going Back Again', 'Don’t Stop', 'Go Your Own Way', 'Songbird', 'The Chain', 'You Make Loving Fun', 'I Don’t Want to Know', 'Oh Daddy', 'Gold Dust Woman'],
        observacao: 'Capa com leve amarelado do tempo. Disco limpo, toca sem pulos.',
      },
      8: {
        descricao: 'Estreia de Chico Science & Nação Zumbi e marco do manguebeat, o movimento que saiu do Recife nos anos 1990 misturando maracatu com hip hop, funk e guitarra pesada.',
-       faixas: ['A Praieira', 'Da Lama ao Caos', 'Rios, Pontes & Overdrives', 'Maracatu de Tiro Certeiro', 'A Cidade'],
+       faixas: ['Monólogo ao Pé do Ouvido', 'Banditismo por Uma Questão de Classe', 'Rios, Pontes & Overdrives', 'A Cidade', 'A Praieira', 'Samba Makossa', 'Da Lama ao Caos', 'Maracatu de Tiro Certeiro', 'Salustiano Song', 'Antene-se', 'Risoflora', 'Lixo do Mangue', 'Computadores Fazem Arte', 'Côco Dub (Afrociberdelia)'],
      },
      9: {
        descricao: 'Chico Buarque em 1971, em plena ditadura, falando do país nas entrelinhas. A faixa-título narra o último dia de um operário em versos que terminam sempre em palavras proparoxítonas, com arranjo de orquestra de Rogério Duprat.',
-       faixas: ['Construção', 'Deus Lhe Pague', 'Cotidiano', 'Samba de Orly', 'Cordão'],
+       faixas: ['Deus Lhe Pague', 'Cotidiano', 'Desalento', 'Construção', 'Cordão', 'Olha Maria (Amparo)', 'Samba de Orly', 'Valsinha', 'Minha História', 'Acalanto'],
        observacao: 'Pequena marca de etiqueta antiga no verso da capa. Disco em ótimo estado.',
      },
      10: {
        descricao: 'Gravado quando Tim Maia entrou para a seita Universo em Desencanto e lançado pelo selo dele, o Seroma. Tim renegou o disco anos depois, mas o soul e o funk dessa fase estão entre os melhores da carreira, e as cópias viraram item de colecionador.',
-       faixas: ['Imunização Racional (Que Beleza)', 'Bom Senso', 'Contato com o Mundo Racional'],
+       faixas: ['Imunização Racional (Que Beleza)', 'O Grão Mestre Varonil', 'Bom Senso', 'Energia Racional', 'Leia o Livro Universo em Desencanto', 'Contato com o Mundo Racional', 'Universo em Desencanto', 'You Don’t Know What I Know', 'Rational Culture'],
        observacao: 'Capa com amarelado natural do tempo. Disco revisado, com chiado leve no lado B.',
      },
      11: {
        destaque: true,
        descricao: 'Marvin Gaye trocou as canções de amor da Motown por um disco inteiro sobre guerra, pobreza e meio ambiente, contado pelo olhar de um veterano que volta do Vietnã. As faixas emendam umas nas outras como uma suíte.',
-       faixas: ['What’s Going On', 'What’s Happening Brother', 'Mercy Mercy Me (The Ecology)', 'Inner City Blues (Make Me Wanna Holler)'],
+       faixas: ['What’s Going On', 'What’s Happening Brother', 'Flyin’ High (In the Friendly Sky)', 'Save the Children', 'God Is Love', 'Mercy Mercy Me (The Ecology)', 'Right On', 'Wholy Holy', 'Inner City Blues (Make Me Wanna Holler)'],
      },
      12: {
        descricao: 'Elis Regina e Tom Jobim gravaram juntos em Los Angeles, em 1974, com arranjos de César Camargo Mariano. Tem o dueto definitivo de “Águas de Março”.',
-       faixas: ['Águas de Março', 'Só Tinha de Ser com Você', 'Corcovado', 'Inútil Paisagem', 'Chovendo na Roseira'],
+       faixas: ['Águas de Março', 'Pois É', 'Só Tinha de Ser com Você', 'Modinha', 'Triste', 'Corcovado', 'O Que Tinha de Ser', 'Retrato em Branco e Preto', 'Brigas, Nunca Mais', 'Por Toda a Minha Vida', 'Fotografia', 'Soneto de Separação', 'Chovendo na Roseira', 'Inútil Paisagem'],
      },
      13: {
        destaque: true,
        descricao: 'O disco que levou o rap dos Racionais MC’s para o Brasil inteiro, vendendo mais de um milhão de cópias por um selo independente. Anos depois, entrou na lista de leituras obrigatórias do vestibular da Unicamp.',
-       faixas: ['Diário de um Detento', 'Capítulo 4, Versículo 3', 'Fórmula Mágica da Paz', 'Jorge da Capadócia', 'Mágico de Oz'],
+       faixas: ['Jorge da Capadócia', 'Gênesis', 'Capítulo 4, Versículo 3', 'Tô Ouvindo Alguém Me Chamar', 'Rapaz Comum', '...', 'Diário de um Detento', 'Periferia É Periferia', 'Qual Mentira Vou Acreditar', 'Mágico de Oz', 'Fórmula Mágica da Paz', 'Salve'],
      },
      14: {
        descricao: 'Suíte em quatro partes que John Coltrane compôs como uma oração de agradecimento. Foi gravada numa única sessão, em dezembro de 1964, com McCoy Tyner, Jimmy Garrison e Elvin Jones.',
@@ -128,16 +128,16 @@
      },
      15: {
        descricao: 'Estreia de Rita Lee, Arnaldo Baptista e Sérgio Dias, a cara psicodélica da Tropicália. Guitarras com efeitos caseiros, humor e arranjos de Rogério Duprat.',
-       faixas: ['Panis et Circenses', 'A Minha Menina', 'Baby', 'Bat Macumba'],
+       faixas: ['Panis et Circenses', 'A Minha Menina', 'O Relógio', 'Maria Fulô', 'Baby', 'Senhor F', 'Bat Macumba', 'Le Premier Bonheur du Jour', 'Trem Fantasma', 'Tempo no Tempo', 'Ave Gengis Khan'],
        observacao: 'Capa com desgaste nas pontas. Disco revisado, toca sem pulos.',
      },
      16: {
        descricao: 'Primeiro disco do AC/DC com Brian Johnson, gravado meses depois da morte de Bon Scott. O disco inteiro foi pensado como homenagem a ele, a começar pela capa toda preta. Está entre os discos mais vendidos da história.',
-       faixas: ['Hells Bells', 'Shoot to Thrill', 'Back in Black', 'You Shook Me All Night Long'],
+       faixas: ['Hells Bells', 'Shoot to Thrill', 'What Do You Do for Money Honey', 'Given the Dog a Bone', 'Let Me Put My Love into You', 'Back in Black', 'You Shook Me All Night Long', 'Have a Drink on Me', 'Shake a Leg', 'Rock and Roll Ain’t Noise Pollution'],
      },
      17: {
        descricao: 'O encontro do saxofone de Stan Getz com a voz e o violão de João Gilberto, com Tom Jobim no piano, que levou a bossa nova para o mundo. Ganhou o Grammy de álbum do ano.',
-       faixas: ['The Girl from Ipanema', 'Doralice', 'Corcovado', 'Desafinado', 'Só Danço Samba'],
+       faixas: ['The Girl from Ipanema', 'Doralice', 'Para Machucar Meu Coração', 'Desafinado', 'Corcovado', 'Só Danço Samba', 'O Grande Amor', 'Vivo Sonhando'],
        observacao: 'Capa bem conservada. Disco com chiado leve, típico de vinil antigo.',
      },
    };
@@ -166,23 +166,23 @@
          { id: 13, nome: 'Atlantic' }, { id: 14, nome: 'Verve' },
        ],
        vinis: [
-        { id: 1,  titulo: 'Clube da Esquina',        artistaId: 1,  generoId: 1, gravadoraId: 1,  ano: 1972, preco: 289.90, condicao: 'Usado', capa: 'img/capas/clube_da_esquina.jpg' },
-        { id: 2,  titulo: 'Acabou Chorare',          artistaId: 2,  generoId: 1, gravadoraId: 2,  ano: 1972, preco: 249.90, condicao: 'Novo',  capa: 'img/capas/acabou-chorare.jpg' },
-        { id: 3,  titulo: 'Tim Maia',                artistaId: 3,  generoId: 4, gravadoraId: 3,  ano: 1971, preco: 199.90, condicao: 'Novo',  capa: 'img/capas/tim-maia-1971.jpg' },
-        { id: 4,  titulo: 'A Tábua de Esmeralda',    artistaId: 4,  generoId: 1, gravadoraId: 4,  ano: 1974, preco: 229.90, condicao: 'Usado', capa: 'img/capas/tabua-de-esmeralda.jpg' },
-        { id: 5,  titulo: 'Kind of Blue',            artistaId: 5,  generoId: 3, gravadoraId: 5,  ano: 1959, preco: 219.90, condicao: 'Novo',  capa: 'img/capas/kind-of-blue.jpg' },
-        { id: 6,  titulo: 'Abbey Road',              artistaId: 6,  generoId: 2, gravadoraId: 6,  ano: 1969, preco: 329.90, condicao: 'Novo',  capa: 'img/capas/abbey-road.jpg' },
-        { id: 7,  titulo: 'Rumours',                 artistaId: 7,  generoId: 2, gravadoraId: 7,  ano: 1977, preco: 279.90, condicao: 'Usado', capa: 'img/capas/rumours.jpg' },
-        { id: 8,  titulo: 'Da Lama ao Caos',         artistaId: 8,  generoId: 2, gravadoraId: 8,  ano: 1994, preco: 239.90, condicao: 'Novo',  capa: 'img/capas/da-lama-ao-caos.jpg' },
-        { id: 9,  titulo: 'Construção',              artistaId: 9,  generoId: 1, gravadoraId: 4,  ano: 1971, preco: 269.90, condicao: 'Usado', capa: 'img/capas/construcao.jpg' },
-        { id: 10, titulo: 'Racional Vol. 1',         artistaId: 3,  generoId: 4, gravadoraId: 9,  ano: 1975, preco: 349.90, condicao: 'Usado', capa: 'img/capas/racional-vol1.jpg' },
-        { id: 11, titulo: "What's Going On",         artistaId: 10, generoId: 4, gravadoraId: 10, ano: 1971, preco: 239.90, condicao: 'Novo',  capa: 'img/capas/whats-going-on.jpg' },
-        { id: 12, titulo: 'Elis & Tom',              artistaId: 11, generoId: 5, gravadoraId: 4,  ano: 1974, preco: 259.90, condicao: 'Novo',  capa: 'img/capas/elis-e-tom.jpg' },
-        { id: 13, titulo: 'Sobrevivendo no Inferno', artistaId: 12, generoId: 6, gravadoraId: 11, ano: 1997, preco: 279.90, condicao: 'Novo',  capa: 'img/capas/sobrevivendo-no-inferno.jpg' },
-        { id: 14, titulo: 'A Love Supreme',          artistaId: 13, generoId: 3, gravadoraId: 12, ano: 1965, preco: 189.90, condicao: 'Novo',  capa: 'img/capas/a-love-supreme.jpg' },
-        { id: 15, titulo: 'Os Mutantes',             artistaId: 14, generoId: 2, gravadoraId: 3,  ano: 1968, preco: 299.90, condicao: 'Usado', capa: 'img/capas/os-mutantes.jpg' },
-        { id: 16, titulo: 'Back in Black',           artistaId: 15, generoId: 2, gravadoraId: 13, ano: 1980, preco: 259.90, condicao: 'Novo',  capa: 'img/capas/back-in-black.jpg' },
-        { id: 17, titulo: 'Getz/Gilberto',           artistaId: 16, generoId: 5, gravadoraId: 14, ano: 1964, preco: 239.90, condicao: 'Usado', capa: 'img/capas/getz-gilberto.jpg' },
+        { id: 1,  titulo: 'Clube da Esquina',        artistaId: 1,  generoId: 1, gravadoraId: 1,  ano: 1972, pais: 'Brasil', preco: 289.90, condicao: 'Usado', capa: 'img/capas/clube-da-esquina.jpg' },
+        { id: 2,  titulo: 'Acabou Chorare',          artistaId: 2,  generoId: 1, gravadoraId: 2,  ano: 1972, pais: 'Brasil', preco: 249.90, condicao: 'Novo',  capa: 'img/capas/acabou-chorare.jpg' },
+        { id: 3,  titulo: 'Tim Maia',                artistaId: 3,  generoId: 4, gravadoraId: 3,  ano: 1971, pais: 'Brasil', preco: 199.90, condicao: 'Novo',  capa: 'img/capas/tim-maia-1971.jpg' },
+        { id: 4,  titulo: 'A Tábua de Esmeralda',    artistaId: 4,  generoId: 1, gravadoraId: 4,  ano: 1974, pais: 'Brasil', preco: 229.90, condicao: 'Usado', capa: 'img/capas/tabua-de-esmeralda.jpg' },
+        { id: 5,  titulo: 'Kind of Blue',            artistaId: 5,  generoId: 3, gravadoraId: 5,  ano: 1959, pais: 'EUA', preco: 219.90, condicao: 'Novo',  capa: 'img/capas/kind-of-blue.jpg' },
+        { id: 6,  titulo: 'Abbey Road',              artistaId: 6,  generoId: 2, gravadoraId: 6,  ano: 1969, pais: 'Reino Unido', preco: 329.90, condicao: 'Novo',  capa: 'img/capas/abbey-road.jpg' },
+        { id: 7,  titulo: 'Rumours',                 artistaId: 7,  generoId: 2, gravadoraId: 7,  ano: 1977, pais: 'EUA', preco: 279.90, condicao: 'Usado', capa: 'img/capas/rumours.jpg' },
+        { id: 8,  titulo: 'Da Lama ao Caos',         artistaId: 8,  generoId: 2, gravadoraId: 8,  ano: 1994, pais: 'Brasil', preco: 239.90, condicao: 'Novo',  capa: 'img/capas/da-lama-ao-caos.jpg' },
+        { id: 9,  titulo: 'Construção',              artistaId: 9,  generoId: 1, gravadoraId: 4,  ano: 1971, pais: 'Brasil', preco: 269.90, condicao: 'Usado', capa: 'img/capas/construcao.jpg' },
+        { id: 10, titulo: 'Racional Vol. 1',         artistaId: 3,  generoId: 4, gravadoraId: 9,  ano: 1975, pais: 'Brasil', preco: 349.90, condicao: 'Usado', capa: 'img/capas/racional-vol1.jpg' },
+        { id: 11, titulo: "What's Going On",         artistaId: 10, generoId: 4, gravadoraId: 10, ano: 1971, pais: 'EUA', preco: 239.90, condicao: 'Novo',  capa: 'img/capas/whats-going-on.jpg' },
+        { id: 12, titulo: 'Elis & Tom',              artistaId: 11, generoId: 5, gravadoraId: 4,  ano: 1974, pais: 'Brasil', preco: 259.90, condicao: 'Novo',  capa: 'img/capas/elis-e-tom.jpg' },
+        { id: 13, titulo: 'Sobrevivendo no Inferno', artistaId: 12, generoId: 6, gravadoraId: 11, ano: 1997, pais: 'Brasil', preco: 279.90, condicao: 'Novo',  capa: 'img/capas/sobrevivendo-no-inferno.jpg' },
+        { id: 14, titulo: 'A Love Supreme',          artistaId: 13, generoId: 3, gravadoraId: 12, ano: 1965, pais: 'EUA', preco: 189.90, condicao: 'Novo',  capa: 'img/capas/a-love-supreme.jpg' },
+        { id: 15, titulo: 'Os Mutantes',             artistaId: 14, generoId: 2, gravadoraId: 3,  ano: 1968, pais: 'Brasil', preco: 299.90, condicao: 'Usado', capa: 'img/capas/os-mutantes.jpg' },
+        { id: 16, titulo: 'Back in Black',           artistaId: 15, generoId: 2, gravadoraId: 13, ano: 1980, pais: 'Austrália', preco: 259.90, condicao: 'Novo',  capa: 'img/capas/back-in-black.jpg' },
+        { id: 17, titulo: 'Getz/Gilberto',           artistaId: 16, generoId: 5, gravadoraId: 14, ano: 1964, pais: 'EUA', preco: 239.90, condicao: 'Usado', capa: 'img/capas/getz-gilberto.jpg' },
       ].map(v => ({ ...v, destaque: false, descricao: '', faixas: [], observacao: '', ...TEXTOS_DISCOS[v.id] })), // junta os textos da página de cada disco
        estoque: [
          { vinilId: 1, quantidade: 2 }, { vinilId: 2, quantidade: 4 }, { vinilId: 3, quantidade: 3 },
@@ -236,8 +236,12 @@
      b.vinis.forEach(v => {
        const base = exemplo.find(e => e.id === v.id && e.titulo === v.titulo) || {};
        if (v.capa === undefined) v.capa = base.capa ?? '';
+       if (v.pais === undefined) v.pais = base.pais ?? '';
        if (v.descricao === undefined) v.descricao = base.descricao ?? '';
        if (!Array.isArray(v.faixas)) v.faixas = base.faixas ?? [];
+       // Versões antigas só tinham as faixas em destaque: troca pela lista completa
+       // (só se ninguém mexeu nelas pelo painel, ou seja, se todas estão na lista nova)
+       else if (base.faixas && v.faixas.length < base.faixas.length && v.faixas.every(f => base.faixas.includes(f))) v.faixas = base.faixas;
        if (v.observacao === undefined) v.observacao = base.observacao ?? '';
        if (v.destaque === undefined) v.destaque = base.destaque ?? false;
      });
@@ -486,7 +490,7 @@
      ).join('');
    }
 
-   // Troca o disco do carrossel: o disco volta pra capa, troca, e sai de novo
+   // Troca o disco do carrossel: a capa some, troca, e aparece de novo
    let timerTroca;
    function irParaDestaque(indice) {
      const lista = listaDestaques();
@@ -509,17 +513,6 @@
      }, 300);
    }
    
-   /* Sulcos do disco da vitrine (círculos finos + 3 separações de faixa) */
-   function desenharSulcos() {
-     let html = '';
-     for (let r = 76; r <= 192; r += 2.4) {
-       const separacao = [104, 138, 168].some(x => Math.abs(r - x) < 1.3);
-       const cor = separacao ? 'rgba(240,221,179,.11)' : 'rgba(240,221,179,.035)';
-       html += `<circle cx="200" cy="200" r="${r.toFixed(1)}" fill="none" stroke="${cor}" stroke-width="${separacao ? 1.8 : 1}"/>`;
-     }
-     $('#sulcos').innerHTML = html;
-   }
-   
    /* =====================================================================
       5b. PÁGINA DE CADA DISCO (endereço #disco/ID)
       ===================================================================== */
@@ -539,7 +532,6 @@
            <p>Esse disco saiu do catálogo ou o endereço está errado.</p>
            <a class="botao botao-contorno" href="#catalogo">Ver o catálogo</a>
          </div>`;
-       $('#relacionados').hidden = true;
        return;
      }
 
@@ -555,55 +547,54 @@
 
      const usado = v.condicao === 'Usado';
      const estado = usado
-       ? `Usado<span>Limpo e ouvido no lado A e no lado B antes de ir pra prateleira.</span>`
-       : `Novo<span>Lacrado de fábrica.</span>`;
+       ? 'Limpo e ouvido no lado A e no lado B antes de ir pra prateleira.'
+       : 'Lacrado de fábrica.';
      const observacao = v.observacao?.trim()
-       ? `<dt>Este exemplar</dt><dd>${esc(v.observacao)}</dd>` : '';
+       ? ` <strong>Este exemplar:</strong> ${esc(v.observacao)}` : '';
      const sobre = v.descricao?.trim()
        ? `<section class="produto-bloco"><h2>Sobre o disco</h2>${v.descricao.trim().split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
      const faixas = v.faixas?.length
-       ? `<section class="produto-bloco"><h2>Faixas em destaque</h2><ol class="faixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>` : '';
+       ? `<section class="produto-bloco"><h2>Faixas</h2><ol class="faixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>` : '';
 
      caixa.className = `produto${qtdEstoque(v.id) === 0 ? ' produto-esgotado' : ''}`;
      caixa.innerHTML = `
-       <div class="produto-vitrine" style="${coresCapa(v)}">
-         <div class="produto-vitrola">
-           <div class="produto-capa">${capaHTML(v)}</div>
-           <div class="produto-disco" aria-hidden="true"><div class="produto-bolacha"></div></div>
-         </div>
-       </div>
+       <header class="produto-cabeca">
+         <p class="produto-artista">${esc(artista)}</p>
+         <h1 class="produto-titulo" id="tituloProduto" tabindex="-1">${esc(v.titulo)}</h1>
+         <p class="produto-etiquetas">
+           <span class="etiqueta">${esc(genero)}</span>
+           <span class="etiqueta${usado ? '' : ' etiqueta-novo'}">${v.condicao}</span>
+           ${v.destaque ? '<span class="etiqueta etiqueta-destaque">Destaque da loja</span>' : ''}
+         </p>
+       </header>
 
-       <div class="produto-info">
-         <header>
-           <p class="produto-etiquetas">
-             <span class="etiqueta">${esc(genero)}</span>
-             <span class="etiqueta${usado ? '' : ' etiqueta-novo'}">${v.condicao}</span>
-             ${v.destaque ? '<span class="etiqueta etiqueta-destaque">Destaque da loja</span>' : ''}
-           </p>
-           <h1 class="produto-titulo" id="tituloProduto" tabindex="-1">${esc(v.titulo)}</h1>
-           <p class="produto-artista">${esc(artista)}</p>
-           <p class="produto-sub">${v.ano}, ${esc(gravadora)}</p>
-         </header>
-
-         <div class="produto-compra" id="produtoCompra"></div>
-
-         ${sobre}
-         ${faixas}
-
-         <section class="produto-bloco">
-           <h2>Ficha do disco</h2>
+       <div class="produto-grade">
+         <div class="produto-midia">
+           <div class="produto-capa" style="${coresCapa(v)}">${capaHTML(v)}</div>
            <dl class="ficha">
-             <dt>Artista</dt><dd>${esc(artista)}</dd>
-             <dt>Lançamento</dt><dd>${v.ano}</dd>
-             <dt>Gravadora</dt><dd>${esc(gravadora)}</dd>
-             <dt>Gênero</dt><dd>${esc(genero)}</dd>
-             <dt>Formato</dt><dd>Vinil 12", 33⅓ rpm</dd>
-             <dt>Estado</dt><dd>${estado}</dd>
-             ${observacao}
+             <div><dt>Ano</dt><dd>${v.ano}</dd></div>
+             <div><dt>País</dt><dd>${esc(v.pais || 'Não informado')}</dd></div>
+             <div><dt>Gravadora</dt><dd>${esc(gravadora)}</dd></div>
+             <div><dt>Gênero</dt><dd>${esc(genero)}</dd></div>
+             <div><dt>Formato</dt><dd>Vinil 12", 33⅓ rpm</dd></div>
+             <div><dt>Estado</dt><dd>${v.condicao}</dd></div>
            </dl>
-         </section>
+           <p class="ficha-nota">${estado}${observacao}</p>
+         </div>
 
-         <p class="produto-garantia">${ICONE_DIAMANTE}<span>Todo disco da Roll Diamonds tem o estado da capa e do vinil descrito sem enrolação. Se chegar diferente do que está aqui, a gente troca.</span></p>
+         <div class="produto-info">
+           ${faixas}
+           ${sobre}
+         </div>
+
+         <aside class="produto-lateral">
+           <div class="produto-compra" id="produtoCompra"></div>
+           <p class="produto-garantia">${ICONE_DIAMANTE}<span>Todo disco da Roll Diamonds tem o estado da capa e do vinil descrito sem enrolação. Se chegar diferente do que está aqui, a gente troca.</span></p>
+           <section class="produto-relacionados" id="relacionados" aria-labelledby="tituloRelacionados">
+             <h2 id="tituloRelacionados">Compre também</h2>
+             <ul class="mini-lista" id="listaRelacionados"></ul>
+           </section>
+         </aside>
        </div>`;
 
      renderCompraProduto();
@@ -639,18 +630,34 @@
        <div class="produto-botoes">${botao}${aviso}</div>`;
    }
 
-   // "Você também pode gostar": primeiro do mesmo artista, depois do mesmo gênero, depois o resto
+   // "Compre também": primeiro do mesmo artista, depois do mesmo gênero, depois o resto
    function renderRelacionados() {
      const v = porId(banco.vinis, discoAberto);
      const secao = $('#relacionados');
-     if (!v) { secao.hidden = true; return; }
+     if (!v || !secao) return;
      const pontos = d => (d.artistaId === v.artistaId ? 2 : 0) + (d.generoId === v.generoId ? 1 : 0);
      const lista = banco.vinis
        .filter(d => d.id !== v.id)
        .sort((a, b) => pontos(b) - pontos(a) || a.id - b.id)
-       .slice(0, 4);
+       .slice(0, 3);
      secao.hidden = !lista.length;
-     $('#gradeRelacionados').innerHTML = lista.map(cardHTML).join('');
+     $('#listaRelacionados').innerHTML = lista.map(miniDiscoHTML).join('');
+   }
+
+   function miniDiscoHTML(d) {
+     const esgotado = qtdEstoque(d.id) === 0;
+     return `
+       <li class="mini-disco">
+         <a class="mini-capa" href="#disco/${d.id}" style="${coresCapa(d)}" tabindex="-1" aria-hidden="true">${capaHTML(d, true)}</a>
+         <div class="mini-info">
+           <span class="mini-artista">${esc(nomeDe(banco.artistas, d.artistaId))}</span>
+           <a class="mini-titulo" href="#disco/${d.id}">${esc(d.titulo)}</a>
+           <span class="mini-preco">${moeda(d.preco)}</span>
+         </div>
+         <button class="mini-sacola" type="button" data-acao="adicionar" data-id="${d.id}" aria-label="Pôr ${esc(d.titulo)} na sacola" ${esgotado ? 'disabled' : ''}>
+           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+         </button>
+       </li>`;
    }
 
    /* =====================================================================
@@ -928,6 +935,7 @@
      f.elements.id.value = v ? v.id : '';
      f.elements.titulo.value = v ? v.titulo : '';
      f.elements.ano.value = v ? v.ano : '';
+     f.elements.pais.value = v?.pais ?? '';
      f.elements.condicao.value = v ? v.condicao : 'Novo';
      f.elements.preco.value = v ? v.preco.toFixed(2) : '';
      f.elements.quantidade.value = v ? qtdEstoque(v.id) : 1;
@@ -948,6 +956,7 @@
        generoId: Number(f.elements.genero.value),
        gravadoraId: Number(f.elements.gravadora.value),
        ano: Number(f.elements.ano.value),
+       pais: f.elements.pais.value.trim(),
        condicao: f.elements.condicao.value,
        preco: Math.round(Number(f.elements.preco.value) * 100) / 100,
        capa: caminhoCapa(f.elements.capa.value),   // vazio = capa desenhada
@@ -1282,12 +1291,6 @@
    $('#btnSacola').addEventListener('click', () => { renderSacola(); $('#erroCheckout').textContent = ''; $('#sacola').showModal(); });
    $('#formCheckout').addEventListener('submit', finalizarPedido);
    
-   // Vitrola: pausar / tocar
-   $('#btnGiro').addEventListener('click', e => {
-     const pausada = $('#vitrola').classList.toggle('pausada');
-     e.currentTarget.textContent = pausada ? 'Tocar o disco' : 'Pausar o disco';
-   });
-
    // Carrossel: setas, teclado e arrastar com o dedo/mouse
    $('#btnAnterior').addEventListener('click', () => irParaDestaque(destaqueAtual - 1));
    $('#btnProximo').addEventListener('click', () => irParaDestaque(destaqueAtual + 1));
@@ -1384,8 +1387,7 @@
       10. INICIALIZAÇÃO
       ===================================================================== */
    aplicarTema(ler(CHAVE_TEMA));
-   desenharSulcos();
    atualizarTudo();
    mostrarView();
-   // O disco da vitrine sai da capa logo depois que a página abre
+   // A capa da vitrine aparece logo depois que a página abre
    setTimeout(() => $('#vitrola').classList.remove('guardando'), semMovimento ? 0 : 250);
