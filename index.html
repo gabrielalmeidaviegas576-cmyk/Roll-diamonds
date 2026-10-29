@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Roll Diamonds | Discos de Vinil</title>
+<!-- Ícone da aba do navegador (favicon) -->
+<link rel="icon" type="image/png" href="img/favicon.png">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +26,10 @@
   <!-- Três partes: Painel à esquerda, logo no centro, opções da loja à direita -->
   <div class="topo-interno">
     <nav class="nav nav-esquerda" aria-label="Administração">
+      <a class="nav-link" href="#painel" data-view="painel">
+        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        <span class="nav-texto">Painel</span>
+      </a>
     </nav>
 
     <a class="marca" href="#loja" aria-label="Roll Diamonds, ir para a loja">
@@ -341,6 +347,20 @@
       </div>
       <div class="campos-2">
         <div class="campo">
+          <label for="discoTamanho">Tamanho</label>
+          <select id="discoTamanho" name="tamanho">
+            <option value="12">12" (LP, 30 cm)</option>
+            <option value="10">10" (25 cm)</option>
+            <option value="7">7" (compacto, 18 cm)</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="discoPeso">Peso do vinil (g)</label>
+          <input id="discoPeso" name="peso" type="number" min="10" max="500" step="1" inputmode="numeric" placeholder="Ex.: 180">
+        </div>
+      </div>
+      <div class="campos-2">
+        <div class="campo">
           <label for="discoCondicao">Estado</label>
           <select id="discoCondicao" name="condicao">
             <option value="Novo">Novo</option>
@@ -360,7 +380,11 @@
         <label for="discoCapa">Capa (caminho da imagem)</label>
         <input id="discoCapa" name="capa" maxlength="255" placeholder="img/capas/nome-do-disco.jpg" autocomplete="off">
       </div>
-      <p class="dica">Deixe a capa em branco para usar a capa desenhada automaticamente. A imagem precisa estar na pasta img/capas.</p>
+      <div class="campo">
+        <label for="discoFoto2">Segunda foto (opcional)</label>
+        <input id="discoFoto2" name="foto2" maxlength="255" placeholder="img/capas/nome-do-disco-verso.jpg" autocomplete="off">
+      </div>
+      <p class="dica">Deixe a capa em branco para usar a capa desenhada automaticamente. A segunda foto aparece no catálogo quando o mouse passa por cima do disco. As imagens precisam estar na pasta img/capas.</p>
 
       <!-- Textos que aparecem na página do disco -->
       <div class="campo">

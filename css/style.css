@@ -8,6 +8,25 @@
   font-display: swap;
   unicode-range: U+0000-002F, U+003A-10FFFF;   /* tudo menos 0-9 */
 }
+/* Poppins nos números. São duas versões do mesmo arquivo:
+   "Poppins Numeros" só tem 0-9 e vem primeiro em todas as fontes do site,
+   então os números saem em Poppins e as letras continuam com a fonte de cada lugar.
+   O size-adjust deixa os números da altura das maiúsculas da Alegreya Sans. */
+@font-face {
+  font-family: "Poppins Numeros";
+  src: url("../fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039;   /* só 0-9 */
+  size-adjust: 88%;
+}
+/* "Poppins" inteira: preços e totais, pro "R$" e a vírgula combinarem com os números */
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal;
+  font-display: swap;
+}
 
 
 :root {
@@ -38,11 +57,11 @@
     --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .24 0 0 0 0 .15 0 0 0 0 .07 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
     --grao-placa: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .85 0 0 0 0 .65 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   
-    --fonte-titulo: "Milesdane", "Rye", "Rockwell", Georgia, serif;
-    --fonte-numeros: "Rye", "Rockwell", Georgia, serif;   /* preços e totais */
-    --fonte-script: "Yellowtail", "Brush Script MT", "Segoe Script", cursive;
-    --fonte-texto: "Alegreya Sans", "Trebuchet MS", "Segoe UI", sans-serif;
-    --fonte-sc: "Alegreya Sans SC", "Alegreya Sans", "Trebuchet MS", sans-serif;
+    --fonte-titulo: "Poppins Numeros", "Milesdane", "Rye", "Rockwell", Georgia, serif;
+    --fonte-numeros: "Poppins", "Trebuchet MS", "Segoe UI", sans-serif;   /* preços e totais */
+    --fonte-script: "Poppins Numeros", "Yellowtail", "Brush Script MT", "Segoe Script", cursive;
+    --fonte-texto: "Poppins Numeros", "Alegreya Sans", "Trebuchet MS", "Segoe UI", sans-serif;
+    --fonte-sc: "Poppins Numeros", "Alegreya Sans SC", "Alegreya Sans", "Trebuchet MS", sans-serif;
   
     color-scheme: light;
     box-sizing: border-box;
@@ -228,6 +247,8 @@
   }
   .nav-link:hover { border-color: rgba(185, 145, 85, .5); }
   .nav-link[aria-current="page"] { border-color: var(--latao); background: rgba(185, 145, 85, .13); }
+  /* Ícones do Painel e da Sacola: sem tamanho definido o SVG some */
+  .nav-link .icone { width: 1.25rem; height: 1.25rem; flex: none; }
   .contagem-sacola {
     min-width: 1.4rem; height: 1.4rem; padding: 0 .35rem;
     display: inline-grid; place-items: center;
@@ -328,8 +349,42 @@
   /* A capa do disco (foto ou desenhada) ocupa o quadrado inteiro */
   .vitrola-capa > .capa { width: 100%; height: 100%; }
   .vitrola.guardando .vitrola-capa { opacity: 0; }
+
+  /* Controles do carrossel, centralizados embaixo da capa */
+  .carrossel-controles {
+    width: 100%; max-width: 440px;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  /* Setas: botão verde redondo com friso de latão, igual ao .botao-verde */
+  .seta {
+    width: 2.9rem; height: 2.9rem; flex: none; padding: 0;
+    display: grid; place-items: center;
+    border-radius: 50%; cursor: pointer;
+    background: var(--verde); color: #f0ddb3;
+    border: 1.5px solid var(--latao);
+    box-shadow: inset 0 0 0 2.5px var(--verde), inset 0 0 0 3.5px rgba(219, 187, 126, .5),
+                0 6px 14px -6px rgba(0, 0, 0, .7);
+    transition: background-color .2s ease;
+  }
+  .seta svg { width: 1.2rem; height: 1.2rem; }
+  .seta:hover { background: #0b7a43; }
+  /* Bolinhas: contorno de latão; a do disco atual vira uma pílula dourada.
+     O botão é maior que a bolinha pra ficar fácil de acertar no celular. */
+  .pontos { display: flex; align-items: center; gap: .1rem; }
+  .ponto {
+    min-width: 1.5rem; height: 1.5rem; padding: 0 .2rem;
+    display: grid; place-items: center;
+    background: none; border: none; cursor: pointer;
+  }
+  .ponto::before {
+    content: ""; width: .6rem; height: .6rem; border-radius: 999px;
+    border: 1.5px solid var(--latao);
+    transition: background-color .2s ease, border-color .2s ease;
+  }
+  .ponto:hover::before { border-color: var(--latao-claro); background: rgba(219, 187, 126, .3); }
+  .ponto[aria-current="true"]::before { width: 1.7rem; background: var(--latao-claro); border-color: var(--latao-claro); }
   @media (prefers-reduced-motion: reduce) {
-    .vitrola-capa { transition: none; }
+    .vitrola-capa, .seta, .ponto::before { transition: none; }
   }
   
   /* =====================================================================
@@ -413,7 +468,8 @@
   .etiqueta-novo { border-color: var(--verde-texto); color: var(--verde-texto); }
   .disco-aviso { margin-top: .35rem; font-size: .92rem; font-weight: 700; color: var(--tinta-suave); }
   .disco-aviso.esgotado { color: var(--erro); }
-  .disco-rodape { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; margin-top: auto; padding-top: .8rem; }
+  /* Preço logo depois das informações: sem "Última unidade"/"Esgotado" ele fica mais perto */
+  .disco-rodape { display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; padding-top: .8rem; }
   .disco-preco { font-family: var(--fonte-numeros); font-size: 1.18rem; }
   
   .vazio {
@@ -452,12 +508,43 @@
     align-items: start;
   }
   .produto-capa {
+    position: relative;
     padding: 9%;
     background: var(--superficie-2) var(--grao);
     border: 1px solid var(--linha-fraca);
   }
   .produto-capa .capa { width: 100%; box-shadow: 0 18px 30px -14px rgba(20, 12, 7, .65); }
   .produto-esgotado .produto-capa .capa { opacity: .6; filter: grayscale(.5); }
+  /* Galeria (capa e segunda foto): setas em cima das bordas da capa e bolinhas
+     no espaço de baixo da moldura. O 9% é o mesmo espaçamento da .produto-capa. */
+  .produto-capa.ver-foto2 .capa-foto2 { opacity: 1; }
+  .galeria-controles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .galeria-controles > * { pointer-events: auto; }
+  .galeria-anterior, .galeria-proxima { position: absolute; top: 50%; }
+  .galeria-anterior { left: 9%; transform: translate(-50%, -50%); }
+  .galeria-proxima { right: 9%; transform: translate(50%, -50%); }
+  .galeria-pontos { position: absolute; left: 0; right: 0; bottom: 0; height: 9%; justify-content: center; }
+  .galeria-pontos .ponto[aria-current="true"]::before { background: var(--latao); border-color: var(--latao); }
+  /* Zoom: a foto aumenta a partir do ponto do mouse/dedo (o JS muda --zoom-x e --zoom-y) */
+  .produto-capa .capa-com-foto { cursor: zoom-in; }
+  .produto-capa .capa-com-foto.zoom-ativo { touch-action: none; }   /* no celular, arrastar mexe a foto em vez de rolar */
+  .produto-capa .capa img { transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%); }
+  .produto-capa .capa-foto { transition: transform .25s ease; }
+  .produto-capa .capa-foto2 { transition: opacity .35s ease, transform .25s ease; }
+  .produto-capa .zoom-ativo img { transform: scale(2.5); }
+  /* Lupa no canto de baixo da foto (em cima costuma ter o título); some durante o zoom e quando não tem foto */
+  .zoom-icone {
+    position: absolute; bottom: calc(9% + .55rem); right: calc(9% + .55rem); z-index: 2;
+    width: 2.1rem; height: 2.1rem; display: grid; place-items: center;
+    border-radius: 50%; background: rgba(23, 17, 13, .62); color: #f0ddb3;
+    pointer-events: none; transition: opacity .2s ease;
+  }
+  .zoom-icone svg { width: 1.15rem; height: 1.15rem; }
+  .produto-capa:has(.zoom-ativo) .zoom-icone { opacity: 0; }
+  .produto-capa:not(:has(.capa-com-foto)) .zoom-icone { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .produto-capa .capa img, .zoom-icone { transition: none; }
+  }
 
   .produto-info { grid-area: info; display: grid; gap: 2rem; }
   /* Capa com a ficha do disco logo embaixo, na horizontal */
@@ -467,6 +554,8 @@
     border-top: 1px solid var(--linha-fraca); border-left: 1px solid var(--linha-fraca);
   }
   .ficha > div { padding: .65rem .8rem; border-right: 1px solid var(--linha-fraca); border-bottom: 1px solid var(--linha-fraca); }
+  /* Se o último item sobrar sozinho na linha, ele ocupa a linha inteira (sem buraco na grade) */
+  .ficha > div:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
   .ficha dt {
     font-family: var(--fonte-sc); font-weight: 700; letter-spacing: .08em;
     font-size: .82rem; color: var(--tinta-suave);
@@ -534,6 +623,8 @@
   }
   @media (max-width: 420px) {
     .ficha { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ficha > div:last-child:nth-child(3n+1) { grid-column: auto; }
+    .ficha > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
   }
 
   /* =====================================================================
@@ -738,6 +829,13 @@
     .numero { padding: .9rem 1rem; }
     .numero dd { font-size: 1.25rem; }
     .login { padding: 1.75rem 1.25rem; }
+  }
+  @media (max-width: 480px) {
+    /* Painel e Sacola só com o ícone (o texto continua lá pro leitor de tela, igual ao .sr) */
+    .nav-texto {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+    }
   }
   @media (max-width: 420px) {
     .marca-texto { display: none; }

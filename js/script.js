@@ -20,6 +20,9 @@
      ['#c9a15a', '#2b1c12', '#23170f'],
    ];
    const ESTILOS = ['listras', 'sol', 'circulos', 'dividido', 'ponto'];
+
+   // Tamanho do vinil (em polegadas) -> texto da ficha do disco
+   const TAMANHOS = { 7: '7" (18\u00a0cm)', 10: '10" (25\u00a0cm)', 12: '12" (30\u00a0cm)' };
    
    const $  = (seletor, base = document) => base.querySelector(seletor);
    const $$ = (seletor, base = document) => [...base.querySelectorAll(seletor)];
@@ -166,23 +169,23 @@
          { id: 13, nome: 'Atlantic' }, { id: 14, nome: 'Verve' },
        ],
        vinis: [
-        { id: 1,  titulo: 'Clube da Esquina',        artistaId: 1,  generoId: 1, gravadoraId: 1,  ano: 1972, pais: 'Brasil', preco: 289.90, condicao: 'Usado', capa: 'img/capas/clube-da-esquina.jpg' },
-        { id: 2,  titulo: 'Acabou Chorare',          artistaId: 2,  generoId: 1, gravadoraId: 2,  ano: 1972, pais: 'Brasil', preco: 249.90, condicao: 'Novo',  capa: 'img/capas/acabou-chorare.jpg' },
-        { id: 3,  titulo: 'Tim Maia',                artistaId: 3,  generoId: 4, gravadoraId: 3,  ano: 1971, pais: 'Brasil', preco: 199.90, condicao: 'Novo',  capa: 'img/capas/tim-maia-1971.jpg' },
-        { id: 4,  titulo: 'A Tábua de Esmeralda',    artistaId: 4,  generoId: 1, gravadoraId: 4,  ano: 1974, pais: 'Brasil', preco: 229.90, condicao: 'Usado', capa: 'img/capas/tabua-de-esmeralda.jpg' },
-        { id: 5,  titulo: 'Kind of Blue',            artistaId: 5,  generoId: 3, gravadoraId: 5,  ano: 1959, pais: 'EUA', preco: 219.90, condicao: 'Novo',  capa: 'img/capas/kind-of-blue.jpg' },
-        { id: 6,  titulo: 'Abbey Road',              artistaId: 6,  generoId: 2, gravadoraId: 6,  ano: 1969, pais: 'Reino Unido', preco: 329.90, condicao: 'Novo',  capa: 'img/capas/abbey-road.jpg' },
-        { id: 7,  titulo: 'Rumours',                 artistaId: 7,  generoId: 2, gravadoraId: 7,  ano: 1977, pais: 'EUA', preco: 279.90, condicao: 'Usado', capa: 'img/capas/rumours.jpg' },
-        { id: 8,  titulo: 'Da Lama ao Caos',         artistaId: 8,  generoId: 2, gravadoraId: 8,  ano: 1994, pais: 'Brasil', preco: 239.90, condicao: 'Novo',  capa: 'img/capas/da-lama-ao-caos.jpg' },
-        { id: 9,  titulo: 'Construção',              artistaId: 9,  generoId: 1, gravadoraId: 4,  ano: 1971, pais: 'Brasil', preco: 269.90, condicao: 'Usado', capa: 'img/capas/construcao.jpg' },
-        { id: 10, titulo: 'Racional Vol. 1',         artistaId: 3,  generoId: 4, gravadoraId: 9,  ano: 1975, pais: 'Brasil', preco: 349.90, condicao: 'Usado', capa: 'img/capas/racional-vol1.jpg' },
-        { id: 11, titulo: "What's Going On",         artistaId: 10, generoId: 4, gravadoraId: 10, ano: 1971, pais: 'EUA', preco: 239.90, condicao: 'Novo',  capa: 'img/capas/whats-going-on.jpg' },
-        { id: 12, titulo: 'Elis & Tom',              artistaId: 11, generoId: 5, gravadoraId: 4,  ano: 1974, pais: 'Brasil', preco: 259.90, condicao: 'Novo',  capa: 'img/capas/elis-e-tom.jpg' },
-        { id: 13, titulo: 'Sobrevivendo no Inferno', artistaId: 12, generoId: 6, gravadoraId: 11, ano: 1997, pais: 'Brasil', preco: 279.90, condicao: 'Novo',  capa: 'img/capas/sobrevivendo-no-inferno.jpg' },
-        { id: 14, titulo: 'A Love Supreme',          artistaId: 13, generoId: 3, gravadoraId: 12, ano: 1965, pais: 'EUA', preco: 189.90, condicao: 'Novo',  capa: 'img/capas/a-love-supreme.jpg' },
-        { id: 15, titulo: 'Os Mutantes',             artistaId: 14, generoId: 2, gravadoraId: 3,  ano: 1968, pais: 'Brasil', preco: 299.90, condicao: 'Usado', capa: 'img/capas/os-mutantes.jpg' },
-        { id: 16, titulo: 'Back in Black',           artistaId: 15, generoId: 2, gravadoraId: 13, ano: 1980, pais: 'Austrália', preco: 259.90, condicao: 'Novo',  capa: 'img/capas/back-in-black.jpg' },
-        { id: 17, titulo: 'Getz/Gilberto',           artistaId: 16, generoId: 5, gravadoraId: 14, ano: 1964, pais: 'EUA', preco: 239.90, condicao: 'Usado', capa: 'img/capas/getz-gilberto.jpg' },
+        { id: 1,  titulo: 'Clube da Esquina',        artistaId: 1,  generoId: 1, gravadoraId: 1,  ano: 1972, pais: 'Brasil', tamanho: 12, peso: 130, preco: 289.90, condicao: 'Usado', capa: 'img/capas/clube-da-esquina.jpg', foto2: 'img/capas/contracapa-clube-da-esquina.jpg' },
+        { id: 2,  titulo: 'Acabou Chorare',          artistaId: 2,  generoId: 1, gravadoraId: 2,  ano: 1972, pais: 'Brasil', tamanho: 12, peso: 180, preco: 249.90, condicao: 'Novo',  capa: 'img/capas/acabou-chorare.jpg', foto2: 'img/capas/lp-acabou-chorare.jpg' },
+        { id: 3,  titulo: 'Tim Maia',                artistaId: 3,  generoId: 4, gravadoraId: 3,  ano: 1971, pais: 'Brasil', tamanho: 12, peso: 180, preco: 199.90, condicao: 'Novo',  capa: 'img/capas/tim-maia-1971.jpg', foto2: 'img/capas/contracapa-tim-maia-1971.jpg' },
+        { id: 4,  titulo: 'A Tábua de Esmeralda',    artistaId: 4,  generoId: 1, gravadoraId: 4,  ano: 1974, pais: 'Brasil', tamanho: 12, peso: 130, preco: 229.90, condicao: 'Usado', capa: 'img/capas/tabua-de-esmeralda.jpg', foto2: 'img/capas/contracapa-tabua-de-esmeralda.jpg' },
+        { id: 5,  titulo: 'Kind of Blue',            artistaId: 5,  generoId: 3, gravadoraId: 5,  ano: 1959, pais: 'EUA', tamanho: 12, peso: 180, preco: 219.90, condicao: 'Novo',  capa: 'img/capas/kind-of-blue.jpg', foto2: 'img/capas/contracapa-kind-of-blue.jpg' },
+        { id: 6,  titulo: 'Abbey Road',              artistaId: 6,  generoId: 2, gravadoraId: 6,  ano: 1969, pais: 'Reino Unido', tamanho: 12, peso: 180, preco: 329.90, condicao: 'Novo',  capa: 'img/capas/abbey-road.jpg', foto2: 'img/capas/contracapa-abbey-road.jpg' },
+        { id: 7,  titulo: 'Rumours',                 artistaId: 7,  generoId: 2, gravadoraId: 7,  ano: 1977, pais: 'EUA', tamanho: 12, peso: 120, preco: 279.90, condicao: 'Usado', capa: 'img/capas/rumours.jpg', foto2: 'img/capas/contracapa-rumours.jpg' },
+        { id: 8,  titulo: 'Da Lama ao Caos',         artistaId: 8,  generoId: 2, gravadoraId: 8,  ano: 1994, pais: 'Brasil', tamanho: 12, peso: 180, preco: 239.90, condicao: 'Novo',  capa: 'img/capas/da-lama-ao-caos.jpg', foto2: 'img/capas/contracapa-da-lama-ao-caos.jpg' },
+        { id: 9,  titulo: 'Construção',              artistaId: 9,  generoId: 1, gravadoraId: 4,  ano: 1971, pais: 'Brasil', tamanho: 12, peso: 130, preco: 269.90, condicao: 'Usado', capa: 'img/capas/construcao.jpg', foto2: 'img/capas/contracapa-construcao.jpg' },
+        { id: 10, titulo: 'Racional Vol. 1',         artistaId: 3,  generoId: 4, gravadoraId: 9,  ano: 1975, pais: 'Brasil', tamanho: 12, peso: 130, preco: 349.90, condicao: 'Usado', capa: 'img/capas/racional-vol1.jpg', foto2: 'img/capas/contracapa-racional-vol1.jpg' },
+        { id: 11, titulo: "What's Going On",         artistaId: 10, generoId: 4, gravadoraId: 10, ano: 1971, pais: 'EUA', tamanho: 12, peso: 180, preco: 239.90, condicao: 'Novo',  capa: 'img/capas/whats-going-on.jpg', foto2: 'img/capas/contracapa-whats-going-on.jpg' },
+        { id: 12, titulo: 'Elis & Tom',              artistaId: 11, generoId: 5, gravadoraId: 4,  ano: 1974, pais: 'Brasil', tamanho: 12, peso: 180, preco: 259.90, condicao: 'Novo',  capa: 'img/capas/elis-e-tom.jpg', foto2: 'img/capas/contracapa-elis-e-tom.jpg' },
+        { id: 13, titulo: 'Sobrevivendo no Inferno', artistaId: 12, generoId: 6, gravadoraId: 11, ano: 1997, pais: 'Brasil', tamanho: 12, peso: 180, preco: 279.90, condicao: 'Novo',  capa: 'img/capas/sobrevivendo-no-inferno.jpg', foto2: 'img/capas/contracapa-sobrevivendo-no-inferno.jpg' },
+        { id: 14, titulo: 'A Love Supreme',          artistaId: 13, generoId: 3, gravadoraId: 12, ano: 1965, pais: 'EUA', tamanho: 12, peso: 180, preco: 189.90, condicao: 'Novo',  capa: 'img/capas/a-love-supreme.jpg', foto2: 'img/capas/contracapa-a-love-supreme.jpg' },
+        { id: 15, titulo: 'Os Mutantes',             artistaId: 14, generoId: 2, gravadoraId: 3,  ano: 1968, pais: 'Brasil', tamanho: 12, peso: 140, preco: 299.90, condicao: 'Usado', capa: 'img/capas/os-mutantes.jpg', foto2: 'img/capas/contracapa-os-mutantes.jpg' },
+        { id: 16, titulo: 'Back in Black',           artistaId: 15, generoId: 2, gravadoraId: 13, ano: 1980, pais: 'Austrália', tamanho: 12, peso: 180, preco: 259.90, condicao: 'Novo',  capa: 'img/capas/back-in-black.jpg', foto2: 'img/capas/contracapa-back-in-black.jpg' },
+        { id: 17, titulo: 'Getz/Gilberto',           artistaId: 16, generoId: 5, gravadoraId: 14, ano: 1964, pais: 'EUA', tamanho: 12, peso: 150, preco: 239.90, condicao: 'Usado', capa: 'img/capas/getz-gilberto.jpg', foto2: 'img/capas/contracapa-getz-gilberto.jpg' },
       ].map(v => ({ ...v, destaque: false, descricao: '', faixas: [], observacao: '', ...TEXTOS_DISCOS[v.id] })), // junta os textos da página de cada disco
        estoque: [
          { vinilId: 1, quantidade: 2 }, { vinilId: 2, quantidade: 4 }, { vinilId: 3, quantidade: 3 },
@@ -236,7 +239,12 @@
      b.vinis.forEach(v => {
        const base = exemplo.find(e => e.id === v.id && e.titulo === v.titulo) || {};
        if (v.capa === undefined) v.capa = base.capa ?? '';
+       // Segunda foto: só preenche quando o disco de exemplo tem uma. Sem gravar '' aqui,
+       // uma foto colocada depois nos dados de exemplo ainda chega em quem já tem dados salvos.
+       if (v.foto2 === undefined && base.foto2) v.foto2 = base.foto2;
        if (v.pais === undefined) v.pais = base.pais ?? '';
+       if (v.tamanho === undefined) v.tamanho = base.tamanho ?? 12;
+       if (v.peso === undefined) v.peso = base.peso ?? null;
        if (v.descricao === undefined) v.descricao = base.descricao ?? '';
        if (!Array.isArray(v.faixas)) v.faixas = base.faixas ?? [];
        // Versões antigas só tinham as faixas em destaque: troca pela lista completa
@@ -259,11 +267,14 @@
    let abaAtual = 'resumo';
    let viewAtual = '';          // 'loja', 'painel' ou 'disco'
    let discoAberto = 0;         // id do disco mostrado na página do disco
+   let fotoProduto = 0;         // foto aberta na página do disco (0 = capa, 1 = segunda foto)
    let destaqueAtual = 0;       // posição do disco no carrossel
    let posicaoLoja = null;      // onde a loja estava rolada antes de abrir um disco
    let irParaCatalogo = false;  // true quando um link pede o catálogo do topo (filtro de gênero)
    const TITULO_SITE = document.title;
    const semMovimento = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+   // Só aparelho com mouse vê a segunda foto (no celular ela nem é baixada)
+   const temMouse = window.matchMedia && matchMedia('(hover: hover)').matches;
    let buscaPainel = '';
    let filtroStatus = 'todos';
    
@@ -339,30 +350,55 @@
      return t.includes('/') ? t : `img/capas/${t}`;
    }
 
-   function capaHTML(v, mini = false) {
+   // foto2: segunda foto, por cima da capa, que aparece ao passar o mouse (só no catálogo)
+   function capaHTML(v, mini = false, foto2 = '') {
      const extra = mini ? ' capa-mini' : '';
+     const segunda = foto2 && !capasQuebradas.has(foto2)
+       ? `<img class="capa-foto2" src="${esc(foto2)}" alt="" loading="lazy" decoding="async">` : '';
      // Com foto: usa a imagem (as regras estão no capas.css)
      if (v.capa && !capasQuebradas.has(v.capa)) {
        return `<div class="capa capa-com-foto${extra}" data-id="${v.id}" aria-hidden="true">` +
-         `<img class="capa-foto" src="${esc(v.capa)}" alt="" loading="lazy" decoding="async"></div>`;
+         `<img class="capa-foto" src="${esc(v.capa)}" alt="" loading="lazy" decoding="async">${segunda}</div>`;
      }
      // Sem foto: capa desenhada com CSS
      const estilo = ESTILOS[v.id % ESTILOS.length];
      const classes = `capa capa-${estilo}${v.condicao === 'Usado' ? ' capa-usada' : ''}${extra}`;
      const titulo = mini ? '' : `<span class="capa-titulo">${esc(v.titulo)}</span>`;
-     return `<div class="${classes}" style="${coresCapa(v)}" aria-hidden="true">${titulo}</div>`;
+     return `<div class="${classes}" style="${coresCapa(v)}" aria-hidden="true">${titulo}${segunda}</div>`;
    }
 
    // Se uma foto não carregar, troca só aquela capa pela capa desenhada.
    // O "true" no final faz o evento ser ouvido mesmo sem borbulhar (erro de imagem não borbulha).
    document.addEventListener('error', evento => {
      const img = evento.target;
-     if (!(img instanceof HTMLImageElement) || !img.classList.contains('capa-foto')) return;
+     if (!(img instanceof HTMLImageElement)) return;
+     // Segunda foto que não carregou: só tira ela, a capa continua normal
+     if (img.classList.contains('capa-foto2')) {
+       capasQuebradas.add(img.getAttribute('src'));
+       // Na página do disco, sem a segunda foto não tem o que trocar: tira as setas
+       const produtoCapa = img.closest('.produto-capa');
+       if (produtoCapa) { produtoCapa.classList.remove('ver-foto2'); produtoCapa.querySelector('.galeria-controles')?.remove(); }
+       img.remove();
+       return;
+     }
+     if (!img.classList.contains('capa-foto')) return;
      const caixa = img.closest('.capa');
      const v = caixa && porId(banco.vinis, Number(caixa.dataset.id));
      if (!v) return;
+     const mini = caixa.classList.contains('capa-mini');
+     const foto2 = caixa.querySelector('.capa-foto2') ? v.foto2 : '';   // mantém a segunda foto, se tinha
+     // Dados salvos por uma versão antiga podem ter o nome antigo da foto
+     // (ex.: "clube_da_esquina.jpg"). Se o disco de exemplo tem outra foto, usa ela.
+     const base = dadosExemplo().vinis.find(e => e.id === v.id && e.titulo === v.titulo);
+     if (base && base.capa && base.capa !== v.capa && !capasQuebradas.has(base.capa)) {
+       capasQuebradas.add(v.capa);
+       v.capa = base.capa;
+       gravar(CHAVE_BANCO, banco);
+       caixa.outerHTML = capaHTML(v, mini, foto2);
+       return;
+     }
      capasQuebradas.add(v.capa);
-     caixa.outerHTML = capaHTML(v, caixa.classList.contains('capa-mini'));
+     caixa.outerHTML = capaHTML(v, mini, foto2);
    }, true);
    
    /* =====================================================================
@@ -405,7 +441,7 @@
        <article class="disco${q === 0 ? ' disco-esgotado' : ''}">
          <a class="disco-capa-area" href="#disco/${v.id}" style="${coresCapa(v)}" tabindex="-1" aria-hidden="true">
            <div class="disco-bolacha"></div>
-           ${capaHTML(v)}
+           ${capaHTML(v, false, temMouse ? v.foto2 : '')}
          </a>
          <div class="disco-info">
            <h3><a href="#disco/${v.id}">${esc(v.titulo)}</a></h3>
@@ -520,6 +556,7 @@
 
    function renderProduto(id) {
      discoAberto = id;
+     fotoProduto = 0;
      const v = porId(banco.vinis, id);
      const caixa = $('#produto');
 
@@ -555,6 +592,23 @@
        ? `<section class="produto-bloco"><h2>Sobre o disco</h2>${v.descricao.trim().split(/\n+/).map(p => `<p>${esc(p)}</p>`).join('')}</section>` : '';
      const faixas = v.faixas?.length
        ? `<section class="produto-bloco"><h2>Faixas</h2><ol class="faixas">${v.faixas.map(f => `<li>${esc(f)}</li>`).join('')}</ol></section>` : '';
+     // Com segunda foto: setas pra trocar entre a capa e ela, e bolinhas mostrando qual está aberta
+     const galeria = v.foto2 && !capasQuebradas.has(v.foto2) ? `
+       <div class="galeria-controles">
+         <button class="seta galeria-anterior" type="button" data-galeria-passo="-1" aria-label="Foto anterior">
+           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         </button>
+         <button class="seta galeria-proxima" type="button" data-galeria-passo="1" aria-label="Próxima foto">
+           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         </button>
+         <div class="pontos galeria-pontos">
+           <button class="ponto" type="button" data-galeria-foto="0" aria-label="Ver a capa" aria-current="true"></button>
+           <button class="ponto" type="button" data-galeria-foto="1" aria-label="Ver a segunda foto"></button>
+         </div>
+         <p class="sr" id="avisoGaleria" aria-live="polite"></p>
+       </div>` : '';
+     // Lupa no canto da foto: avisa que dá pra dar zoom
+     const lupa = `<span class="zoom-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>`;
 
      caixa.className = `produto${qtdEstoque(v.id) === 0 ? ' produto-esgotado' : ''}`;
      caixa.innerHTML = `
@@ -570,13 +624,14 @@
 
        <div class="produto-grade">
          <div class="produto-midia">
-           <div class="produto-capa" style="${coresCapa(v)}">${capaHTML(v)}</div>
+           <div class="produto-capa" id="produtoCapa" style="${coresCapa(v)}">${capaHTML(v, false, v.foto2)}${lupa}${galeria}</div>
            <dl class="ficha">
              <div><dt>Ano</dt><dd>${v.ano}</dd></div>
              <div><dt>País</dt><dd>${esc(v.pais || 'Não informado')}</dd></div>
              <div><dt>Gravadora</dt><dd>${esc(gravadora)}</dd></div>
              <div><dt>Gênero</dt><dd>${esc(genero)}</dd></div>
-             <div><dt>Formato</dt><dd>Vinil 12", 33⅓ rpm</dd></div>
+             <div><dt>Tamanho</dt><dd>${TAMANHOS[v.tamanho] ?? 'Não informado'}</dd></div>
+             <div><dt>Peso</dt><dd>${v.peso ? `${v.peso}\u00a0g` : 'Não informado'}</dd></div>
              <div><dt>Estado</dt><dd>${v.condicao}</dd></div>
            </dl>
            <p class="ficha-nota">${estado}${observacao}</p>
@@ -599,6 +654,18 @@
 
      renderCompraProduto();
      renderRelacionados();
+   }
+
+   // Troca a foto da página do disco: são só duas, então as setas dão a volta
+   function mostrarFotoProduto(indice) {
+     fotoProduto = (indice + 2) % 2;
+     $('#produtoCapa').classList.toggle('ver-foto2', fotoProduto === 1);
+     $('#produtoCapa .capa')?.classList.remove('zoom-ativo');   // troca a foto sem zoom
+     $$('[data-galeria-foto]').forEach(p => {
+       if (Number(p.dataset.galeriaFoto) === fotoProduto) p.setAttribute('aria-current', 'true');
+       else p.removeAttribute('aria-current');
+     });
+     $('#avisoGaleria').textContent = fotoProduto === 1 ? 'Mostrando a segunda foto' : 'Mostrando a capa';
    }
 
    // Só a caixa de preço/estoque/botão: é redesenhada quando a sacola ou o estoque mudam,
@@ -936,10 +1003,13 @@
      f.elements.titulo.value = v ? v.titulo : '';
      f.elements.ano.value = v ? v.ano : '';
      f.elements.pais.value = v?.pais ?? '';
+     f.elements.tamanho.value = v?.tamanho ?? 12;
+     f.elements.peso.value = v?.peso ?? '';
      f.elements.condicao.value = v ? v.condicao : 'Novo';
      f.elements.preco.value = v ? v.preco.toFixed(2) : '';
      f.elements.quantidade.value = v ? qtdEstoque(v.id) : 1;
      f.elements.capa.value = v?.capa ?? '';
+     f.elements.foto2.value = v?.foto2 ?? '';
      f.elements.descricao.value = v?.descricao ?? '';
      f.elements.faixas.value = (v?.faixas ?? []).join('\n');
      f.elements.observacao.value = v?.observacao ?? '';
@@ -957,9 +1027,12 @@
        gravadoraId: Number(f.elements.gravadora.value),
        ano: Number(f.elements.ano.value),
        pais: f.elements.pais.value.trim(),
+       tamanho: Number(f.elements.tamanho.value) || 12,
+       peso: Math.round(Number(f.elements.peso.value)) || null,   // vazio = não informado
        condicao: f.elements.condicao.value,
        preco: Math.round(Number(f.elements.preco.value) * 100) / 100,
        capa: caminhoCapa(f.elements.capa.value),   // vazio = capa desenhada
+       foto2: caminhoCapa(f.elements.foto2.value),  // vazio = sem segunda foto
        descricao: f.elements.descricao.value.trim(),
        faixas: f.elements.faixas.value.split('\n').map(t => t.trim()).filter(Boolean),   // uma faixa por linha
        observacao: f.elements.observacao.value.trim(),
@@ -1171,6 +1244,12 @@
      const ponto = evento.target.closest('[data-destaque]');
      if (ponto) { irParaDestaque(Number(ponto.dataset.destaque)); return; }
 
+     // Galeria da página do disco: setas andam uma foto, bolinhas vão direto
+     const passoFoto = evento.target.closest('[data-galeria-passo]');
+     if (passoFoto) { mostrarFotoProduto(fotoProduto + Number(passoFoto.dataset.galeriaPasso)); return; }
+     const escolhaFoto = evento.target.closest('[data-galeria-foto]');
+     if (escolhaFoto) { mostrarFotoProduto(Number(escolhaFoto.dataset.galeriaFoto)); return; }
+
      // Gênero na trilha da página do disco: filtra o catálogo e deixa o link levar até ele
      const generoLink = evento.target.closest('[data-filtrar-genero]');
      if (generoLink) {
@@ -1314,7 +1393,43 @@
    $('#vitrola').addEventListener('dragstart', e => e.preventDefault());
    // Se arrastou, o clique que vem junto não abre a página do disco
    $('#vitrolaCapa').addEventListener('click', e => { if (arrastou) { e.preventDefault(); arrastou = false; } });
-   
+
+   // Zoom na foto da página do disco.
+   // Mouse: passando por cima, a foto aumenta e acompanha o cursor.
+   // Toque: um toque liga o zoom naquele ponto, arrastar o dedo mexe a foto e outro toque desliga.
+   const FOTO_ZOOM = '.produto-capa .capa-com-foto';
+   let toqueZoom = null;   // onde o dedo encostou (pra separar toque de arrasto)
+   function apontarZoom(capa, e) {
+     const r = capa.getBoundingClientRect();
+     const x = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100));
+     const y = Math.min(100, Math.max(0, (e.clientY - r.top) / r.height * 100));
+     capa.style.setProperty('--zoom-x', `${x}%`);
+     capa.style.setProperty('--zoom-y', `${y}%`);
+   }
+   $('#produto').addEventListener('pointermove', e => {
+     const capa = e.target.closest(FOTO_ZOOM);
+     if (!capa) return;
+     if (e.pointerType === 'mouse') capa.classList.add('zoom-ativo');
+     if (capa.classList.contains('zoom-ativo')) apontarZoom(capa, e);
+   });
+   $('#produto').addEventListener('pointerout', e => {
+     const capa = e.target.closest(FOTO_ZOOM);
+     if (capa && e.pointerType === 'mouse' && !capa.contains(e.relatedTarget)) capa.classList.remove('zoom-ativo');
+   });
+   $('#produto').addEventListener('pointerdown', e => {
+     toqueZoom = e.pointerType !== 'mouse' && e.target.closest(FOTO_ZOOM) ? { x: e.clientX, y: e.clientY } : null;
+   });
+   $('#produto').addEventListener('pointercancel', () => { toqueZoom = null; });
+   $('#produto').addEventListener('pointerup', e => {
+     const capa = e.target.closest(FOTO_ZOOM);
+     if (!capa || !toqueZoom) return;
+     const arrastou = Math.hypot(e.clientX - toqueZoom.x, e.clientY - toqueZoom.y) > 10;
+     toqueZoom = null;
+     if (arrastou) return;
+     apontarZoom(capa, e);
+     capa.classList.toggle('zoom-ativo');
+   });
+
    // Tema
    $('#btnTema').addEventListener('click', () => {
      const novo = temaAtual() === 'dark' ? 'light' : 'dark';
