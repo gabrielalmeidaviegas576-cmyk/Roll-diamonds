@@ -47,7 +47,7 @@ O site não tem servidor: tudo funciona no navegador, com **HTML, CSS e JavaScri
 
 Por isso, o que é cadastrado ou comprado vale **só no navegador e no aparelho em que foi feito**. Em outro computador, o site começa com os dados de exemplo.
 
-Os dados seguem a estrutura do banco `roll_diamonds`: cada lista do `js/script.js` corresponde a uma tabela (`genero_musical`, `artista`, `gravadora`, `vinil`, `estoque`, `cliente`, `usuario`, `pedido` e `item_pedido`).
+Os dados seguem a estrutura do banco `roll_diamonds`: cada lista do `js/script.js` corresponde a uma tabela (`genero_musical`, `artista`, `gravadora`, `vinil`, `estoque`, `cliente`, `usuario`, `pedido` e `item_pedido`). As faixas de cada disco, que no site ficam numa lista dentro do disco, viram a tabela `faixa` no banco.
 
 ## Estrutura do projeto
 
