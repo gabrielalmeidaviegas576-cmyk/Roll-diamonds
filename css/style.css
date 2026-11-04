@@ -50,6 +50,7 @@
     --linha: #b8975f;
     --linha-fraca: rgba(122, 88, 46, .22);
     --verde-texto: #006635;
+    --latao-texto: #6f4a17;     /* dourado escuro pra texto no fundo claro (contraste 4.5:1) */
     --erro: #9a3a22;
     --foco: #8a5f22;
   
@@ -80,6 +81,7 @@
       --linha: #6b5031;
       --linha-fraca: rgba(219, 187, 126, .14);
       --verde-texto: #7cc39a;
+      --latao-texto: #dbbb7e;
       --erro: #e59274;
       --foco: #dbbb7e;
       --grao: var(--grao-placa);
@@ -95,6 +97,7 @@
     --linha: #6b5031;
     --linha-fraca: rgba(219, 187, 126, .14);
     --verde-texto: #7cc39a;
+    --latao-texto: #dbbb7e;
     --erro: #e59274;
     --foco: #dbbb7e;
     --grao: var(--grao-placa);
@@ -512,7 +515,7 @@
   /* O título recebe foco ao abrir a página (para leitor de tela), mas não precisa de contorno */
   .produto-titulo:focus { outline: none; }
   .produto-etiquetas { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-top: .25rem; }
-  .etiqueta-destaque { border-color: var(--latao); color: var(--latao); }
+  .etiqueta-destaque { border-color: var(--latao); color: var(--latao-texto); }
 
   /* Três colunas: capa | faixas | compra.
      Embaixo das faixas e da compra, ao lado da capa, ficam os textos (álbum e artista). */
@@ -574,7 +577,7 @@
     box-shadow: 0 0 0 1px rgba(23, 17, 13, .35);
   }
   .zoom-janela {
-    left: calc(100% + 1rem);   /* o mesmo 1rem que o script.js desconta do espaço livre */
+    left: calc(100% + 1rem);   /* o mesmo 1rem que o eventos.js desconta do espaço livre */
     z-index: 10;               /* por cima das faixas e da compra, por baixo do cabeçalho */
     overflow: hidden;
     background: #17110d;
@@ -611,7 +614,7 @@
   .produto-bloco p + p { margin-top: .75rem; }
   .faixas { margin: 0; padding-left: 1.4rem; display: grid; gap: .3rem; }
   .faixas li::marker { color: var(--tinta-suave); font-weight: 700; }
-  /* Lista fechada: só as 6 primeiras faixas (o mesmo número do FAIXAS_VISIVEIS no script.js) */
+  /* Lista fechada: só as 6 primeiras faixas (o mesmo número do FAIXAS_VISIVEIS no apoio.js) */
   .faixas-recolhidas li:nth-child(n+7) { display: none; }
   .ver-faixas { margin-top: .6rem; padding-left: 0; }
   /* Blocos na largura toda, embaixo da grade: sobre o álbum, sobre o artista e compre também */

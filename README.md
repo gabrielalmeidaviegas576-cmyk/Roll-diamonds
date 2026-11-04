@@ -39,15 +39,16 @@ Clique em **Painel**, no canto esquerdo do cabeçalho, e entre com:
 - **Clientes:** cadastrar, editar e excluir.
 - **Pedidos:** acompanhar e mudar o status (aguardando pagamento, pago, enviado, entregue, cancelado).
 - **Artistas, gêneros e gravadoras:** cadastrar, remover e escrever o resumo de cada artista.
+- **Exportar e importar dados:** baixa um arquivo `.json` com tudo o que foi cadastrado e carrega esse arquivo em outro computador.
 - **Restaurar dados de exemplo:** volta a loja para os dados iniciais.
 
 ## Onde os dados ficam
 
 O site não tem servidor: tudo funciona no navegador, com **HTML, CSS e JavaScript puro**. Os dados ficam salvos no `localStorage` do navegador.
 
-Por isso, o que é cadastrado ou comprado vale **só no navegador e no aparelho em que foi feito**. Em outro computador, o site começa com os dados de exemplo.
+Por isso, o que é cadastrado ou comprado vale **só no navegador e no aparelho em que foi feito**. Em outro computador, o site começa com os dados de exemplo. Para levar os dados de um computador para outro, use **Exportar dados** e **Importar dados** no painel.
 
-Os dados seguem a estrutura do banco `roll_diamonds`: cada lista do `js/script.js` corresponde a uma tabela (`genero_musical`, `artista`, `gravadora`, `vinil`, `estoque`, `cliente`, `usuario`, `pedido` e `item_pedido`). As faixas de cada disco, que no site ficam numa lista dentro do disco, viram a tabela `faixa` no banco.
+Os dados seguem a estrutura do banco `roll_diamonds`: cada lista do `js/dados.js` corresponde a uma tabela (`genero_musical`, `artista`, `gravadora`, `vinil`, `estoque`, `cliente`, `usuario`, `pedido` e `item_pedido`). As faixas de cada disco, que no site ficam numa lista dentro do disco, viram a tabela `faixa` no banco.
 
 ## Estrutura do projeto
 
@@ -57,14 +58,27 @@ Roll-diamonds/
 ├── css/
 │   ├── style.css      todo o visual do site
 │   └── capas.css      regras das fotos de capa
-├── js/
-│   └── script.js      dados de exemplo, telas, sacola, painel e navegação
+├── js/                um arquivo por assunto, carregados nesta ordem pelo index.html
+│   ├── apoio.js       constantes e funções de apoio (moeda, datas, salvar no navegador)
+│   ├── dados.js       dados de exemplo: discos, artistas, gêneros, clientes, pedidos
+│   ├── estado.js      estado do sistema: banco, sacola, login, estoque
+│   ├── capas.js       capas com foto ou desenhadas, miniaturas
+│   ├── loja.js        filtros, catálogo e carrossel da vitrine
+│   ├── disco.js       página de cada disco (ficha, faixas, galeria, resumos)
+│   ├── sacola.js      sacola e finalização do pedido
+│   ├── painel.js      painel da loja (discos, clientes, pedidos, cadastros)
+│   ├── navegacao.js   troca de página pelo # do endereço, FAQ e mapa do site
+│   ├── eventos.js     cliques, teclado, zoom, login, exportar e importar dados
+│   └── inicio.js      liga tudo quando a página abre
 ├── fonts/             fontes guardadas no projeto (Milesdane e Poppins)
 └── img/
-    ├── capas/         capas, contracapas e logo
+    ├── capas/         capas, contracapas e logo (800 a 1000 px)
+    │   └── mini/      as mesmas fotos em 400 px, usadas onde a capa aparece pequena
     ├── favicon.png    ícone da aba do navegador
     └── compartilhar.jpg  imagem que aparece ao compartilhar o link
 ```
+
+Os arquivos de `js/` são scripts comuns (não módulos), então o site funciona abrindo o `index.html` direto do computador, sem servidor.
 
 A navegação usa o `#` do endereço: `#catalogo`, `#disco/5` (página do disco de número 5), `#painel`, `#faq` e `#mapa-do-site`.
 

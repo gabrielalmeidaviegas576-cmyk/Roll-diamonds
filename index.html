@@ -237,6 +237,10 @@
           <button class="aba" type="button" role="tab" id="tab-cadastros" data-aba="cadastros" aria-controls="aba-cadastros">Artistas, gêneros e gravadoras</button>
         </div>
         <div class="abas-rodape">
+          <!-- Levar os dados pra outro computador: exporta um arquivo .json e importa ele lá -->
+          <button class="botao-link" type="button" id="btnExportar">Exportar dados</button>
+          <button class="botao-link" type="button" id="btnImportar">Importar dados</button>
+          <input type="file" id="arquivoImportar" accept=".json,application/json" hidden>
           <button class="botao-link" type="button" id="btnRestaurar">Restaurar dados de exemplo</button>
           <button class="botao-link" type="button" id="btnSair">Sair do painel</button>
         </div>
@@ -592,7 +596,18 @@
 
 <div class="aviso-flutuante" id="aviso" role="status" aria-live="polite"></div>
 
-<!-- Funções do sistema (JavaScript externo) -->
-<script src="js/script.js"></script>
+<!-- Funções do sistema (JavaScript externo), um arquivo por assunto.
+     A ordem importa: cada arquivo usa o que os de cima já criaram, e o inicio.js liga tudo no fim. -->
+<script src="js/apoio.js"></script>      <!-- 1. constantes e funções de apoio -->
+<script src="js/dados.js"></script>      <!-- 2. dados de exemplo (as "tabelas" do banco) -->
+<script src="js/estado.js"></script>     <!-- 3. estado do sistema (banco, sacola, login) -->
+<script src="js/capas.js"></script>      <!-- 4. capas: foto ou capa desenhada -->
+<script src="js/loja.js"></script>       <!-- 5. loja: filtros, catálogo e vitrine -->
+<script src="js/disco.js"></script>      <!-- 5b. página de cada disco -->
+<script src="js/sacola.js"></script>     <!-- 6. sacola e finalização do pedido -->
+<script src="js/painel.js"></script>     <!-- 7. painel da loja -->
+<script src="js/navegacao.js"></script>  <!-- 8. navegação pelo # do endereço -->
+<script src="js/eventos.js"></script>    <!-- 9. eventos (cliques, teclado, zoom...) -->
+<script src="js/inicio.js"></script>     <!-- 10. inicialização -->
 </body>
 </html>
