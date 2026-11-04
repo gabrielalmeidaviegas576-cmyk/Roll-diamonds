@@ -518,7 +518,7 @@
      Embaixo das faixas e da compra, ao lado da capa, ficam os textos (álbum e artista). */
   .produto-grade {
     display: grid; gap: 2.5rem;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(260px, .85fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(260px, .85fr);
     grid-template-areas: "capa info lado" "capa textos textos";
     grid-template-rows: auto 1fr;
     align-items: start;
@@ -533,14 +533,14 @@
   }
   .produto-capa .capa { width: 100%; box-shadow: 0 18px 30px -14px rgba(20, 12, 7, .65); }
   .produto-esgotado .produto-capa .capa { opacity: .6; filter: grayscale(.5); }
-  /* Galeria (capa e segunda foto): setas em cima das bordas da capa e bolinhas
-     no espaço de baixo da moldura. O 9% é o mesmo espaçamento da .produto-capa. */
+  /* Galeria (capa e segunda foto): setas na moldura, do lado de fora da foto (sem cobrir nada dela),
+     e bolinhas no espaço de baixo da moldura. O 9% é o mesmo espaçamento da .produto-capa. */
   .produto-capa.ver-foto2 .capa-foto2 { opacity: 1; }
   .galeria-controles { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
   .galeria-controles > * { pointer-events: auto; }
-  .galeria-anterior, .galeria-proxima { position: absolute; top: 50%; }
-  .galeria-anterior { left: 9%; transform: translate(-50%, -50%); }
-  .galeria-proxima { right: 9%; transform: translate(50%, -50%); }
+  .galeria-anterior, .galeria-proxima { position: absolute; top: 50%; width: 2.4rem; height: 2.4rem; }
+  .galeria-anterior { left: calc(9% - .3rem); transform: translate(-100%, -50%); }
+  .galeria-proxima { right: calc(9% - .3rem); transform: translate(100%, -50%); }
   .galeria-pontos { position: absolute; left: 0; right: 0; bottom: 0; height: 9%; justify-content: center; }
   .galeria-pontos .ponto[aria-current="true"]::before { background: var(--latao); border-color: var(--latao); }
   /* Zoom: a foto aumenta a partir do ponto do mouse/dedo (o JS muda --zoom-x e --zoom-y) */
@@ -558,10 +558,33 @@
     pointer-events: none; transition: opacity .2s ease;
   }
   .zoom-icone svg { width: 1.15rem; height: 1.15rem; }
-  .produto-capa:has(.zoom-ativo) .zoom-icone { opacity: 0; }
+  .produto-capa:has(.zoom-ativo) .zoom-icone,
+  .produto-capa.zoom-janela-ativa .zoom-icone { opacity: 0; }
   .produto-capa:not(:has(.capa-com-foto)) .zoom-icone { display: none; }
+  /* Zoom com mouse em tela larga: uma lente em cima da foto e o pedaço dentro dela aumentado
+     numa janela ao lado da capa, por cima das faixas. O JS mede e posiciona as duas. */
+  .zoom-lente, .zoom-janela {
+    position: absolute; pointer-events: none;
+    opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility .15s;
+  }
+  .zoom-lente {
+    z-index: 2;
+    background: rgba(240, 221, 179, .22);
+    border: 1px solid rgba(240, 221, 179, .9);
+    box-shadow: 0 0 0 1px rgba(23, 17, 13, .35);
+  }
+  .zoom-janela {
+    left: calc(100% + 1rem);   /* o mesmo 1rem que o script.js desconta do espaço livre */
+    z-index: 10;               /* por cima das faixas e da compra, por baixo do cabeçalho */
+    overflow: hidden;
+    background: #17110d;
+    border: 1px solid var(--linha);
+    box-shadow: 0 24px 50px -18px rgba(20, 12, 7, .7);
+  }
+  .zoom-janela img { max-width: none; }
+  .produto-capa.zoom-janela-ativa :is(.zoom-lente, .zoom-janela) { opacity: 1; visibility: visible; }
   @media (prefers-reduced-motion: reduce) {
-    .produto-capa .capa img, .zoom-icone { transition: none; }
+    .produto-capa .capa img, .zoom-icone, .zoom-lente, .zoom-janela { transition: none; }
   }
 
   .produto-info { grid-area: info; display: grid; gap: 2rem; }
@@ -640,7 +663,7 @@
 
   @media (max-width: 1000px) {
     .produto-grade {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       grid-template-areas: "capa lado" "info info" "textos textos";
       grid-template-rows: auto;
     }

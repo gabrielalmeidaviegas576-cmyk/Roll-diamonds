@@ -789,6 +789,8 @@
        </div>` : '';
      // Lupa no canto da foto: avisa que dá pra dar zoom
      const lupa = `<span class="zoom-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M15 15l5 5M10.5 8v5M8 10.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>`;
+     // Lente e janela do zoom com mouse (ficam escondidas até o mouse passar na foto)
+     const zoomJanela = '<div class="zoom-lente" aria-hidden="true"></div><div class="zoom-janela" aria-hidden="true"><img alt=""></div>';
 
      caixa.className = `produto${qtdEstoque(v.id) === 0 ? ' produto-esgotado' : ''}`;
      caixa.innerHTML = `
@@ -804,7 +806,7 @@
 
        <div class="produto-grade">
          <div class="produto-midia">
-           <div class="produto-capa" id="produtoCapa" style="${coresCapa(v)}">${capaHTML(v, false, v.foto2)}${lupa}${galeria}</div>
+           <div class="produto-capa" id="produtoCapa" style="${coresCapa(v)}">${capaHTML(v, false, v.foto2)}${lupa}${zoomJanela}${galeria}</div>
            <dl class="ficha">
              <div><dt>Ano</dt><dd>${v.ano}</dd></div>
              <div><dt>País</dt><dd>${esc(v.pais || 'Não informado')}</dd></div>
@@ -848,6 +850,7 @@
      fotoProduto = (indice + 2) % 2;
      $('#produtoCapa').classList.toggle('ver-foto2', fotoProduto === 1);
      $('#produtoCapa .capa')?.classList.remove('zoom-ativo');   // troca a foto sem zoom
+     $('#produtoCapa').classList.remove('zoom-janela-ativa');
      $$('[data-galeria-foto]').forEach(p => {
        if (Number(p.dataset.galeriaFoto) === fotoProduto) p.setAttribute('aria-current', 'true');
        else p.removeAttribute('aria-current');
@@ -1667,9 +1670,11 @@
    });
 
    // Zoom na foto da página do disco.
-   // Mouse: passando por cima, a foto aumenta e acompanha o cursor.
+   // Mouse: uma lente acompanha o cursor e o pedaço dentro dela aparece aumentado numa janela
+   // ao lado da capa. Sem espaço do lado (tela estreita), a própria foto aumenta e acompanha o cursor.
    // Toque: um toque liga o zoom naquele ponto, arrastar o dedo mexe a foto e outro toque desliga.
    const FOTO_ZOOM = '.produto-capa .capa-com-foto';
+   const ZOOM_JANELA = 2.5;   // as fotos têm 800px: aumentando mais que isso fica borrado
    let toqueZoom = null;   // onde o dedo encostou (pra separar toque de arrasto)
    function apontarZoom(capa, e) {
      const r = capa.getBoundingClientRect();
@@ -1678,15 +1683,47 @@
      capa.style.setProperty('--zoom-x', `${x}%`);
      capa.style.setProperty('--zoom-y', `${y}%`);
    }
+   // Mostra a lente e a janela no ponto do mouse. Devolve false se não couber a janela do lado.
+   function zoomNaJanela(capa, e) {
+     const moldura = capa.closest('.produto-capa');
+     const m = moldura.getBoundingClientRect();
+     const r = capa.getBoundingClientRect();
+     const livre = moldura.closest('.produto-grade').getBoundingClientRect().right - m.right - 16;   // 16 = o 1rem do .zoom-janela
+     if (livre < 220) { moldura.classList.remove('zoom-janela-ativa'); return false; }
+     // Janela da altura da moldura; a lente marca o pedaço da foto que cabe nela
+     const altJanela = m.height;
+     const largJanela = Math.min(livre, altJanela * 1.2);
+     const largLente = Math.min(r.width, largJanela / ZOOM_JANELA);
+     const altLente = Math.min(r.height, altJanela / ZOOM_JANELA);
+     // Lente centrada no cursor, sem sair da foto (as posições contam de dentro da borda da moldura)
+     const x = Math.min(r.width - largLente, Math.max(0, e.clientX - r.left - largLente / 2));
+     const y = Math.min(r.height - altLente, Math.max(0, e.clientY - r.top - altLente / 2));
+     const borda = moldura.clientLeft;
+     moldura.querySelector('.zoom-lente').style.cssText =
+       `left:${r.left - m.left - borda + x}px; top:${r.top - m.top - borda + y}px; width:${largLente}px; height:${altLente}px`;
+     const janela = moldura.querySelector('.zoom-janela');
+     janela.style.cssText = `top:${-borda}px; width:${largJanela}px; height:${altJanela}px`;
+     // Na janela vai a foto que está aparecendo (capa ou segunda foto), aumentada e com o mesmo corte
+     const foto = moldura.querySelector(moldura.classList.contains('ver-foto2') ? '.capa-foto2' : '.capa-foto');
+     const img = janela.querySelector('img');
+     if (img.getAttribute('src') !== foto.getAttribute('src')) img.src = foto.src;
+     img.style.cssText = `width:${r.width * ZOOM_JANELA}px; height:${r.height * ZOOM_JANELA}px; ` +
+       `object-fit:${getComputedStyle(foto).objectFit}; transform:translate(${-x * ZOOM_JANELA}px, ${-y * ZOOM_JANELA}px)`;
+     moldura.classList.add('zoom-janela-ativa');
+     return true;
+   }
    $('#produto').addEventListener('pointermove', e => {
      const capa = e.target.closest(FOTO_ZOOM);
      if (!capa) return;
-     if (e.pointerType === 'mouse') capa.classList.add('zoom-ativo');
+     if (e.pointerType === 'mouse') capa.classList.toggle('zoom-ativo', !zoomNaJanela(capa, e));
      if (capa.classList.contains('zoom-ativo')) apontarZoom(capa, e);
    });
    $('#produto').addEventListener('pointerout', e => {
      const capa = e.target.closest(FOTO_ZOOM);
-     if (capa && e.pointerType === 'mouse' && !capa.contains(e.relatedTarget)) capa.classList.remove('zoom-ativo');
+     if (capa && e.pointerType === 'mouse' && !capa.contains(e.relatedTarget)) {
+       capa.classList.remove('zoom-ativo');
+       capa.closest('.produto-capa').classList.remove('zoom-janela-ativa');
+     }
    });
    $('#produto').addEventListener('pointerdown', e => {
      toqueZoom = e.pointerType !== 'mouse' && e.target.closest(FOTO_ZOOM) ? { x: e.clientX, y: e.clientY } : null;
