@@ -274,13 +274,24 @@
     max-width: 1200px; margin: 0 auto;
     border: 2px solid var(--latao);
     box-shadow: inset 0 0 0 6px var(--placa), inset 0 0 0 7px rgba(185, 145, 85, .55);
-    padding: clamp(1.75rem, 4.5vw, 3.75rem) clamp(1.25rem, 4.5vw, 3.75rem) clamp(2.5rem, 5vw, 4rem);
+    padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1.25rem, 4.5vw, 3.75rem) clamp(2rem, 4vw, 3rem);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-    gap: clamp(2rem, 4vw, 3.5rem);
+    /* Letreiro (nome + faixa) no alto, centralizado. Embaixo, duas colunas iguais:
+       a capa encostada no centro pela esquerda e as informações do disco pela direita.
+       A capa ocupa duas linhas: a foto na primeira (alinhada com as informações) e as setas na segunda. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "nome nome"
+      "capa info"
+      "capa .";
+    gap: 1rem clamp(2rem, 4vw, 3.5rem);
     align-items: center;
     position: relative;
   }
+  .letreiro     { grid-area: nome; display: grid; justify-items: center; gap: .9rem; margin-bottom: .75rem; }
+  .vitrola-area { grid-area: capa; }
+  /* Mesma largura máxima da capa, assim os dois blocos ficam simétricos em volta do centro */
+  .vitrine-info { grid-area: info; width: 100%; max-width: 400px; }
   /* Diamante no pé da moldura */
   .quadro-diamante {
     position: absolute; left: 50%; bottom: -13px; transform: translateX(-50%);
@@ -292,39 +303,33 @@
     content: ""; width: 38px; height: 1px; background: var(--latao);
   }
   
-  .letreiro h1 { display: flex; flex-direction: column; align-items: flex-start; font-weight: 400; }
+  .letreiro h1 { display: flex; flex-direction: column; align-items: center; font-weight: 400; }
   .letreiro-roll {
     font-family: var(--fonte-script);
-    font-size: clamp(4.2rem, 11vw, 7.6rem);
+    font-size: clamp(2.8rem, 4.5vw, 3.6rem);
     line-height: .8;
-    margin-left: -.04em; padding-right: .12em;
+    padding-right: .12em;
     text-shadow: 0 .035em 0 #7d5b2a, 0 .07em 0 rgba(0, 0, 0, .35);
   }
   .letreiro-diamonds {
     font-family: var(--fonte-titulo);
-    font-size: clamp(2.35rem, 6.3vw, 4.6rem);
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
     text-transform: uppercase; letter-spacing: .015em; line-height: 1;
     margin-top: -.06em;
     text-shadow: 0 .05em 0 #7d5b2a, 0 .09em 0 rgba(0, 0, 0, .3);
   }
   .faixa {
     display: inline-flex; align-items: center; gap: .65rem;
-    margin-top: 1.2rem;
     padding: .45rem 1.25rem;
     border-radius: 999px;
     background: var(--verde);
     border: 1.5px solid var(--latao);
     box-shadow: inset 0 0 0 2.5px var(--verde), inset 0 0 0 3.5px rgba(219, 187, 126, .5);
     font-family: var(--fonte-sc); font-weight: 700;
-    letter-spacing: .2em; font-size: .98rem;
+    letter-spacing: .2em; font-size: .9rem;
   }
   .faixa::before, .faixa::after { content: "•"; color: var(--latao-claro); letter-spacing: 0; }
-  .vitrine-texto { margin-top: 1.4rem; max-width: 38ch; font-size: 1.13rem; color: var(--placa-suave); }
-  .tocando {
-    margin-top: 1.6rem; padding-top: 1rem; max-width: 38ch;
-    border-top: 1px solid rgba(185, 145, 85, .45);
-    display: grid; gap: .1rem;
-  }
+  .tocando { display: grid; gap: .1rem; max-width: 38ch; }
   .tocando-rotulo { font-size: .95rem; color: var(--latao-claro); display: flex; align-items: center; gap: .5rem; }
   .tocando-rotulo::before {
     content: ""; width: .5rem; height: .5rem; border-radius: 50%;
@@ -339,6 +344,8 @@
   .tocando > :not(.tocando-rotulo) { transition: opacity .3s ease; }
   .tocando.trocando > :not(.tocando-rotulo) { opacity: 0; }
   .vitrine-acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.4rem; }
+  /* Se os dois botões não couberem lado a lado, cada um ocupa a linha inteira */
+  .vitrine-acoes .botao { flex: 1 1 auto; }
   .vitrine .botao-contorno { color: var(--placa-tinta); }
   .vitrine-catalogo {
     display: inline-block; margin-top: 1.1rem;
@@ -348,8 +355,11 @@
   .vitrine-catalogo:hover { color: var(--placa-tinta); text-decoration-color: var(--latao-claro); }
   
   /* A vitrola: capa quadrada do disco em destaque */
-  .vitrola-area { display: grid; gap: .9rem; justify-items: end; }
-  .vitrola { position: relative; width: 100%; max-width: 440px; }
+  /* subgrid: a foto e as setas usam as linhas da moldura, então as informações
+     do disco ficam centralizadas com a foto (e não com a foto + setas).
+     justify-items: end encosta a capa no centro da moldura, perto das informações. */
+  .vitrola-area { display: grid; grid-template-rows: subgrid; gap: .9rem; justify-items: end; }
+  .vitrola { position: relative; width: 100%; max-width: 400px; }
   .vitrola-capa {
     width: 100%; aspect-ratio: 1;
     background: var(--verde-escuro) var(--grao-placa);
@@ -367,7 +377,7 @@
 
   /* Controles do carrossel, centralizados embaixo da capa */
   .carrossel-controles {
-    width: 100%; max-width: 440px;
+    width: 100%; max-width: 400px;
     display: flex; align-items: center; justify-content: center; gap: 1rem;
   }
   /* Setas: botão verde redondo com friso de latão, igual ao .botao-verde */
@@ -897,10 +907,14 @@
   /* =====================================================================
      10. TELAS MENORES (tablet e celular)
      ===================================================================== */
-  @media (max-width: 900px) {
-    .quadro { grid-template-columns: 1fr; }
+  /* Celular: uma coluna só — letreiro, capa (foto + setas) e informações do disco, tudo centralizado */
+  @media (max-width: 640px) {
+    .quadro { grid-template-columns: 1fr; grid-template-areas: "nome" "capa" "capa" "info"; }
     .vitrola-area { justify-items: center; }
-    .vitrola { max-width: 560px; }
+    .vitrola, .vitrine-info { max-width: 560px; }
+    .vitrine-info { justify-self: center; }
+  }
+  @media (max-width: 900px) {
     .painel-grade { grid-template-columns: 1fr; gap: 1.5rem; }
     .painel-lado { position: static; }
     .abas { flex-direction: row; overflow-x: auto; gap: .35rem; padding-bottom: .25rem; }

@@ -74,29 +74,16 @@
   <!-- ================= LOJA ================= -->
   <div id="loja" class="view">
 
-    <!-- Vitrine: o letreiro da referência + a capa do disco em destaque -->
+    <!-- Vitrine em três colunas: capa do disco (esquerda), letreiro da loja (meio) e informações do disco (direita) -->
     <section class="vitrine" aria-labelledby="tituloLoja">
       <div class="quadro">
+        <!-- Letreiro: nome da loja e a faixa, no alto da moldura -->
         <div class="letreiro">
           <h1 id="tituloLoja">
             <span class="letreiro-roll">Roll</span>
             <span class="letreiro-diamonds">Diamonds</span>
           </h1>
           <p class="faixa">Discos de vinil</p>
-          <p class="vitrine-texto">Discos novos e usados, ouvidos lado A e lado B antes de irem pra prateleira. Da MPB ao jazz, com o estado de cada capa descrito sem enrolação.</p>
-
-          <!-- Informações do disco que está no carrossel (o JavaScript troca a cada passada) -->
-          <div class="tocando" id="tocando">
-            <span class="tocando-rotulo">Tocando agora na loja</span>
-            <a class="tocando-titulo" id="destaqueLink" href="#disco/1"><strong id="destaqueTitulo">Clube da Esquina</strong></a>
-            <span id="destaqueArtista">Milton Nascimento &amp; Lô Borges</span>
-            <span class="tocando-meta" id="destaqueMeta"></span>
-          </div>
-          <div class="vitrine-acoes">
-            <button class="botao botao-verde" type="button" id="btnDestaque" data-acao="adicionar" data-id="1">Pôr esse na sacola</button>
-            <a class="botao botao-contorno" id="btnConhecer" href="#disco/1">Conhecer o disco</a>
-          </div>
-          <a class="vitrine-catalogo" href="#catalogo">Ou veja o catálogo completo</a>
         </div>
 
         <!-- Carrossel: um disco em destaque por vez, você passa pelas setas, bolinhas, teclado ou arrastando -->
@@ -114,6 +101,21 @@
             </button>
           </div>
           <p class="sr" id="avisoDestaque" aria-live="polite"></p>
+        </div>
+
+        <!-- Informações do disco que está no carrossel (o JavaScript troca a cada passada), à direita -->
+        <div class="vitrine-info">
+          <div class="tocando" id="tocando">
+            <span class="tocando-rotulo">Tocando agora na loja</span>
+            <a class="tocando-titulo" id="destaqueLink" href="#disco/1"><strong id="destaqueTitulo">Clube da Esquina</strong></a>
+            <span id="destaqueArtista">Milton Nascimento &amp; Lô Borges</span>
+            <span class="tocando-meta" id="destaqueMeta"></span>
+          </div>
+          <div class="vitrine-acoes">
+            <button class="botao botao-verde" type="button" id="btnDestaque" data-acao="adicionar" data-id="1">Pôr esse na sacola</button>
+            <a class="botao botao-contorno" id="btnConhecer" href="#disco/1">Conhecer o disco</a>
+          </div>
+          <a class="vitrine-catalogo" href="#catalogo">Ou veja o catálogo completo</a>
         </div>
 
         <div class="quadro-diamante" aria-hidden="true">
