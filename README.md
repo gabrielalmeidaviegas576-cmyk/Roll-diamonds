@@ -9,7 +9,7 @@ Projeto Integrador do Curso Técnico em Desenvolvimento de Sistemas, SENAC.
 ## Como abrir
 
 - **Pela internet:** acesse o link acima.
-- **No computador:** baixe ou clone o repositório e abra o arquivo `index.html` no navegador. Não precisa instalar nada.
+- **No computador:** o `index.php` precisa de PHP para abrir. Com o XAMPP, copie a pasta do projeto para `C:\xampp\htdocs`, ligue o Apache e acesse `http://localhost/Roll-diamonds/`.
 
 ### Acesso ao painel da loja
 
@@ -44,7 +44,7 @@ Clique em **Painel**, no canto esquerdo do cabeçalho, e entre com:
 
 ## Onde os dados ficam
 
-O site não tem servidor: tudo funciona no navegador, com **HTML, CSS e JavaScript puro**. Os dados ficam salvos no `localStorage` do navegador.
+O PHP só monta a página (nome do site, links, ícones); a loja em si funciona no navegador, com **JavaScript puro**. Os dados ficam salvos no `localStorage` do navegador.
 
 Por isso, o que é cadastrado ou comprado vale **só no navegador e no aparelho em que foi feito**. Em outro computador, o site começa com os dados de exemplo. Para levar os dados de um computador para outro, use **Exportar dados** e **Importar dados** no painel.
 
@@ -54,11 +54,13 @@ Os dados seguem a estrutura do banco `roll_diamonds`: cada lista do `js/dados.js
 
 ```
 Roll-diamonds/
-├── index.html         página única: loja, página do disco, painel, FAQ e mapa do site
+├── index.php          página única: loja, página do disco, painel, FAQ e mapa do site
+├── configuracao.php   nome do site, endereço, redes sociais e dados do banco
+├── helpers.php        biblioteca de funções do PHP: processa, valida e formata os dados
 ├── css/
 │   ├── style.css      todo o visual do site
 │   └── capas.css      regras das fotos de capa
-├── js/                um arquivo por assunto, carregados nesta ordem pelo index.html
+├── js/                um arquivo por assunto, carregados nesta ordem pelo index.php
 │   ├── apoio.js       constantes e funções de apoio (moeda, datas, salvar no navegador)
 │   ├── dados.js       dados de exemplo: discos, artistas, gêneros, clientes, pedidos
 │   ├── estado.js      estado do sistema: banco, sacola, login, estoque
@@ -78,7 +80,7 @@ Roll-diamonds/
     └── compartilhar.jpg  imagem que aparece ao compartilhar o link
 ```
 
-Os arquivos de `js/` são scripts comuns (não módulos), então o site funciona abrindo o `index.html` direto do computador, sem servidor.
+Os arquivos de `js/` são scripts comuns (não módulos). O `index.php` coloca `?v=` com a data de alteração no fim de cada CSS e JS, assim o navegador baixa a versão nova sempre que um arquivo muda.
 
 A navegação usa o `#` do endereço: `#catalogo`, `#disco/5` (página do disco de número 5), `#painel`, `#faq` e `#mapa-do-site`.
 

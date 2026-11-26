@@ -1,25 +1,29 @@
+<?php
+require 'configuracao.php';   // configurações do site (sem ele a página para com erro fatal)
+include 'helpers.php';        // biblioteca de funções: processar, validar e formatar
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Roll Diamonds | Discos de Vinil</title>
-<meta name="description" content="Discos de vinil novos e usados, ouvidos lado A e lado B antes de irem pra prateleira. Da MPB ao jazz.">
-<meta name="theme-color" content="#23170f">
+<title><?= escaparHtml(SITE_TITULO) ?></title>
+<meta name="description" content="<?= escaparHtml(resumirTexto(SITE_DESCRICAO, 160)) ?>">
+<meta name="theme-color" content="<?= escaparHtml(COR_TEMA) ?>">
 <!-- Ícone da aba do navegador (favicon) -->
 <link rel="icon" type="image/png" href="img/favicon.png">
 <!-- Prévia quando o link é compartilhado (WhatsApp, Instagram, Facebook...).
-     Essas redes só aceitam endereço completo, por isso o link do GitHub Pages. -->
+     Essas redes só aceitam endereço completo, por isso o SITE_URL do configuracao.php. -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Roll Diamonds">
+<meta property="og:site_name" content="<?= escaparHtml(SITE_NOME) ?>">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Roll Diamonds | Discos de Vinil">
-<meta property="og:description" content="Discos novos e usados, ouvidos lado A e lado B antes de irem pra prateleira. Da MPB ao jazz.">
-<meta property="og:url" content="https://gabrielalmeidaviegas576-cmyk.github.io/Roll-diamonds/">
-<meta property="og:image" content="https://gabrielalmeidaviegas576-cmyk.github.io/Roll-diamonds/img/compartilhar.jpg">
+<meta property="og:title" content="<?= escaparHtml(SITE_TITULO) ?>">
+<meta property="og:description" content="<?= escaparHtml(resumirTexto(SITE_DESCRICAO, 160)) ?>">
+<meta property="og:url" content="<?= escaparHtml(urlCompleta('')) ?>">
+<meta property="og:image" content="<?= escaparHtml(urlCompleta('img/compartilhar.jpg')) ?>">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Logo da Roll Diamonds, discos de vinil">
+<meta property="og:image:alt" content="Logo da <?= escaparHtml(SITE_NOME) ?>, discos de vinil">
 <meta name="twitter:card" content="summary_large_image">
 
 
@@ -28,9 +32,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Rye&family=Yellowtail&family=Alegreya+Sans:wght@400;500;700;800&family=Alegreya+Sans+SC:wght@700&display=swap" rel="stylesheet">
 
 <!-- Estilos (CSS externo) -->
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="<?= versionarArquivo('css/style.css') ?>">
 <!-- Estilos das capas com foto (vem depois do style.css pra poder sobrescrever) -->
-<link rel="stylesheet" href="css/capas.css">
+<link rel="stylesheet" href="<?= versionarArquivo('css/capas.css') ?>">
 </head>
 
 <body>
@@ -42,12 +46,12 @@
   <div class="topo-interno">
     <nav class="nav nav-esquerda" aria-label="Administração">
       <a class="nav-link" href="#painel" data-view="painel">
-        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="3.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="3.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="13.5" y="13.5" width="7" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        <?= icone('painel', 'icone') ?>
         <span class="nav-texto">Painel</span>
       </a>
     </nav>
 
-    <a class="marca" href="#loja" aria-label="Roll Diamonds, ir para a loja">
+    <a class="marca" href="#loja" aria-label="<?= escaparHtml(SITE_NOME) ?>, ir para a loja">
       <span class="selo"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></span>
       <span class="marca-texto" aria-hidden="true">
         <span class="marca-roll">Roll</span>
@@ -58,12 +62,12 @@
     <nav class="nav nav-direita" aria-label="Loja">
       <a class="nav-link" href="#loja" data-view="loja">Loja</a>
       <button class="nav-link" type="button" id="btnSacola">
-        <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <?= icone('sacola', 'icone') ?>
         <span class="nav-texto">Sacola</span>
         <span class="contagem-sacola" id="contagemSacola" hidden>0</span>
       </button>
       <button class="nav-link botao-tema" type="button" id="btnTema" aria-label="Mudar para o tema escuro">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+        <?= icone('tema') ?>
       </button>
     </nav>
   </div>
@@ -93,11 +97,11 @@
           </div>
           <div class="carrossel-controles" id="controlesCarrossel">
             <button class="seta" type="button" id="btnAnterior" aria-label="Disco anterior">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <?= icone('seta-esquerda') ?>
             </button>
             <div class="pontos" id="pontosDestaque"></div>
             <button class="seta" type="button" id="btnProximo" aria-label="Próximo disco">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <?= icone('seta-direita') ?>
             </button>
           </div>
           <p class="sr" id="avisoDestaque" aria-live="polite"></p>
@@ -119,7 +123,7 @@
         </div>
 
         <div class="quadro-diamante" aria-hidden="true">
-          <svg viewBox="0 0 24 20"><path d="M5 1h14l4 6-11 12L1 7z M1 7h22 M8 1 6 7l6 12 6-12-2-6 M6 7l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          <?= icone('diamante') ?>
         </div>
       </div>
     </section>
@@ -253,7 +257,7 @@
         <section class="aba-painel" id="aba-resumo" role="tabpanel" aria-labelledby="tab-resumo">
           <div class="cabecalho-aba">
             <h2 class="titulo-secao">Resumo</h2>
-            <p class="contagem-texto" id="dataHoje"></p>
+            <p class="contagem-texto" id="dataHoje"><?= escaparHtml(formatarDataExtenso(time())) ?></p>
           </div>
           <dl class="numeros" id="numeros"></dl>
           <div class="duas-colunas">
@@ -335,24 +339,19 @@
 <!-- ============ RODAPÉ ============ -->
 <footer class="rodape">
   <div class="rodape-interno">
-    <!-- Esquerda: logo e redes sociais (troque os links pelos perfis da loja) -->
+    <!-- Esquerda: logo e redes sociais (os links ficam no configuracao.php; link inválido não aparece) -->
     <div class="rodape-redes">
       <span class="selo"><img src="img/capas/logo-creme.png" alt="" width="251" height="240"></span>
       <div>
-        <p class="rodape-titulo">Siga a Roll Diamonds</p>
+        <p class="rodape-titulo">Siga a <?= escaparHtml(SITE_NOME) ?></p>
         <ul class="redes">
-          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></svg>
+          <?php foreach (REDES_SOCIAIS as $rede): ?>
+            <?php if (validarUrl($rede['link'])): ?>
+          <li><a href="<?= escaparHtml($rede['link']) ?>" target="_blank" rel="noopener" aria-label="<?= escaparHtml($rede['nome']) ?>">
+            <?= icone($rede['icone']) ?>
           </a></li>
-          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5H16l.5-3h-3V8.6c0-.9.3-1.6 1.6-1.6h1.5V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.4H7v3h2.5V21z" fill="currentColor"/></svg>
-          </a></li>
-          <li><a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 9.2v5.6l5-2.8z" fill="currentColor"/></svg>
-          </a></li>
-          <li><a href="https://wa.me/" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.4 18.4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.2 8.6c.3-.4.7-.4.9 0l.7 1.5c.1.3 0 .5-.2.7l-.4.4c.5 1.1 1.4 2 2.5 2.5l.4-.4c.2-.2.5-.3.7-.2l1.5.7c.4.2.4.6 0 .9-.6.6-1.5.9-2.4.5a8.3 8.3 0 0 1-4.2-4.2c-.4-.9-.1-1.8.5-2.4z" fill="currentColor"/></svg>
-          </a></li>
+            <?php endif; ?>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
@@ -369,7 +368,7 @@
 
   <!-- Embaixo: direitos -->
   <div class="rodape-direitos">
-    <p>© <span id="anoAtual">2026</span> Roll Diamonds. Todos os direitos reservados.</p>
+    <p>© <span id="anoAtual"><?= date('Y') ?></span> <?= escaparHtml(SITE_NOME) ?>. Todos os direitos reservados.</p>
     <p>Projeto Integrador do Curso Técnico em Desenvolvimento de Sistemas, SENAC. Os dados deste sistema ficam salvos no seu navegador.</p>
   </div>
 </footer>
@@ -390,7 +389,7 @@
     <ul class="lista-sacola" id="listaSacola"></ul>
   </div>
   <div class="gaveta-rodape" id="sacolaRodape">
-    <div class="total"><span>Total</span><strong id="totalSacola">R$ 0,00</strong></div>
+    <div class="total"><span>Total</span><strong id="totalSacola"><?= formatarMoeda(0) ?></strong></div>
     <form id="formCheckout">
       <div class="campo">
         <label for="checkoutNome">Seu nome</label>
@@ -600,16 +599,16 @@
 
 <!-- Funções do sistema (JavaScript externo), um arquivo por assunto.
      A ordem importa: cada arquivo usa o que os de cima já criaram, e o inicio.js liga tudo no fim. -->
-<script src="js/apoio.js"></script>      <!-- 1. constantes e funções de apoio -->
-<script src="js/dados.js"></script>      <!-- 2. dados de exemplo (as "tabelas" do banco) -->
-<script src="js/estado.js"></script>     <!-- 3. estado do sistema (banco, sacola, login) -->
-<script src="js/capas.js"></script>      <!-- 4. capas: foto ou capa desenhada -->
-<script src="js/loja.js"></script>       <!-- 5. loja: filtros, catálogo e vitrine -->
-<script src="js/disco.js"></script>      <!-- 5b. página de cada disco -->
-<script src="js/sacola.js"></script>     <!-- 6. sacola e finalização do pedido -->
-<script src="js/painel.js"></script>     <!-- 7. painel da loja -->
-<script src="js/navegacao.js"></script>  <!-- 8. navegação pelo # do endereço -->
-<script src="js/eventos.js"></script>    <!-- 9. eventos (cliques, teclado, zoom...) -->
-<script src="js/inicio.js"></script>     <!-- 10. inicialização -->
+<script src="<?= versionarArquivo('js/apoio.js') ?>"></script>      <!-- 1. constantes e funções de apoio -->
+<script src="<?= versionarArquivo('js/dados.js') ?>"></script>      <!-- 2. dados de exemplo (as "tabelas" do banco) -->
+<script src="<?= versionarArquivo('js/estado.js') ?>"></script>     <!-- 3. estado do sistema (banco, sacola, login) -->
+<script src="<?= versionarArquivo('js/capas.js') ?>"></script>      <!-- 4. capas: foto ou capa desenhada -->
+<script src="<?= versionarArquivo('js/loja.js') ?>"></script>       <!-- 5. loja: filtros, catálogo e vitrine -->
+<script src="<?= versionarArquivo('js/disco.js') ?>"></script>      <!-- 5b. página de cada disco -->
+<script src="<?= versionarArquivo('js/sacola.js') ?>"></script>     <!-- 6. sacola e finalização do pedido -->
+<script src="<?= versionarArquivo('js/painel.js') ?>"></script>     <!-- 7. painel da loja -->
+<script src="<?= versionarArquivo('js/navegacao.js') ?>"></script>  <!-- 8. navegação pelo # do endereço -->
+<script src="<?= versionarArquivo('js/eventos.js') ?>"></script>    <!-- 9. eventos (cliques, teclado, zoom...) -->
+<script src="<?= versionarArquivo('js/inicio.js') ?>"></script>     <!-- 10. inicialização -->
 </body>
 </html>
